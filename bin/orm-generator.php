@@ -19,7 +19,10 @@ $factory = new SimpleFactory(
 		'orm.namespace' => 'App\Model\Orm',
 		'entity.extends' => 'App\Model\Orm\AbstractEntity',
 		'repository.extends' => 'App\Model\Orm\AbstractRepository',
-		'mapper.extends' => 'App\Model\Orm\AbstractMapper'
+		'mapper.extends' => 'App\Model\Orm\AbstractMapper',
+		'entity.name.singularize' => true,
+		'generator.generate.model' => false,
+		'entity.generate.relations' => false
 	]),
 	new DatabaseAnalyser('mysql:host=4iz571-eshop-db-1;dbname=eshop', 'user', 'user')
 );
