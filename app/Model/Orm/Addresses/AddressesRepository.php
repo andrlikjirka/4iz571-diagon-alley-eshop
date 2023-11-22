@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Orm\Addresses;
 
-use App\Model\Orm\AbstractRepository;
+use Nextras\Orm\Repository\Repository;
 
-class AddressesRepository extends AbstractRepository
+class AddressesRepository extends Repository
 {
 	public static function getEntityClassNames(): array
 	{
-		return [Addresses::class];
+		return [Address::class];
 	}
 }

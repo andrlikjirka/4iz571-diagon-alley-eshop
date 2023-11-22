@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Orm\Permissions;
+namespace App\Model\Orm\OrderItems;
 
 use Nextras\Orm\Repository\Repository;
 
-class PermissionsRepository extends Repository
+class OrderItemsRepository extends Repository
 {
 	public static function getEntityClassNames(): array
 	{
-		return [Permission::class];
+		return [OrderItem::class];
 	}
 }

@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Orm\Products;
 
-use App\Model\Orm\AbstractRepository;
+use Nextras\Orm\Repository\Repository;
 
-class ProductsRepository extends AbstractRepository
+class ProductsRepository extends Repository
 {
 	public static function getEntityClassNames(): array
 	{
-		return [Products::class];
+		return [Product::class];
 	}
 }

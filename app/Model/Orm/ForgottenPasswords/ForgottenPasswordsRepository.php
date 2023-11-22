@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Orm\ForgottenPasswords;
 
-use App\Model\Orm\AbstractRepository;
+use Nextras\Orm\Repository\Repository;
 
-class ForgottenPasswordsRepository extends AbstractRepository
+class ForgottenPasswordsRepository extends Repository
 {
 	public static function getEntityClassNames(): array
 	{
-		return [ForgottenPasswords::class];
+		return [ForgottenPassword::class];
 	}
 }

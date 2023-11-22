@@ -2,9 +2,9 @@
 
 namespace App\Model\Orm\Roles;
 
-use App\Model\Orm\AbstractMapper;
+use Nextras\Orm\Mapper\Dbal\DbalMapper;
 
-class RolesMapper extends AbstractMapper
+class RolesMapper extends DbalMapper
 {
 	public function getTableName(): string
 	{

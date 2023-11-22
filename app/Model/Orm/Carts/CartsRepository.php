@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Orm\Permissions;
+namespace App\Model\Orm\Carts;
 
 use Nextras\Orm\Repository\Repository;
 
-class PermissionsRepository extends Repository
+class CartsRepository extends Repository
 {
 	public static function getEntityClassNames(): array
 	{
-		return [Permission::class];
+		return [Cart::class];
 	}
 }

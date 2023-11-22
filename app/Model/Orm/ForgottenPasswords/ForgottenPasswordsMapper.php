@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Orm\ForgottenPasswords;
 
-use App\Model\Orm\AbstractMapper;
+use Nextras\Orm\Mapper\Dbal\DbalMapper;
 
-class ForgottenPasswordsMapper extends AbstractMapper
+class ForgottenPasswordsMapper extends DbalMapper
 {
 	public function getTableName(): string
 	{

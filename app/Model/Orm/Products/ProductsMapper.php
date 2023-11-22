@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Orm\Products;
 
-use App\Model\Orm\AbstractMapper;
+use Nextras\Orm\Mapper\Dbal\DbalMapper;
 
-class ProductsMapper extends AbstractMapper
+class ProductsMapper extends DbalMapper
 {
 	public function getTableName(): string
 	{

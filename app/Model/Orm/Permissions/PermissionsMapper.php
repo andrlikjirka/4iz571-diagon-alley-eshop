@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Orm\Permissions;
 
-use App\Model\Orm\AbstractMapper;
+use Nextras\Orm\Mapper\Dbal\DbalMapper;
 
-class PermissionsMapper extends AbstractMapper
+class PermissionsMapper extends DbalMapper
 {
 	public function getTableName(): string
 	{

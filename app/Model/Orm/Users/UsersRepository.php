@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Orm\Users;
 
-use App\Model\Orm\AbstractRepository;
+use Nextras\Orm\Repository\Repository;
 
-class UsersRepository extends AbstractRepository
+class UsersRepository extends Repository
 {
 	public static function getEntityClassNames(): array
 	{
-		return [Users::class];
+		return [User::class];
 	}
 }

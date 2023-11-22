@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Orm\Roles;
 
-use App\Model\Orm\AbstractRepository;
+use Nextras\Orm\Repository\Repository;
 
-class RolesRepository extends AbstractRepository
+class RolesRepository extends Repository
 {
 	public static function getEntityClassNames(): array
 	{
-		return [Roles::class];
+		return [Role::class];
 	}
 }

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Orm\Orders;
+namespace App\Model\Orm\Carts;
 
 use Nextras\Orm\Mapper\Dbal\DbalMapper;
 
-class OrdersMapper extends DbalMapper
+class CartsMapper extends DbalMapper
 {
 	public function getTableName(): string
 	{
-		return 'orders';
+		return 'carts';
 	}
 }

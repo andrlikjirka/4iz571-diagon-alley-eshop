@@ -2,9 +2,9 @@
 
 namespace App\Model\Orm\Users;
 
-use App\Model\Orm\AbstractMapper;
+use Nextras\Orm\Mapper\Dbal\DbalMapper;
 
-class UsersMapper extends AbstractMapper
+class UsersMapper extends DbalMapper
 {
 	public function getTableName(): string
 	{
