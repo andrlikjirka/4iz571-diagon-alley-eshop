@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Presenters;
+namespace App\PublicModule\Presenters;
 
 use Nette;
 use Nette\Application\Responses;
@@ -35,7 +35,7 @@ final class ErrorPresenter implements Nette\Application\IPresenter
 		$this->logger->log($exception, ILogger::EXCEPTION);
 		return new Responses\CallbackResponse(function (Http\IRequest $httpRequest, Http\IResponse $httpResponse): void {
 			if (preg_match('#^text/html(?:;|$)#', (string) $httpResponse->getHeader('Content-Type'))) {
-				require __DIR__ . '/templates/Error/500.phtml';
+				require __DIR__ . '/Templates/Error/500.phtml';
 			}
 		});
 	}
