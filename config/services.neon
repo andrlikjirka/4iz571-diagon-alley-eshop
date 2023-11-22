@@ -1,9 +1,8 @@
 services:
 	- App\Router\RouterFactory::createRouter
 
-
 search:
-	-	in: %appDir%
+	- in: %appDir%
 		classes:
 			- *Factory
 			- *Facade
