@@ -1,0 +1,36 @@
+version: '3.8'
+name: "4iz571-eshop"
+
+services:
+  app:
+    build: build/php
+    volumes:
+      - ../:/var/www/html
+      - ./build/php/php.ini:/usr/local/etc/php/conf.d/local.ini
+    ports:
+      - "8095:80"
+    env_file:
+      - app.env
+    links:
+      - db
+    networks:
+      - network
+
+  db:
+    image: mariadb:10.4.22
+    volumes:
+      - db:/var/lib/mysql
+    ports:
+      - "3395:3306"
+    env_file:
+      - db.env
+    networks:
+      - network
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  network:
+    driver: bridge
