@@ -8,16 +8,16 @@
 </head>
 
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
-	{if $user->isLoggedIn()}
-		<a n:href="logOut!">Odhlásit se</a>
-	{/if}
+{if $user->isLoggedIn()}
+<a n:href="logOut!">Odhlásit se</a>
+{/if}
 
-	{include content}
+{include content}
 
 	{block scripts}
 	<script src="https://unpkg.com/nette-forms@3/src/assets/netteForms.js"></script>
-	{/block}
+{/block}
 </body>
 </html>

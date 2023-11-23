@@ -78,7 +78,7 @@ create table users
 (
     user_id     int auto_increment
         primary key,
-    name        varchar(255) charset latin1 not null,
+    name        varchar(255)  not null,
     email       varchar(255)                null,
     facebook_id varchar(255)                null,
     role_id     int                         not null,

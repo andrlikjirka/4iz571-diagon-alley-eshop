@@ -1,0 +1,2 @@
+INSERT INTO users (user_id, name, email, facebook_id, role_id, password, blocked, deleted) VALUES (1, 'Martin Testovič', 'm@shop.cz', null, 4, '$2y$10$NnqpxmAXVNhSNKmCuGtWMefoa/3j2dErd36ZSseVwVJX9lIyybCCi', 0, 0);
+INSERT INTO users (user_id, name, email, facebook_id, role_id, password, blocked, deleted) VALUES (2, 'Jirka Testovič', 'j@shop.cz', null, 4, '$2y$10$NnqpxmAXVNhSNKmCuGtWMefoa/3j2dErd36ZSseVwVJX9lIyybCCi', 0, 0);
