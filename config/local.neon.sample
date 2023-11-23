@@ -1,0 +1,11 @@
+tracy:
+	editorMapping:
+		/var/www/html: C:/Data/devel/school/4iz571-eshop
+
+nextras.dbal:
+    driver: mysqli
+    host: 4iz571-eshop-db-1
+    database: eshop
+    username: user
+    password: user
+    connectionTz: auto-offset
