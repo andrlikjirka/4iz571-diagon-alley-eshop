@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\PublicModule\Presenters;
 
+use App\PublicModule\Components\NavbarControl\NavbarControl;
+use App\PublicModule\Components\NavbarControl\NavbarControlFactory;
 use App\PublicModule\Components\UserLoginControl\UserLoginControl;
 use App\PublicModule\Components\UserLoginControl\UserLoginControlFactory;
 use Nette\Application\AbortException;
@@ -25,22 +27,32 @@ abstract class BasePresenter extends Presenter
 	/** @var Session @inject */
 	public Session $session;
 
-	/**
-	 * @throws AbortException
-	 */
 
     /** @var UserLoginControlFactory  */
     private UserLoginControlFactory $userLoginControlFactory;
+
+    /** @var NavbarControlFactory  */
+    private NavbarControlFactory $navbarControlFactory;
 
 	public function createComponentUserLogin(): UserLoginControl
     {
         return $this->userLoginControlFactory->create();
     }
 
+    public function createComponentNavbar(): NavbarControl
+    {
+        return $this->navbarControlFactory->create();
+    }
+
     #region injects
     public function injectUserLoginControlFactory (UserLoginControlFactory $userLoginControlFactory): void
     {
         $this->userLoginControlFactory = $userLoginControlFactory;
+    }
+
+    public function injectNavbarControlFactory (NavbarControlFactory $navbarControlFactory): void
+    {
+        $this->navbarControlFactory = $navbarControlFactory;
     }
     #endregion injects
 
