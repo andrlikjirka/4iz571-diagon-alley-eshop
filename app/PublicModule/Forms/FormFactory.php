@@ -6,6 +6,7 @@ namespace App\PublicModule\Forms;
 
 use Nette;
 use Nette\Application\UI\Form;
+use Nextras\FormsRendering\Renderers\Bs5FormRenderer;
 
 
 /**
@@ -29,6 +30,7 @@ final class FormFactory
 		}
 
 		//$form->setHtmlAttribute('class', 'ajax');
+        $form->setRenderer(new Bs5FormRenderer());
 
 		return $form;
 	}
