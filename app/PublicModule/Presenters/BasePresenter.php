@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\PublicModule\Presenters;
 
+use App\PublicModule\Components\UserLoginControl\UserLoginControl;
+use App\PublicModule\Components\UserLoginControl\UserLoginControlFactory;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Presenter;
 use Nette\Http\Session;
@@ -26,14 +28,20 @@ abstract class BasePresenter extends Presenter
 	/**
 	 * @throws AbortException
 	 */
-	public function handleLogOut(): void
-	{
-		// Destroy session and clear user identity
-		$this->session->destroy();
-		$this->getUser()->logout(true);
 
-		// Redirect with flash message
-		$this->flashMessage('Uživatel byl úspěšně odhlášen', 'success');
-		$this->redirect('Homepage:default');
-	}
+    /** @var UserLoginControlFactory  */
+    private UserLoginControlFactory $userLoginControlFactory;
+
+	public function createComponentUserLogin(): UserLoginControl
+    {
+        return $this->userLoginControlFactory->create();
+    }
+
+    #region injects
+    public function injectUserLoginControlFactory (UserLoginControlFactory $userLoginControlFactory): void
+    {
+        $this->userLoginControlFactory = $userLoginControlFactory;
+    }
+    #endregion injects
+
 }
