@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="jandrlik">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{ifset title}{include title|stripHtml} | {/ifset}Diagon Alley</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+<header class="sticky-top bg-white border-bottom border-warning border-3">
+    <nav class="navbar navbar-expand-lg py-2 shadow-sm">
+        <div class="container-fluid px-lg-4 flex-wrap flex-lg-nowrap">
+            <div class="bd-navbar-toggle d-lg-none">
+                <button class="navbar-toggler p-2 border-0" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" class="bi" fill="currentColor"
+                         viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <a href="" class="navbar-brand text-dark fw-bold">
+                <img src="{$basePath}/img/diagon-alley-logo.png" alt="" style="width: 170px;">
+            </a>
+
+            {control userLogin}
+
+        </div>
+    </nav>
+</header>
+
+<!--off canvas - jen na mobilu-->
+<div class="d-block d-lg-none">
+    <div class="offcanvas-lg offcanvas-start" tabindex="1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Kategorie produktů</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Zavřít" data-bs-target="#bdSidebar"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!--nav jako jedna komponenta - v sidebaru + v offcanvasu-->
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-4">
+    <div class="row ">
+        <aside class="d-none d-lg-block col-lg-3 col-xl-2 ps-2 pe-0 py-4 overflow-y-auto border-end" style="height: calc(100vh - 6rem); position:sticky; top:3rem;">
+            <!--nav jako jedna komponenta - v sidebaru + v offcanvasu-->
+
+        </aside>
+
+        <main class="col-12 col-lg-9 col-xl-10 px-lg-5 py-4">
+            {include content}
+        </main>
+    </div>
+</div>
+
+<footer class="bg-light border-top shadow-sm mt-5">
+    <div class="container py-4 py-md-5 px-md-3 text-body-secondary text-center">
+
+        <div class="small text-secondary">
+            <p>© 2023, 4IZ571</p>
+        </div>
+    </div>
+</footer>
+
+	{block scripts}
+    <script src="https://unpkg.com/nette-forms@3/src/assets/netteForms.js"></script>
+{/block}
+</body>
+</html>
