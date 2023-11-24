@@ -2,3 +2,4 @@
 /.docker/app.env
 /.docker/db.env
 config/local.neon
+.htaccess
