@@ -2,6 +2,7 @@
 
 namespace App\PublicModule\Components\UserLoginControl;
 
+use Nette\Application\AbortException;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Template;
 use Nette\Http\Session;
@@ -19,6 +20,9 @@ class UserLoginControl extends Control
         $this->session = $session;
     }
 
+    /**
+     * @throws AbortException
+     */
     public function handleLogin(): void
     {
         if ($this->user->isLoggedIn()) {
