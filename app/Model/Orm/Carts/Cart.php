@@ -12,7 +12,7 @@ use Nextras\Dbal\Utils\DateTimeImmutable;
 
 /**
  * @property int $id {primary}
- * @property User $user {1:1 User::$cart}
+ * @property User $user {1:1 User::$cart, isMain=true}
  * @property DateTimeImmutable $lastModified {default now}
  * @property CartItem[] $cartItems {1:m CartItem::$cart}
  */
