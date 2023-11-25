@@ -3,7 +3,7 @@
         'name' => 'nette/web-project',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'fa2fd3fdec30b0a7bf9a00ce9a1d9b7eb844d5eb',
+        'reference' => 'f2e629ada5e2c57d7dce5ac86b957222c3114b01',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -231,7 +231,7 @@
         'nette/web-project' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'fa2fd3fdec30b0a7bf9a00ce9a1d9b7eb844d5eb',
+            'reference' => 'f2e629ada5e2c57d7dce5ac86b957222c3114b01',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -244,6 +244,17 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../nextras/dbal',
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'nextras/forms-rendering' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'fe9db86a99a8acb853758dd3ebba2fe072795ae6',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nextras/forms-rendering',
+            'aliases' => array(
+                0 => '2.0.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'nextras/migrations' => array(

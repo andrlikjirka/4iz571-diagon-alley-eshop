@@ -38,6 +38,7 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         array (
             'Nextras\\Orm\\' => 12,
             'Nextras\\Migrations\\' => 19,
+            'Nextras\\FormsRendering\\' => 23,
             'Nextras\\Dbal\\' => 13,
         ),
         'D' => 
@@ -100,6 +101,10 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         'Nextras\\Migrations\\' => 
         array (
             0 => __DIR__ . '/..' . '/nextras/migrations/src',
+        ),
+        'Nextras\\FormsRendering\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nextras/forms-rendering/src',
         ),
         'Nextras\\Dbal\\' => 
         array (

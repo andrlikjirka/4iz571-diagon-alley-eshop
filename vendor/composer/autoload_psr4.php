@@ -17,6 +17,7 @@ return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Nextras\\Orm\\' => array($vendorDir . '/nextras/orm/src'),
     'Nextras\\Migrations\\' => array($vendorDir . '/nextras/migrations/src'),
+    'Nextras\\FormsRendering\\' => array($vendorDir . '/nextras/forms-rendering/src'),
     'Nextras\\Dbal\\' => array($vendorDir . '/nextras/dbal/src'),
     'Doctrine\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Inflector'),
     'Contributte\\Nextras\\Orm\\Generator\\' => array($vendorDir . '/contributte/nextras-orm-generator/src'),
