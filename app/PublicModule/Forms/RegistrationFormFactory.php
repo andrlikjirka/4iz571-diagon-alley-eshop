@@ -10,8 +10,9 @@ use Nette\Forms\Controls\TextInput;
 use Nette\Forms\Form;
 use Nette\Security\AuthenticationException;
 use Nette\Security\Passwords;
-use \App\Model\Orm\Users\User;
+use App\Model\Orm\Users\User;
 use Nette\Utils\ArrayHash;
+use Nette\Utils\Arrays;
 
 /**
  * Class RegistrationFormFactory
@@ -67,6 +68,7 @@ class RegistrationFormFactory
         $form->addPassword('password2', 'Potvrzení hesla')
             ->setRequired('Potvrďte požadované heslo!')
             ->setHtmlAttribute('placeholder', 'Zadejte heslo znovu')
+			->setOmitted()
             ->addRule(Form::EQUAL, 'Hesla se neshodují', $password);
 
         $form->addSubmit('register', 'Registrovat se');
@@ -81,13 +83,13 @@ class RegistrationFormFactory
 
     private function formSucceeded(Form $form, ArrayHash $values): void
     {
-        $customer_role = $this->rolesFacade->getRoleByName('customer');
-
         $newUser = new User();
-        $newUser->name = $values->name;
-        $newUser->email = $values->email;
+
+		Arrays::toObject($values, $newUser);
+
         $newUser->password = $this->passwords->hash($values->password);
-        $newUser->role = $customer_role;
+        $newUser->role = $this->rolesFacade->getRoleByName('customer');
+
         $this->usersFacade->saveUser($newUser);
 
         $this->user->setAuthenticator($this->authenticator);
