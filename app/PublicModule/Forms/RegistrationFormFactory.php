@@ -90,7 +90,12 @@ class RegistrationFormFactory
         $newUser->password = $this->passwords->hash($values->password);
         $newUser->role = $this->rolesFacade->getRoleByName('customer');
 
-        $this->usersFacade->saveUser($newUser);
+        try {
+            $this->usersFacade->saveUser($newUser);
+        } catch (\Exception $e) {
+            ($this->onFailure)('Při registraci se vyskytla chyba.');
+            return;
+        }
 
         $this->user->setAuthenticator($this->authenticator);
         try {
