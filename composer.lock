@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01369c66a42da69c93856140ca30f4b0",
+    "content-hash": "e9ea0a2e89cd5463efbc81e0ba0e493d",
     "packages": [
         {
             "name": "contributte/console",
@@ -1612,6 +1612,70 @@
             "time": "2022-11-03T20:40:25+00:00"
         },
         {
+            "name": "nextras/forms-rendering",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nextras/forms-rendering.git",
+                "reference": "fe9db86a99a8acb853758dd3ebba2fe072795ae6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nextras/forms-rendering/zipball/fe9db86a99a8acb853758dd3ebba2fe072795ae6",
+                "reference": "fe9db86a99a8acb853758dd3ebba2fe072795ae6",
+                "shasum": ""
+            },
+            "require": {
+                "latte/latte": "^3.0",
+                "nette/forms": "^3.0",
+                "nette/utils": "^3.0 || ^4.0",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "nette/application": "^3.0",
+                "nette/bootstrap": "^3.0",
+                "nette/di": "^3.0",
+                "phpstan/phpstan": "~1.8",
+                "phpstan/phpstan-nette": "~1.0",
+                "tracy/tracy": "^2.5"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nextras\\FormsRendering\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nextras Community",
+                    "homepage": "https://github.com/nextras/forms-rendering/graphs/contributors"
+                }
+            ],
+            "description": "Rendering helpers for Nette Framework Forms.",
+            "keywords": [
+                "Forms",
+                "Rendering",
+                "form",
+                "nette",
+                "nextras"
+            ],
+            "support": {
+                "issues": "https://github.com/nextras/forms-rendering/issues",
+                "source": "https://github.com/nextras/forms-rendering/tree/master"
+            },
+            "time": "2023-03-24T21:26:00+00:00"
+        },
+        {
             "name": "nextras/migrations",
             "version": "v3.2.0",
             "source": {
@@ -2851,6 +2915,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "nextras/forms-rendering": 20,
         "contributte/nextras-orm-generator": 20
     },
     "prefer-stable": false,

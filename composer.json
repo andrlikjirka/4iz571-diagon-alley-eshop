@@ -21,7 +21,8 @@
 		"tracy/tracy": "^2.9",
 		"contributte/console": "^0.9.3",
 		"nextras/migrations": "^3.2",
-		"nextras/orm": "^4.0"
+		"nextras/orm": "^4.0",
+		"nextras/forms-rendering": "2.0.x-dev"
 	},
 	"require-dev": {
 		"nette/tester": "^2.4",
