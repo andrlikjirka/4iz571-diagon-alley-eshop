@@ -61,10 +61,11 @@ class RegistrationFormFactory
 
         $password = $form->addPassword('password', 'Heslo')
             ->setRequired('Zadejte požadované heslo!')
-            ->setHtmlAttribute('placeholder','Zadejte heslo')
+            ->setHtmlAttribute('placeholder', 'Zadejte heslo')
             ->addRule(Form::MIN_LENGTH, 'Heslo musí obsahovat minimálně 5 znaků', 5);
 
         $form->addPassword('password2', 'Potvrzení hesla')
+            ->setRequired('Potvrďte požadované heslo!')
             ->setHtmlAttribute('placeholder', 'Zadejte heslo znovu')
             ->addRule(Form::EQUAL, 'Hesla se neshodují', $password);
 
@@ -78,7 +79,7 @@ class RegistrationFormFactory
         return $form;
     }
 
-    private function formSucceeded(Form $from, ArrayHash $values): void
+    private function formSucceeded(Form $form, ArrayHash $values): void
     {
         $customer_role = $this->rolesFacade->getRoleByName('customer');
 
