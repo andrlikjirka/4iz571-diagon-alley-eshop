@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Authenticator;
 
-use App\Model\Orm\Orm;
+use App\Model\Facades\UsersFacade;
 use Exception;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IIdentity;
@@ -20,14 +20,14 @@ use Nette\Security\SimpleIdentity;
 class Authenticator implements \Nette\Security\Authenticator
 {
 	public function __construct(
-		private readonly Orm $orm,
+		private readonly UsersFacade $usersFacade,
 		private readonly Passwords $passwords,
 	) {}
 
 	public function authenticate(string $email, string $password): IIdentity
 	{
 		try {
-			$user = $this->orm->users->getByEmail($email);
+			$user = $this->usersFacade->getUserByEmail($email);
 		} catch (Exception $e) {
 			throw new AuthenticationException('Uživatelský účet neexistuje.');
 		}

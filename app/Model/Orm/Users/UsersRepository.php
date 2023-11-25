@@ -13,8 +13,4 @@ class UsersRepository extends Repository
 		return [User::class];
 	}
 
-	public function getByEmail(string $email): User
-	{
-		return $this->getByChecked(['email' => $email]);
-	}
 }
