@@ -31,6 +31,10 @@ class LogInPresenter extends BasePresenter
 		}
 	}
 
+    //TODO: fb login
+    public function actionFacebookLogIn(): void
+    {}
+
 	protected function createComponentLogInForm(): Form
 	{
 		$onSuccess = function (string $message): void {

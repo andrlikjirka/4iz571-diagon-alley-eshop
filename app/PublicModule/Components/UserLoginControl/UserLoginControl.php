@@ -67,7 +67,11 @@ class UserLoginControl extends Control
      */
     public function handleRegistration(): void
     {
-        $this->presenter->redirect(':Public:Registration:default', ['backlink' => $this->presenter->storeRequest()]);
+        if ($this->user->isLoggedIn()){
+            $this->presenter->redirect('this');
+        }else{
+            $this->presenter->redirect(':Public:Registration:default', ['backlink' => $this->presenter->storeRequest()]);
+        }
     }
 
     /**
