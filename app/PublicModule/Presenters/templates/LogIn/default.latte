@@ -1,27 +1,39 @@
 {block content}
 
 <!-- Login -->
-<div class="container px-5 py-5">
+<div class="container px-5 py-3">
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-sm-12">
             <div class="card">
                 <div class="card-header py-3 px-4 text-dark">Přihlásit</div>
-                <div class="card-body py-4 px-4">
+                <div class="card-body py-3 px-4">
                     {form logInForm}
-                        <div class="mb-3">
+                        <div class="mb-2">
                             {label email, class:'form-label small'/}
                             {input email, class:'form-control'}
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-3">
                             {label password, class:'form-label small'/}
                             {input password, class:'form-control'}
                         </div>
-                        <input n:name=login class="btn btn-warning text-dark">
-                        <p class="mt-4 small">
-                            Ještě nemáte vytvořený účet?
-                            <a class="text-dark" href="">Registrovat se</a>
-                        </p>
+                        <div>
+                            {input login, class:'btn btn-warning text-dark'}
+                        </div>
                     {/form}
+                    <p class="my-4 small">
+                        Ještě nemáte vytvořený účet?
+                        <a class="text-dark" href="{link 'Registration:default'}">Registrovat se</a>
+                    </p>
+                    <hr/>
+                    <div class="text-center">
+                        <a href="" class="btn btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook mb-1 me-1" viewBox="0 0 16 16">
+                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                            </svg>
+                            Přihlásit se pomocí Facebooku
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
