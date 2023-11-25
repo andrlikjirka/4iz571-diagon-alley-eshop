@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\AdminModule\Presenters;
 
-use Nette\Application\AbortException;
+use App\AdminModule\Components\AdminNavbarControl\AdminNavbarControl;
+use App\AdminModule\Components\AdminNavbarControl\AdminNavbarControlFactory;
+use App\Components\UserLoginControl\UserLoginControlFactory;
 use Nette\Application\UI\Presenter;
 use Nette\Http\Session;
 use Nette\Security\User;
@@ -23,17 +25,29 @@ abstract class BasePresenter extends Presenter
 	/** @var Session @inject */
 	public Session $session;
 
-	/**
-	 * @throws AbortException
-	 */
-	public function handleLogOut(): void
-	{
-		// Destroy session and clear user identity
-		$this->session->destroy();
-		$this->getUser()->logout(true);
+    private UserLoginControlFactory $userLoginControlFactory;
 
-		// Redirect with flash message
-		$this->flashMessage('Uživatel byl úspěšně odhlášen', 'success');
-		$this->redirect('Homepage:default');
-	}
+    private AdminNavbarControlFactory $adminNavbarControlFactory;
+
+    public function createComponentUserLogin()
+    {
+        return $this->userLoginControlFactory->create();
+    }
+
+    public function createComponentAdminNavbar(): AdminNavbarControl
+    {
+        return $this->adminNavbarControlFactory->create();
+    }
+
+    #region injects
+    public function injectUserLoginControlFactory(UserLoginControlFactory $userLoginControlFactory)
+    {
+        $this->userLoginControlFactory = $userLoginControlFactory;
+    }
+
+    public function injectNavbarControlFactory (AdminNavbarControlFactory $adminNavbarControlFactory): void
+    {
+        $this->adminNavbarControlFactory = $adminNavbarControlFactory;
+    }
+    #endregion injects
 }

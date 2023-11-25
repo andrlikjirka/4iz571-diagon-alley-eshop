@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\PublicModule\Presenters;
 
+use App\Components\UserLoginControl\UserLoginControl;
+use App\Components\UserLoginControl\UserLoginControlFactory;
 use App\PublicModule\Components\NavbarControl\NavbarControl;
 use App\PublicModule\Components\NavbarControl\NavbarControlFactory;
-use App\PublicModule\Components\UserLoginControl\UserLoginControl;
-use App\PublicModule\Components\UserLoginControl\UserLoginControlFactory;
-use Nette\Application\AbortException;
 use Nette\Application\UI\Presenter;
 use Nette\Http\Session;
 use Nette\Security\User;

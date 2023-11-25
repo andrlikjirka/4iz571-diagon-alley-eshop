@@ -1,0 +1,13 @@
+<nav class="nav flex-column mb-0 pb-3 pb-md-2 pe-lg-2">
+    {if $user->isInRole('editor') || $user->isInRole('admin')}
+        <a class="nav-link text-dark" href="#">Správa produktů</a>
+        <a class="nav-link text-dark" href="#">Správa kategorií</a>
+    {/if}
+    {if $user->isInRole('storeman') || $user->isInRole('admin')}
+        <a class="nav-link text-dark" href="#">Správa objednávek</a>
+    {/if}
+    {if $user->isInRole('admin')}
+        <a class="nav-link text-dark" href="#">Správa uživatelů</a>
+    {/if}
+
+</nav>

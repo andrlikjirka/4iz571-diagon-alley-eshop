@@ -10,7 +10,6 @@ namespace App\AdminModule\Presenters;
  * @package App\AdminModule\Presenters
  * @author Martin Kovalski
  */
-class DashboardPresenter extends BasePresenter
+final class DashboardPresenter extends BasePresenter
 {
-
 }
