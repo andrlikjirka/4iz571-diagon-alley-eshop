@@ -21,14 +21,14 @@ use App\Model\Orm\Roles\Role;
  * @property string|NULL $facebookId
  * @property Role $role {1:1 Role, isMain=true, oneSided=true}
  * @property string|NULL $password
- * @property int $blocked
- * @property int $deleted
- * @property Address[] $addresses {1:m Address::$user}
- * @property Cart $cart {1:1 Cart::$user, isMain=true}
- * @property FavouriteProduct[] $favouriteProducts {1:m FavouriteProduct::$user}
- * @property ForgottenPassword[] $forgottenPasswords {1:m ForgottenPassword::$user}
- * @property Order[] $orders {1:m Order::$user}
- * @property Review[] $reviews {1:m Review::$user}
+ * @property int $blocked {default 0}
+ * @property int $deleted {default 0}
+ * @property Address[] $addresses {1:m Address::$user} {virtual}
+ * @property Cart|NULL $cart {1:1 Cart::$user, isMain=true} {virtual}
+ * @property FavouriteProduct[] $favouriteProducts {1:m FavouriteProduct::$user} {virtual}
+ * @property ForgottenPassword[] $forgottenPasswords {1:m ForgottenPassword::$user} {virtual}
+ * @property Order[] $orders {1:m Order::$user} {virtual}
+ * @property Review[] $reviews {1:m Review::$user} {virtual}
  */
 class User extends Entity
 {
