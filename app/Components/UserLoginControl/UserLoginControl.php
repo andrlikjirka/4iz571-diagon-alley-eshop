@@ -1,10 +1,9 @@
 <?php
 
-namespace App\PublicModule\Components\UserLoginControl;
+namespace App\Components\UserLoginControl;
 
 use Nette\Application\AbortException;
 use Nette\Application\UI\Control;
-use Nette\Application\UI\Template;
 use Nette\Http\Session;
 use Nette\Security\User;
 

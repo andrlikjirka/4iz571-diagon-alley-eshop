@@ -1,6 +1,6 @@
 <?php
 
-namespace App\PublicModule\Components\UserLoginControl;
+namespace App\Components\UserLoginControl;
 
 /**
  * Interface UserLoginControlFactory
