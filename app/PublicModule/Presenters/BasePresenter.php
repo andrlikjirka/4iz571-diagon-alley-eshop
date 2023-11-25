@@ -28,32 +28,35 @@ abstract class BasePresenter extends Presenter
 	public Session $session;
 
 
-    /** @var UserLoginControlFactory  */
-    private UserLoginControlFactory $userLoginControlFactory;
+    /**
+     * Base Presenter contstructor
+     * @param UserLoginControlFactory $userLoginControlFactory
+     * @param NavbarControlFactory $navbarControlFactory
+     */
+    public function __construct(
+        private readonly UserLoginControlFactory $userLoginControlFactory,
+        private readonly NavbarControlFactory $navbarControlFactory
+    )
+    {
+        parent::__construct();
+    }
 
-    /** @var NavbarControlFactory  */
-    private NavbarControlFactory $navbarControlFactory;
-
+    /**
+     * Tovární metoda pro začlenění komponenty UserLoginControl
+     * @return UserLoginControl
+     */
 	public function createComponentUserLogin(): UserLoginControl
     {
         return $this->userLoginControlFactory->create();
     }
 
+    /**
+     * Tovární metoda pro začlenění komponenty Navbar
+     * @return NavbarControl
+     */
     public function createComponentNavbar(): NavbarControl
     {
         return $this->navbarControlFactory->create();
     }
-
-    #region injects
-    public function injectUserLoginControlFactory (UserLoginControlFactory $userLoginControlFactory): void
-    {
-        $this->userLoginControlFactory = $userLoginControlFactory;
-    }
-
-    public function injectNavbarControlFactory (NavbarControlFactory $navbarControlFactory): void
-    {
-        $this->navbarControlFactory = $navbarControlFactory;
-    }
-    #endregion injects
 
 }
