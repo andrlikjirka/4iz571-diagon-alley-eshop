@@ -1,0 +1,11 @@
+nextras.dbal:
+    driver: mysqli
+    host: localhost
+    database:
+    username:
+    password:
+    connectionTz: auto-offset
+
+php:
+    date.timezone: Europe/Prague
+    error_reporting: E_ALL &~E_USER_WARNING

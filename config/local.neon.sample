@@ -1,0 +1,7 @@
+nextras.dbal:
+    driver: mysqli
+    host: localhost
+    database:
+    username:
+    password:
+    connectionTz: auto-offset
