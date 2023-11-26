@@ -20,9 +20,9 @@ class LogInPresenter extends BasePresenter
 		parent::__construct();
 	}
 
-    public function beforeRender()
+    public function beforeRender(): void
     {
-        $this->setLayout('login_registration_layout');
+        $this->setLayout('loginRegistrationLayout');
     }
 
     /**
