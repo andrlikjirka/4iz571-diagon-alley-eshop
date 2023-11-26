@@ -30,6 +30,11 @@ class RegistrationPresenter extends BasePresenter
         parent::__construct();
     }
 
+    public function beforeRender()
+    {
+        $this->setLayout('login_registration_layout');
+    }
+
     /**
      * Akce pro registraci - pokud už je uživatel přihlášen/registrován, tak ho přesměrujeme na homepage
      * @return void

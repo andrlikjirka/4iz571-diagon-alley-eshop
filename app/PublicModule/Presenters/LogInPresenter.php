@@ -20,7 +20,12 @@ class LogInPresenter extends BasePresenter
 		parent::__construct();
 	}
 
-	/**
+    public function beforeRender()
+    {
+        $this->setLayout('login_registration_layout');
+    }
+
+    /**
 	 * @throws AbortException
 	 */
 	public function actionDefault(): void
