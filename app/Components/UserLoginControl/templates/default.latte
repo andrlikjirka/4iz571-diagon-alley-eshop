@@ -1,3 +1,5 @@
+{varType Nette\Security\User $user}
+
 {snippet}
 
     <div {if !empty($class)}class="{$class}"{/if}>
@@ -41,10 +43,10 @@
                 <div class="dropdown d-none d-lg-block">
                     <button class="btn btn-dark dropdown-toggle px-3 py-1" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                        {$user->identity->name}
+                        {$user->getIdentity()->getData()['name']}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="">Můj profil</a></li>
+                        <li><a class="dropdown-item" href="{plink Profile:default}">Můj profil</a></li>
                         {if $user->isInRole('customer')}
                             <li><a class="dropdown-item" href="">Moje objednávky</a></li>
                         {/if}
@@ -79,7 +81,7 @@
                             </li>
                             <li><a class="dropdown-item" href="">Moje objednávky</a></li>
                         {/if}
-                        <li><a class="dropdown-item" href="">Můj profil</a></li>
+                        <li><a class="dropdown-item" href="{plink Profile:default}">Můj profil</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

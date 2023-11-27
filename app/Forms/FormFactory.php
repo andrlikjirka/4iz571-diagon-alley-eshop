@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\PublicModule\Forms;
+namespace App\Forms;
 
 use Nette;
 use Nette\Application\UI\Form;
@@ -11,7 +11,7 @@ use Nextras\FormsRendering\Renderers\Bs5FormRenderer;
 
 /**
  * Class FormFactory
- * @package App\PublicModule\Forms
+ * @package App\AdminModule\Forms
  * @author Martin Kovalski
  */
 final class FormFactory
@@ -30,7 +30,7 @@ final class FormFactory
 		}
 
 		//$form->setHtmlAttribute('class', 'ajax');
-        $form->setRenderer(new Bs5FormRenderer());
+		$form->setRenderer(new Bs5FormRenderer());
 
 		return $form;
 	}

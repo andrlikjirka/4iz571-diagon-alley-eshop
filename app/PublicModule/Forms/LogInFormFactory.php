@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\PublicModule\Forms;
 
+use App\Forms\FormFactory;
 use App\Model\Authenticator\Authenticator;
 use Closure;
 use Nette\Application\UI\Form;

@@ -2,6 +2,7 @@
 
 namespace App\PublicModule\Forms;
 
+use App\Forms\FormFactory;
 use App\Model\Authenticator\Authenticator;
 use App\Model\Facades\RolesFacade;
 use App\Model\Facades\UsersFacade;
