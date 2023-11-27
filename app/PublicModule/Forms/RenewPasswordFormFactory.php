@@ -31,9 +31,12 @@ class RenewPasswordFormFactory
 
         $password = $form->addPassword('password', 'Heslo:')
             ->setRequired('Zadejte požadované heslo!')
+            ->setHtmlAttribute('placeholder', 'Nové heslo')
             ->addRule(Form::MIN_LENGTH, 'Heslo musí obsahovat minimálně 5 znaků', 5);
         $form->addPassword('password2', 'Potvrzení hesla:')
             ->setRequired('Potvrďte požadované heslo!')
+            ->setHtmlAttribute('placeholder', 'Potvrzení hesla')
+            ->setOmitted()
             ->addRule(Form::EQUAL, 'Hesla se neshodují', $password);
 
         $form->addSubmit('submit', 'Uložit nové heslo');
@@ -59,7 +62,7 @@ class RenewPasswordFormFactory
         try {
             $this->usersFacade->saveUser($user);
         } catch (\Exception $e) {
-            ($this->onFailure)('Při registraci se vyskytla chyba.');
+            ($this->onFailure)('Při ukládání hesla se vyskytla chyba.');
             return;
         }
         ($this->onSuccess)('Heslo bylo změněno.');
