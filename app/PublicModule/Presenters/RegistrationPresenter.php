@@ -53,7 +53,7 @@ class RegistrationPresenter extends BasePresenter
      * Formulář pro registraci nového uživatele
      * @return Form
      */
-    public function createComponentRegistrationForm(): Form
+    protected function createComponentRegistrationForm(): Form
     {
         $onSuccess = function (string $message): void {
             $this->flashMessage($message, 'success');

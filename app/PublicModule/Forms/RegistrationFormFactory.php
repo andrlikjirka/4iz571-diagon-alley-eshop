@@ -95,7 +95,7 @@ class RegistrationFormFactory
         try {
             $this->usersFacade->saveUser($newUser);
         } catch (Exception $e) {
-            ($this->onFailure)('Při registraci se vyskytla chyba.');
+            ($this->onFailure)($e->getMessage());
             return;
         }
 

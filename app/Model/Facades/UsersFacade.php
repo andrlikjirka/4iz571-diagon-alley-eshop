@@ -3,10 +3,13 @@
 namespace App\Model\Facades;
 
 use App\Model\Orm\Orm;
+use App\Model\Orm\Roles\RolesRepository;
 use App\Model\Orm\Users\User;
+use App\Model\Orm\Users\UsersRepository;
 use Exception;
+use Nette\Database\ConstraintViolationException;
+use Nextras\Dbal\Drivers\Exception\QueryException;
 use Tracy\Debugger;
-
 
 /**
  * Class UsersFacade
@@ -27,6 +30,7 @@ class UsersFacade
      * Metoda pro načtení jednoho uživatele
      * @param int $id
      * @return User
+     * @throws Exception
      */
     public function getUser(int $id): User
     {
@@ -37,6 +41,7 @@ class UsersFacade
      * Metoda pro načtení jednoho uživatele podle emailu
      * @param string $email
      * @return User
+     * @throws Exception
      */
     public function getUserByEmail(string $email): User
     {
@@ -50,14 +55,13 @@ class UsersFacade
      */
     public function saveUser(User $user): void
     {
-		try {
-			$this->orm->users->persistAndFlush($user);
-		} catch (Exception $e) {
-			Debugger::log($e);
-			$this->orm->users->getMapper()->rollback();
-			throw new Exception('Uživatele se nepodařilo uložit');
-		}
-
+        try{
+            $this->orm->users->persistAndFlush($user);
+        } catch (Exception $e) {
+            Debugger::log($e);
+            $this->orm->users->getMapper()->rollback();
+            throw new Exception('Uživatele se nepodařilo uložit.');
+        }
     }
 
     //TODO: doplnit, v Authenticatoru (a možná i jinde) nahradit přímé volání new SimpleIdentity pomocí této metody

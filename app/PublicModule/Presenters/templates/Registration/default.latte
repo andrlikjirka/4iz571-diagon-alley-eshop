@@ -7,6 +7,7 @@
             <div class="card">
                 <div class="card-header py-3 px-4 text-dark">Registrovat se</div>
                 <div class="card-body py-3 px-4">
+
                     {form registrationForm}
                         <div class="mb-2">
                             {label name, class:'form-label small'/}
@@ -14,19 +15,28 @@
                         </div>
                         <div class="mb-2">
                             {label email, class:'form-label small'/}
-                            {input email, class:'form-control'}
+                            {input email, class=>$form['email']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
+                            <div class="small text-danger">
+                                {inputError email}
+                            </div>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     {label password, class:'form-label small'/}
-                                    {input password, class:'form-control'}
+                                    {input password, class=>$form['password']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
+                                    <div class="small text-danger">
+                                        {inputError password}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     {label password2, class:'form-label small'/}
-                                    {input password2, class:'form-control'}
+                                    {input password2, class=>$form['password2']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
+                                    <div class="small text-danger">
+                                        {inputError password2}
+                                    </div>
                                 </div>
                             </div>
                         </div>

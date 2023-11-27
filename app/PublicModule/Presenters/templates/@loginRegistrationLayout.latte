@@ -41,9 +41,20 @@
 </header>
 
 <body>
-<section class=" bg-warning bg-gradient d-flex align-items-center py-5">
-    {include content}
-</section>
+<div class="container-fluid px-4 bg-warning bg-gradient py-5">
+    <div class="row ">
+        {foreach $flashes as $flash}
+            <div class="alert alert-{$flash->type} alert-dismissible fade show small py-2" role="alert">
+                {$flash->message}
+                <button type="button" class="btn-close pe-3 pb-1" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+            </div>
+        {/foreach}
+
+       {include content}
+    </div>
+</div>
+
 
 <footer class="bg-light border-top shadow-sm">
     <div class="container py-4 py-md-5 px-md-3 text-body-secondary text-center">
