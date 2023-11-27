@@ -7,6 +7,7 @@ use App\Model\Authenticator\Authenticator;
 use App\Model\Facades\RolesFacade;
 use App\Model\Facades\UsersFacade;
 use Closure;
+use Exception;
 use Nette\Forms\Controls\TextInput;
 use Nette\Forms\Form;
 use Nette\Security\AuthenticationException;
@@ -54,7 +55,7 @@ class RegistrationFormFactory
             ->addRule(function (TextInput $textInput) {
                 try {
                     $this->usersFacade->getUserByEmail($textInput->value);
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     //pokud nebyl uživatel nalezen (tj. je vyhozena výjimka), je to z hlediska registrace v pořádku
                     return true;
                 }
@@ -93,7 +94,7 @@ class RegistrationFormFactory
 
         try {
             $this->usersFacade->saveUser($newUser);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ($this->onFailure)('Při registraci se vyskytla chyba.');
             return;
         }

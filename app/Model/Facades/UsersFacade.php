@@ -3,10 +3,10 @@
 namespace App\Model\Facades;
 
 use App\Model\Orm\Orm;
-use App\Model\Orm\Roles\RolesRepository;
 use App\Model\Orm\Users\User;
-use App\Model\Orm\Users\UsersRepository;
-use Cassandra\Exception\UnauthorizedException;
+use Exception;
+use Tracy\Debugger;
+
 
 /**
  * Class UsersFacade
@@ -46,15 +46,18 @@ class UsersFacade
     /**
      * Metoda pro uložení uživatele
      * @param User $user
-     * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveUser(User $user): void
     {
-        $result = (bool)$this->orm->users->persistAndFlush($user);
-        if (!$result) {
-            throw new \Exception();
-        }
+		try {
+			$this->orm->users->persistAndFlush($user);
+		} catch (Exception $e) {
+			Debugger::log($e);
+			$this->orm->users->getMapper()->rollback();
+			throw new Exception('Uživatele se nepodařilo uložit');
+		}
+
     }
 
     //TODO: doplnit, v Authenticatoru (a možná i jinde) nahradit přímé volání new SimpleIdentity pomocí této metody
