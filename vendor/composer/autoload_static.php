@@ -49,6 +49,7 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         'C' => 
         array (
             'Contributte\\Nextras\\Orm\\Generator\\' => 34,
+            'Contributte\\FormMultiplier\\' => 27,
             'Contributte\\DI\\' => 15,
             'Contributte\\Console\\' => 20,
         ),
@@ -122,6 +123,10 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         'Contributte\\Nextras\\Orm\\Generator\\' => 
         array (
             0 => __DIR__ . '/..' . '/contributte/nextras-orm-generator/src',
+        ),
+        'Contributte\\FormMultiplier\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/contributte/forms-multiplier/src',
         ),
         'Contributte\\DI\\' => 
         array (

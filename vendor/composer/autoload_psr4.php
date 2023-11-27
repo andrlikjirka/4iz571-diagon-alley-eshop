@@ -22,6 +22,7 @@ return array(
     'Nextras\\Dbal\\' => array($vendorDir . '/nextras/dbal/src'),
     'Doctrine\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Inflector'),
     'Contributte\\Nextras\\Orm\\Generator\\' => array($vendorDir . '/contributte/nextras-orm-generator/src'),
+    'Contributte\\FormMultiplier\\' => array($vendorDir . '/contributte/forms-multiplier/src'),
     'Contributte\\DI\\' => array($vendorDir . '/contributte/di/src'),
     'Contributte\\Console\\' => array($vendorDir . '/contributte/console/src'),
     'App\\' => array($baseDir . '/app'),
