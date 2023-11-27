@@ -26,11 +26,7 @@ class Bootstrap
 		$configurator->addConfig($appDir . '/config/common.neon');
 		$configurator->addConfig($appDir . '/config/services.neon');
 
-        if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['REMOTE_ADDR'] === '::1') {
-            $configurator->addConfig($appDir . '/config/local.neon');
-        } else {
-            $configurator->addConfig($appDir . '/config/production.neon');
-        }
+		$configurator->addConfig($appDir . '/config/local.neon');
 
 		return $configurator;
 	}
