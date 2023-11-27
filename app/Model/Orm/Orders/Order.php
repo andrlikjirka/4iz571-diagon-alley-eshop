@@ -20,6 +20,9 @@ use Nextras\Dbal\Utils\DateTimeImmutable;
  * @property string $shipping {enum self::SHIPPING_*}
  * @property string $payment {enum self::PAYMENT_*}
  * @property OrderItem[] $orderItems {1:m OrderItem::$order}
+ * @property int $galleonTotalPrice {default 0}
+ * @property int $sickleTotalPrice {default 0}
+ * @property int $knutTotalPrice {default 0}
  */
 class Order extends Entity
 {

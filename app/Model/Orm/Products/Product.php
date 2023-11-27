@@ -23,6 +23,9 @@ use Nextras\Dbal\Utils\DateTimeImmutable;
  * @property int $deleted
  * @property ProductPhoto[] $productPhotos {1:m ProductPhoto::$product}
  * @property Review[] $reviews {1:m Review::$product}
+ * @property int $galleonPrice {default 0}
+ * @property int $sicklePrice {default 0}
+ * @property int $knutPrice {default 0}
  */
 class Product extends Entity
 {
