@@ -6,6 +6,7 @@ namespace App\PublicModule\Presenters;
 
 
 use App\PublicModule\Forms\RegistrationFormFactory;
+use Nette\Application\AbortException;
 use Nette\Forms\Form;
 
 /**
@@ -38,7 +39,7 @@ class RegistrationPresenter extends BasePresenter
     /**
      * Akce pro registraci - pokud už je uživatel přihlášen/registrován, tak ho přesměrujeme na homepage
      * @return void
-     * @throws \Nette\Application\AbortException
+     * @throws AbortException
      */
     public function actionDefault(): void
     {

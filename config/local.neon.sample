@@ -1,7 +1,18 @@
+tracy:
+	bar:
+		- Nextras\MailPanel\MailPanel(%tempDir%/cache/mail-panel-latte)
+	editorMapping:
+		/var/www/html: C:/...
+
 nextras.dbal:
     driver: mysqli
-    host: localhost
-    database:
-    username:
-    password:
+    host: 4iz571-eshop-db-1
+    database: eshop
+    username: user
+    password: user
     connectionTz: auto-offset
+    
+services:
+	nette.mailer:
+		class: Nette\Mail\IMailer
+		factory: Nextras\MailPanel\FileMailer(%tempDir%/cache/mail-panel-mails)

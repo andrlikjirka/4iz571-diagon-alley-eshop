@@ -3,7 +3,7 @@
         'name' => 'nette/web-project',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'f2e629ada5e2c57d7dce5ac86b957222c3114b01',
+        'reference' => '3038c7387265cec8b24a255f0fae5dfc6611b904',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -231,7 +231,7 @@
         'nette/web-project' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'f2e629ada5e2c57d7dce5ac86b957222c3114b01',
+            'reference' => '3038c7387265cec8b24a255f0fae5dfc6611b904',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -255,6 +255,15 @@
             'aliases' => array(
                 0 => '2.0.x-dev',
             ),
+            'dev_requirement' => false,
+        ),
+        'nextras/mail-panel' => array(
+            'pretty_version' => 'v2.6.2',
+            'version' => '2.6.2.0',
+            'reference' => '8aa23f2646afed715e0ce731ce13e45cce37fd73',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nextras/mail-panel',
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'nextras/migrations' => array(

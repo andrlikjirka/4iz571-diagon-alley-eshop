@@ -14,8 +14,8 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'a5f26a3f3f192c1d07586b1de3779617' => __DIR__ . '/..' . '/nextras/dbal/srcCompat/compatibility.php',
-        '6b93d92fcd95a76f6607b35b745ae78f' => __DIR__ . '/..' . '/nextras/orm/srcCompat/compatibility.php',
         'd507e002f7fce7f0c6dbf1f22edcb902' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/functions.php',
+        '6b93d92fcd95a76f6607b35b745ae78f' => __DIR__ . '/..' . '/nextras/orm/srcCompat/compatibility.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -38,6 +38,7 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         array (
             'Nextras\\Orm\\' => 12,
             'Nextras\\Migrations\\' => 19,
+            'Nextras\\MailPanel\\' => 18,
             'Nextras\\FormsRendering\\' => 23,
             'Nextras\\Dbal\\' => 13,
         ),
@@ -101,6 +102,10 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         'Nextras\\Migrations\\' => 
         array (
             0 => __DIR__ . '/..' . '/nextras/migrations/src',
+        ),
+        'Nextras\\MailPanel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nextras/mail-panel/src',
         ),
         'Nextras\\FormsRendering\\' => 
         array (
