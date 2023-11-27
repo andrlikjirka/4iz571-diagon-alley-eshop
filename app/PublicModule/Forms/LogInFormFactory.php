@@ -6,6 +6,7 @@ namespace App\PublicModule\Forms;
 
 use App\Forms\FormFactory;
 use App\Model\Authenticator\Authenticator;
+use App\Model\Facades\UsersFacade;
 use Closure;
 use Nette\Application\UI\Form;
 use Nette\Security\AuthenticationException;
@@ -27,6 +28,7 @@ class LogInFormFactory
 		private readonly FormFactory $formFactory,
 		private readonly User $user,
 		private readonly Authenticator $authenticator,
+		private readonly UsersFacade $usersFacade
 	) {}
 
 	public function create(callable $onSuccess, callable $onFailure): Form
@@ -63,6 +65,8 @@ class LogInFormFactory
 			return;
 		}
 
-		($this->onSuccess)('Uživatel byl přihlášen');
+		$user = $this->usersFacade->getUserByEmail($values->email);
+
+		($this->onSuccess)('Uživatel byl přihlášen', $user->role);
 	}
 }

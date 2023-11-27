@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\PublicModule\Presenters;
 
 
+use App\Model\Orm\Roles\Role;
 use App\PublicModule\Forms\LogInFormFactory;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
@@ -42,10 +43,15 @@ class LogInPresenter extends BasePresenter
 
 	protected function createComponentLogInForm(): Form
 	{
-		$onSuccess = function (string $message): void {
+		$onSuccess = function (string $message, Role $role): void {
 			$this->flashMessage($message, 'success');
 			$this->restoreRequest($this->backlink);
-			$this->redirect('Homepage:default');
+
+			if($role->name == 'customer') {
+				$this->redirect(':Public:Homepage:default');
+			} else {
+				$this->redirect(':Admin:Dashboard:default');
+			}
 		};
 
 		$onFailure = function (string $message): void {
