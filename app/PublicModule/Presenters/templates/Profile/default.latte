@@ -1,3 +1,5 @@
+{varType App\Model\Orm\Users\User $profile}
+
 {block content}
 
 <h1 n:block=title>Profil</h1>
@@ -5,4 +7,29 @@
 <div class="btn-group mt-2">
 	<a href="{link ChangePassword:default}" class="btn btn-secondary">Změna hesla</a>
 	<a href="#" class="btn btn-secondary">Úprava profilu</a>
+</div>
+
+<div class="row mt-4">
+	<div class="col-xxl-6 col-xl-6 col-lg-8 col-md-8">
+		{control userProfile}
+	</div>
+</div>
+
+<div class="row mt-4">
+	<h3>Adresy</h3>
+	{foreach $profile->addresses as $address}
+		<div class="col-xl-2 col-lg-4 col-md-6">
+			<div class="card 	mt-2">
+				<div class="card-body">
+					<p>📫 {$address->street}<br>
+					{$address->city}<br>
+					{$address->zip}</p>
+				</div>
+			</div>
+		</div>
+	{else}
+		<div class="col-xxl-6 col-xl-6 col-lg-8 col-md-8">
+			<div class="alert alert-info">Žádná adresa není nastavena</div>
+		</div>
+	{/foreach}
 </div>

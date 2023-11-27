@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Orm\Users;
 
+use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Entity\Entity;
 use App\Model\Orm\Addresses\Address;
 use App\Model\Orm\Carts\Cart;
@@ -24,7 +25,8 @@ use Nextras\Orm\Relationships\OneHasMany;
  * @property string|NULL $password
  * @property int $blocked {default 0}
  * @property int $deleted {default 0}
- * @property Address[] $addresses {1:m Address::$user}
+ * @property-read ICollection|Address[] $addresses {virtual}
+ * @property OneHasMany|Address[] $allAddresses {1:m Address::$user}
  * @property Cart $cart {1:1 Cart::$user}
  * @property OneHasMany|FavouriteProduct[] $favouriteProducts {1:m FavouriteProduct::$user}
  * @property ForgottenPassword[] $forgottenPasswords {1:m ForgottenPassword::$user}
@@ -33,4 +35,8 @@ use Nextras\Orm\Relationships\OneHasMany;
  */
 class User extends Entity
 {
+	public function getterAddresses()
+	{
+		return $this->allAddresses->toCollection()->findBy(['deleted' => 0]);
+	}
 }

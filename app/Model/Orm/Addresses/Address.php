@@ -13,7 +13,7 @@ use App\Model\Orm\Users\User;
  * @property string $street
  * @property string $city
  * @property string $zip
- * @property User $user {m:1 User::$addresses}
+ * @property User $user {m:1 User::$allAddresses}
  * @property int $deleted {default 0}
  */
 class Address extends Entity
