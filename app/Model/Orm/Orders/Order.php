@@ -13,6 +13,7 @@ use Nextras\Dbal\Utils\DateTimeImmutable;
 
 /**
  * @property int $id {primary}
+ * @property string $name
  * @property Address $address {m:1 Address, oneSided=true}
  * @property string $status {default self::STATUS_RECEIVED} {enum self::STATUS_*}
  * @property DateTimeImmutable $created {default now}

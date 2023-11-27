@@ -14,6 +14,7 @@ use App\Model\Orm\Users\User;
  * @property string $city
  * @property string $zip
  * @property User $user {m:1 User::$addresses}
+ * @property int $deleted {default 0}
  */
 class Address extends Entity
 {
