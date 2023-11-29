@@ -35,7 +35,7 @@ class UserLoginControl extends Control
         if ($this->user->isLoggedIn()){
             $this->presenter->redirect('this');
         }else{
-            $this->presenter->redirect(':Public:Login:default',['backlink'=>$this->presenter->storeRequest()]);
+            $this->presenter->redirect(':Public:LogIn:default',['backlink'=>$this->presenter->storeRequest()]);
         }
     }
 

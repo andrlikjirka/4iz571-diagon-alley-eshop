@@ -36,11 +36,6 @@ abstract class BasePresenter extends Presenter
 
     /** @var NavbarControlFactory  */
     private NavbarControlFactory $navbarControlFactory;
-    /**
-     * Base Presenter contstructor
-     * @param UserLoginControlFactory $userLoginControlFactory
-     * @param NavbarControlFactory $navbarControlFactory
-     */
 
     /**
      * Tovární metoda pro začlenění komponenty UserLoginControl
