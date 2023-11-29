@@ -24,7 +24,8 @@
 		"nextras/orm": "^4.0",
 		"nextras/forms-rendering": "2.0.x-dev",
 		"nextras/mail-panel": "^2.6",
-		"contributte/forms-multiplier": "^4.0"
+		"contributte/forms-multiplier": "^4.0",
+		"ublaboo/datagrid": "^6.9"
 	},
 	"require-dev": {
 		"nette/tester": "^2.4",
