@@ -1,0 +1,7 @@
+{varType int $productId}
+
+{block content}
+
+<h1 n:block="title">{if $productId}Úprava{else}Přidání{/if} produktu</h1>
+
+{control productsForm}

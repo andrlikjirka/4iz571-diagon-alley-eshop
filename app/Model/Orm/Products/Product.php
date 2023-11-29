@@ -17,10 +17,10 @@ use Nextras\Dbal\Utils\DateTimeImmutable;
  * @property string|NULL $description
  * @property DateTimeImmutable $created {default now}
  * @property DateTimeImmutable|NULL $updated
- * @property int $stock
- * @property Category $category {m:1 Category::$products}
- * @property int $showed
- * @property int $deleted
+ * @property int $stock {default 0}
+ * @property ?Category $category {m:1 Category::$products}
+ * @property bool $showed {default 0}
+ * @property bool $deleted {default 0}
  * @property ProductPhoto[] $productPhotos {1:m ProductPhoto::$product}
  * @property Review[] $reviews {1:m Review::$product}
  * @property int $galleonPrice {default 0}

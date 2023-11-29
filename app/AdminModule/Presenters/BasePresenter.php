@@ -8,14 +8,18 @@ use App\AdminModule\Components\AdminNavbarControl\AdminNavbarControl;
 use App\AdminModule\Components\AdminNavbarControl\AdminNavbarControlFactory;
 use App\Components\UserLoginControl\UserLoginControlFactory;
 use Nette\Application\UI\Presenter;
+use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Http\Session;
 use Nette\Security\User;
+use stdClass;
 
 
 /**
  * Class BasePresenter
  * @package App\AdminModule\Presenters
  * @author Martin Kovalski
+ *
+ * @property-read Template|stdClass $template
  */
 abstract class BasePresenter extends Presenter
 {
