@@ -13,7 +13,7 @@ class CategoriesFacade
     )
     {}
 
-    public function getAllCategories(): ICollection|array
+    public function getShowedCategories(): ICollection|array
     {
         return $this->orm->categories->findBy(['showed' => true]);
     }

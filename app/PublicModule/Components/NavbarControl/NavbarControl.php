@@ -29,7 +29,7 @@ class NavbarControl extends Control
      */
     public function render($params = []): void
     {
-        $this->template->categories = $this->categoriesFacade->getAllCategories();
+        $this->template->categories = $this->categoriesFacade->getShowedCategories();
         $this->template->render(__DIR__ . '/templates/default.latte');
     }
 }
