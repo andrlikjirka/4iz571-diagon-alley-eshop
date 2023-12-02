@@ -1,0 +1,50 @@
+{varType App\Model\Orm\Products\Product $product}
+
+<div class="col">
+    <div class="card">
+        <img src="" class="card-img-top" alt="">
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="card-title">{$product->name}</h5>
+                    </div>
+                    <p>{if !empty($product->category)}{$product->category->name}{/if}</p>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                         </div>
+                </div>
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-6">
+                        <div class="row g-2">
+                            <div class="col-3"><h6 class="text-end">{$product->galleonPrice}</h6></div>
+                            <div class="col-3"><h6>G</h6></div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-3"><h6 class="text-end">{$product->sicklePrice}</h6></div>
+                            <div class="col-3"><h6>Sr</h6></div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-3"><h6 class="text-end">{$product->knutPrice}</h6></div>
+                            <div class="col-3"><h6>Sv</h6></div>
+                        </div>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="{if $product->stock>0}text-success{else}text-danger{/if} small fw-medium mb-2">Skladem {$product->stock} ks</div>
+
+                        <button type="button" class="btn btn-warning btn-sm fw-medium">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                 class="bi bi-basket2 text-dark pb-1" viewBox="0 0 16 16">
+                                <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0z"/>
+                                <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-.623l-1.844 6.456a.75.75 0 0 1-.722.544H3.69a.75.75 0 0 1-.722-.544L1.123 8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.163 8l1.714 6h8.246l1.714-6H2.163z"/>
+                            </svg>
+                            Do košíku
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
