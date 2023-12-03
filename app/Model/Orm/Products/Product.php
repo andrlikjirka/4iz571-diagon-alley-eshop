@@ -14,6 +14,7 @@ use Nextras\Dbal\Utils\DateTimeImmutable;
 /**
  * @property int $id {primary}
  * @property string $name
+ * @property string $summary
  * @property string|NULL $description
  * @property DateTimeImmutable $created {default now}
  * @property DateTimeImmutable|NULL $updated
