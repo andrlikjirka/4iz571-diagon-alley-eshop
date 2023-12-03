@@ -2,5 +2,11 @@
 
 <h1 n:block="title">Seznam produktů</h1>
 
-<a href="{link Products:edit}" class="btn btn-primary">Nový produkt</a>
-{*TODO: tady bude datagrid s produkty*}
+
+<div class="btn-group mt-2">
+	<a href="{link Products:edit}" class="btn btn-primary">Nový produkt</a>
+</div>
+
+<div class="row mt-4">
+	{control productsDatagrid}
+</div>

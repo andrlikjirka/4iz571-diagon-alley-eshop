@@ -19,35 +19,41 @@ use Tracy\Debugger;
  */
 class ProductsFacade
 {
-    public function __construct(
-        private readonly Orm $orm
-    )
-    {
-    }
+	public function __construct(
+		private readonly Orm $orm
+	) {}
 
-    public function getProduct(int $id): Product
-    {
-        return $this->orm->products->getByIdChecked($id);
-    }
+	public function getProduct(int $id): Product
+	{
+		return $this->orm->products->getByIdChecked($id);
+	}
 
-    /**
-     * @throws Exception
-     */
-    public function saveProduct(Product $product): void
-    {
-        try {
-            $this->orm->products->persistAndFlush($product);
-        } catch (Exception $e) {
-            Debugger::log($e);
-            $this->orm->products->getMapper()->rollback();
-            throw new Exception('Produkt se nepodařilo uložit');
-        }
-    }
+	/**
+	 * @throws Exception
+	 */
+	public function saveProduct(Product $product): void
+	{
+		try {
+			$this->orm->products->persistAndFlush($product);
+		} catch (Exception $e) {
+			Debugger::log($e);
+			$this->orm->products->getMapper()->rollback();
+			throw new Exception('Produkt se nepodařilo uložit');
+		}
+	}
 
     public function getShowedProductsByCategory(?Category $category): ICollection|array
     {
         return $this->orm->products->findBy(['category' => $category, 'showed' => true]);
     }
+
+	/**
+	 * @return ICollection<Product>
+	 */
+	public function findAllProducts(): ICollection
+	{
+		return $this->orm->products->findBy(['deleted' => 0]);
+	}
 
     public function getAllShowedProducts(): ICollection|array
     {
