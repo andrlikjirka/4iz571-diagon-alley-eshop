@@ -2,14 +2,24 @@
 
 <div class="col">
     <div class="card">
-        <img src="" class="card-img-top" alt="">
+        <a href="{plink :Public:Products:show productId => $product->id}">
+            <div class="d-flex justify-content-center">
+                {foreach $product->productPhotos as $productPhoto}
+                    {if $iterator->first}
+                        <img src="{$basePath}{$productPhoto->path}" alt="" class="w-75">
+                    {/if}
+                {/foreach}
+            </div>
+        </a>
         <div class="card-body">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h5 class="card-title">{$product->name}</h5>
+                        <a href="{plink :Public:Products:show productId => $product->id}" class="text-decoration-none text-dark">
+                            <h5 class="card-title">{$product->name}</h5>
+                        </a>
                     </div>
-                    <p>{if !empty($product->category)}{$product->category->name}{/if}</p>
+                    <p class="small">{$product->summary}</p>
                 </div>
                 <div class="row">
                     <div class="col-12">
