@@ -32,9 +32,9 @@ class ProductsPresenter extends BasePresenter
                 $this->redirect('this', ['categoryId' => null]);
             }
             $this->template->currentCategory = $category;
-            $products = $this->productsFacade->getShowedProductsByCategory($category);
+            $products = $this->productsFacade->findShowedProductsByCategory($category);
         } else {
-            $products = $this->productsFacade->getAllShowedProducts();
+            $products = $this->productsFacade->findAllShowedProducts();
         }
 
         //TODO: paginator
