@@ -6,6 +6,7 @@ use App\Model\Orm\Categories\Category;
 use App\Model\Orm\Orm;
 use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Entity\IEntity;
+use Tracy\Debugger;
 
 class CategoriesFacade
 {
@@ -20,9 +21,36 @@ class CategoriesFacade
         return $this->orm->categories->getByIdChecked($categoryId);
     }
 
-    public function getShowedCategories(): ICollection|array
+    public function findAllCategories(): ICollection|array
+    {
+        return $this->orm->categories->findAll();
+    }
+
+    public function findShowedCategories(): ICollection|array
     {
         return $this->orm->categories->findBy(['showed' => true]);
+    }
+
+    public function saveCategory(Category $category): void
+    {
+        try {
+            $this->orm->categories->persistAndFlush($category);
+        } catch (\Exception $e) {
+            Debugger::log($e);
+            $this->orm->categories->getMapper()->rollback();
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function deleteCategory(Category $category)
+    {
+        try{
+            $this->orm->removeAndFlush($category);
+        } catch (\Exception $e) {
+            Debugger::log($e);
+            $this->orm->categories->getMapper()->rollback();
+            throw new \Exception($e->getMessage());
+        }
     }
 
 }

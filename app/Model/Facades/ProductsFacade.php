@@ -42,7 +42,7 @@ class ProductsFacade
 		}
 	}
 
-    public function getShowedProductsByCategory(?Category $category): ICollection|array
+    public function findShowedProductsByCategory(?Category $category): ICollection|array
     {
         return $this->orm->products->findBy(['category' => $category, 'showed' => true]);
     }
@@ -55,7 +55,7 @@ class ProductsFacade
 		return $this->orm->products->findBy(['deleted' => 0]);
 	}
 
-    public function getAllShowedProducts(): ICollection|array
+    public function findAllShowedProducts(): ICollection|array
     {
         return $this->orm->products->findBy(['showed' => true]);
     }

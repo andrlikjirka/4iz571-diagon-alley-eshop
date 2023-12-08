@@ -1,0 +1,11 @@
+{varType App\Model\Orm\Categories\Category $category}
+
+{block content}
+
+<h3>Úprava kategorie: {$category->name}</h3>
+
+<div class="row mt-4">
+    <div class="col-lg-10">
+        {control categoryEditForm}
+    </div>
+</div>
