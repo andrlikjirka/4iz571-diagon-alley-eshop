@@ -1,10 +1,10 @@
 <?php
 
-namespace App\AdminModule\Datagrids\CategoriesDataGrid;
+namespace App\AdminModule\DataGrids\CategoriesDataGrid;
 
 /**
  * Interface CategoriesDataGridControlFactory
- * @package App\AdminModule\Datagrids\CategoriesDataGrid
+ * @package App\AdminModule\DataGrids\CategoriesDataGrid
  * @author Jiří Andrlík
  */
 interface CategoriesDataGridControlFactory

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AdminModule\Datagrids\CategoriesDataGrid;
+namespace App\AdminModule\DataGrids\CategoriesDataGrid;
 
 use App\Model\Facades\CategoriesFacade;
 use App\Model\Orm\Categories\Category;
@@ -11,7 +11,7 @@ use Ublaboo\DataGrid\DataGrid;
 
 /**
  * Class CategoriesDataGridControl
- * @package App\AdminModule\Datagrids\CategoriesDataGrid
+ * @package App\AdminModule\DataGrids\CategoriesDataGrid
  * @author Jiří Andrlík
  * @property-read Template|stdClass $template
  */

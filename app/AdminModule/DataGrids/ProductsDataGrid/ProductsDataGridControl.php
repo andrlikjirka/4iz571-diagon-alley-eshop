@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\AdminModule\Datagrids\ProductsDatagrid;
+namespace App\AdminModule\DataGrids\ProductsDataGrid;
 
 
 use App\Model\Facades\ProductsFacade;
@@ -14,13 +14,13 @@ use Ublaboo\DataGrid\DataGrid;
 use Ublaboo\DataGrid\Exception\DataGridException;
 
 /**
- * Class ProductsDatagrid
- * @package App\AdminModule\Datagrids
+ * Class ProductsDataGrid
+ * @package App\AdminModule\DataGrids\ProductsDataGrid
  * @author Martin Kovalski
  *
  * @property-read Template|stdClass $template
  */
-class ProductsDatagridControl extends Control
+class ProductsDataGridControl extends Control
 {
 	public function __construct(
 		private readonly ProductsFacade $productsFacade
@@ -29,7 +29,7 @@ class ProductsDatagridControl extends Control
 	/**
 	 * @throws DataGridException
 	 */
-	public function createComponentDatagrid(): DataGrid
+	public function createComponentDataGrid(): DataGrid
 	{
 		$grid = new DataGrid();
 
@@ -63,6 +63,6 @@ class ProductsDatagridControl extends Control
 
 	public function render(): void
 	{
-		$this->template->render(__DIR__ . '/productsDatagrid.latte');
+		$this->template->render(__DIR__ . '/productsDataGrid.latte');
 	}
 }

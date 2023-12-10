@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\AdminModule\Presenters;
 
-use App\AdminModule\Datagrids\ProductsDatagrid\ProductsDatagridControl;
-use App\AdminModule\Datagrids\ProductsDatagrid\ProductsDatagridControlFactory;
+use App\AdminModule\DataGrids\ProductsDataGrid\ProductsDataGridControl;
+use App\AdminModule\DataGrids\ProductsDataGrid\ProductsDataGridControlFactory;
 use App\AdminModule\Forms\ProductsFormFactory;
-use Nette;
 use Nette\Application\UI\Form;
-use Ublaboo\DataGrid\DataGrid;
 
 
 /**
@@ -21,7 +19,7 @@ final class ProductsPresenter extends BasePresenter
 {
 	public function __construct(
 		private readonly ProductsFormFactory $productsFormFactory,
-		private readonly ProductsDatagridControlFactory $productsDatagridControlFactory
+		private readonly ProductsDataGridControlFactory $productsDataGridControlFactory
 	) {
 		parent::__construct();
 	}
@@ -50,8 +48,8 @@ final class ProductsPresenter extends BasePresenter
 		return $this->productsFormFactory->create($onSuccess, $onFailed);
 	}
 
-	protected function createComponentProductsDatagrid(): ProductsDatagridControl
+	protected function createComponentProductsDataGrid(): ProductsDatagridControl
 	{
-		return $this->productsDatagridControlFactory->create();
+		return $this->productsDataGridControlFactory->create();
 	}
 }
