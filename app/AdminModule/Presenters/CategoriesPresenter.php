@@ -2,11 +2,11 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\AdminModule\Datagrids\CategoriesDataGridFactory;
+use App\AdminModule\Datagrids\CategoriesDataGrid\CategoriesDataGridControl;
+use App\AdminModule\Datagrids\CategoriesDataGrid\CategoriesDataGridControlFactory;
 use App\AdminModule\Forms\CategoryEditFormFactory;
 use App\Model\Facades\CategoriesFacade;
 use Nette\Forms\Form;
-use Ublaboo\DataGrid\DataGrid;
 
 /**
  * Class CategoriesPresenter
@@ -17,9 +17,9 @@ final class CategoriesPresenter extends BasePresenter
 {
 
     public function __construct(
-        private readonly CategoriesFacade        $categoriesFacade,
-        private readonly CategoryEditFormFactory $categoryEditFormFactory,
-        private readonly CategoriesDataGridFactory $categoriesDataGridFactory
+        private readonly CategoriesFacade          $categoriesFacade,
+        private readonly CategoryEditFormFactory   $categoryEditFormFactory,
+        private readonly CategoriesDataGridControlFactory $categoriesDataGridControlFactory
     )
     {
         parent::__construct();
@@ -67,9 +67,9 @@ final class CategoriesPresenter extends BasePresenter
         $this->redirect('Categories:default');
     }
 
-    public function createComponentCategoriesDataGrid(): DataGrid
+    public function createComponentCategoriesDataGrid(): CategoriesDataGridControl
     {
-        return $this->categoriesDataGridFactory->create($this->presenter);
+        return $this->categoriesDataGridControlFactory->create();
     }
 
     public function createComponentCategoryEditForm(): Form

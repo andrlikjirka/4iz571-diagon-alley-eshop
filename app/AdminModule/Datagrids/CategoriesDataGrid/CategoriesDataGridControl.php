@@ -1,18 +1,21 @@
 <?php
 
-namespace App\AdminModule\Datagrids;
+namespace App\AdminModule\Datagrids\CategoriesDataGrid;
 
 use App\Model\Facades\CategoriesFacade;
 use App\Model\Orm\Categories\Category;
-use Nette\Application\UI\Presenter;
+use Nette\Application\UI\Control;
+use Nette\Bridges\ApplicationLatte\Template;
+use stdClass;
 use Ublaboo\DataGrid\DataGrid;
 
 /**
- * Class CategoriesDataGridFactory
- * @package App\AdminModule\Datagrids
+ * Class CategoriesDataGridControl
+ * @package App\AdminModule\Datagrids\CategoriesDataGrid
  * @author Jiří Andrlík
+ * @property-read Template|stdClass $template
  */
-class CategoriesDataGridFactory
+class CategoriesDataGridControl extends Control
 {
     public function __construct(
         private readonly CategoriesFacade $categoriesFacade
@@ -20,7 +23,7 @@ class CategoriesDataGridFactory
     {
     }
 
-    public function create(Presenter $presenter): DataGrid
+    public function createComponentDataGrid(): DataGrid
     {
         $grid = new DataGrid();
         $grid->setDataSource($this->categoriesFacade->findAllCategories());
@@ -54,19 +57,25 @@ class CategoriesDataGridFactory
         $grid->addActionCallback('edit', '')
             ->setIcon('pen-to-square')
             ->setClass('btn btn-xs btn-warning ms-1 me-1 mb-1')
-            ->onClick[] = function ($itemId) use ($presenter): void {
-            $presenter->redirect('Categories:edit', ['id' => $itemId]);
+            ->onClick[] = function ($itemId): void {
+            $this->presenter->redirect('Categories:edit', ['id' => $itemId]);
         };
 
         $grid->addActionCallback('delete', '')
             ->setIcon('trash')
             ->setClass('btn btn-xs btn-danger ms-1 me-1 mb-1')
-            ->onClick[] = function ($itemId) use ($presenter): void {
-            $presenter->redirect('Categories:delete', ['id' => $itemId]);
+            ->onClick[] = function ($itemId): void {
+            $this->presenter->redirect('Categories:delete', ['id' => $itemId]);
         };
 
         $grid->setItemsPerPageList([10, 20], false);
 
         return $grid;
     }
+
+    public function render(): void
+    {
+        $this->template->render(__DIR__.'/templates/categoriesDataGrid.latte');
+    }
+
 }
