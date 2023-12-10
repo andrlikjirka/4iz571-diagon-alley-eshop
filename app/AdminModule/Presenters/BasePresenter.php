@@ -33,6 +33,20 @@ abstract class BasePresenter extends Presenter
 
     private AdminNavbarControlFactory $adminNavbarControlFactory;
 
+    public function startup()
+    {
+        parent::startup();
+        $presenterName = $this->request->presenterName;
+        $action = !empty($this->request->parameters['action'])?$this->request->parameters['action']:'';
+        //TODO: Rozšířit o kontrolu autorizátoru isAllowed
+
+        if (!$this->user->isLoggedIn()) {
+            $this->flashMessage('Pro zobrazení požadovaného obsahu se musíte přihlásit!','warning');
+            //uložíme původní požadavek - předáme ho do persistentní proměnné v UserPresenteru
+            $this->redirect(':Public:Login:default', ['backlink' => $this->storeRequest()]);
+        }
+    }
+
     public function createComponentUserLogin()
     {
         return $this->userLoginControlFactory->create();
