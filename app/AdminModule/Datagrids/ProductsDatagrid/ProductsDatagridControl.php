@@ -36,13 +36,16 @@ class ProductsDatagridControl extends Control
 		$grid->setDataSource($this->productsFacade->findAllProducts());
 
 		$grid->addColumnNumber('id', 'ID produktu')
+			->setAlign('left')
 			->setSortable();
 
 		$grid->addColumnText('name', 'Název produktu')
 			->setSortable()
+			->setAlign('left')
 			->setFilterText();
 
 		$grid->addColumnNumber('price', 'Cena produktu')
+			->setAlign('left')
 			->setRenderer(function (Product $product): string {
 				return $product->galleonPrice . "G " . $product->sicklePrice . "S " . $product->knutPrice . "K";
 			});
