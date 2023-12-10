@@ -32,7 +32,7 @@ class ProductsPresenter extends BasePresenter
                 $this->redirect('this', ['categoryId' => null]);
             }
             $this->template->currentCategory = $category;
-            $products = $this->productsFacade->findShowedProductsByCategory($category);
+            $products = $this->productsFacade->findShowedProductsByCategoryRecursively($category); //produkty vy dané kategorii + produkty ve všech podřízených kategoriích
         } else {
             $products = $this->productsFacade->findAllShowedProducts();
         }

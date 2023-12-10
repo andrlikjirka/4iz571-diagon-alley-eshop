@@ -19,41 +19,57 @@ use Tracy\Debugger;
  */
 class ProductsFacade
 {
-	public function __construct(
-		private readonly Orm $orm
-	) {}
+    public function __construct(
+        private readonly Orm $orm
+    )
+    {
+    }
 
-	public function getProduct(int $id): Product
-	{
-		return $this->orm->products->getByIdChecked($id);
-	}
+    public function getProduct(int $id): Product
+    {
+        return $this->orm->products->getByIdChecked($id);
+    }
 
-	/**
-	 * @throws Exception
-	 */
-	public function saveProduct(Product $product): void
-	{
-		try {
-			$this->orm->products->persistAndFlush($product);
-		} catch (Exception $e) {
-			Debugger::log($e);
-			$this->orm->products->getMapper()->rollback();
-			throw new Exception('Produkt se nepodařilo uložit');
-		}
-	}
+    /**
+     * @throws Exception
+     */
+    public function saveProduct(Product $product): void
+    {
+        try {
+            $this->orm->products->persistAndFlush($product);
+        } catch (Exception $e) {
+            Debugger::log($e);
+            $this->orm->products->getMapper()->rollback();
+            throw new Exception('Produkt se nepodařilo uložit');
+        }
+    }
 
     public function findShowedProductsByCategory(?Category $category): ICollection|array
     {
         return $this->orm->products->findBy(['category' => $category, 'showed' => true]);
     }
 
-	/**
-	 * @return ICollection<Product>
-	 */
-	public function findAllProducts(): ICollection
-	{
-		return $this->orm->products->findBy(['deleted' => 0]);
-	}
+    public function findShowedProductsByCategoryRecursively(?Category $category): ICollection|array
+    {
+        $categoriesRecursively = array();
+        $stack = [$category];
+        while (!empty($stack)) {
+            $currentCategory = array_pop($stack);
+            $categoriesRecursively[] = $currentCategory;
+            foreach ($currentCategory->childrenShowed as $child) {
+                $stack[] = $child;
+            }
+        }
+        return $this->orm->products->findBy(['category' => $categoriesRecursively, 'showed' => true]);
+    }
+
+    /**
+     * @return ICollection<Product>
+     */
+    public function findAllProducts(): ICollection
+    {
+        return $this->orm->products->findBy(['deleted' => 0]);
+    }
 
     public function findAllShowedProducts(): ICollection|array
     {

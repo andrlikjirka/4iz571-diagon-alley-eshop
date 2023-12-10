@@ -26,9 +26,9 @@ class CategoriesFacade
         return $this->orm->categories->findAll();
     }
 
-    public function findShowedCategories(): ICollection|array
+    public function findShowedCategoryTopParents(): ICollection|array
     {
-        return $this->orm->categories->findBy(['showed' => true]);
+        return $this->orm->categories->findBy(['showed' => true, 'parent' => null]);
     }
 
     public function saveCategory(Category $category): void

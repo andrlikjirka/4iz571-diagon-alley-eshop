@@ -29,7 +29,7 @@ class NavbarControl extends Control
      */
     public function render($params = []): void
     {
-        $this->template->categories = $this->categoriesFacade->findShowedCategories();
+        $this->template->categories = $this->categoriesFacade->findShowedCategoryTopParents(); //jen rodiče na první úrovni, všechny jejich děti vypisuji při průchodu rodičů v šabloně
         $this->template->render(__DIR__ . '/templates/default.latte');
     }
 }
