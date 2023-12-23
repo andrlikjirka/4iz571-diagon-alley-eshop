@@ -38,18 +38,18 @@ class CategoriesFacade
         } catch (\Exception $e) {
             Debugger::log($e);
             $this->orm->categories->getMapper()->rollback();
-            throw new \Exception($e->getMessage());
+            throw new \Exception('Kategorii se nepodařilo uložit.');
         }
     }
 
-    public function deleteCategory(Category $category)
+    public function deleteCategory(Category $category): void
     {
         try{
             $this->orm->removeAndFlush($category);
         } catch (\Exception $e) {
             Debugger::log($e);
             $this->orm->categories->getMapper()->rollback();
-            throw new \Exception($e->getMessage());
+            throw new \Exception('Kategorii se nepodařilo smazat.');
         }
     }
 

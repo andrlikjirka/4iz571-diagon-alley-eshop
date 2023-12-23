@@ -13,7 +13,7 @@ use App\Model\Orm\Products\Product;
  * @property int $id {primary}
  * @property Cart $cart {m:1 Cart::$cartItems}
  * @property Product $product {m:1 Product, oneSided=true}
- * @property int $quantity {default 1}
+ * @property int $quantity {default 0}
  */
 class CartItem extends Entity
 {

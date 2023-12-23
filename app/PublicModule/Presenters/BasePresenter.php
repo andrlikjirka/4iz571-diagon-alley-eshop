@@ -6,6 +6,8 @@ namespace App\PublicModule\Presenters;
 
 use App\Components\UserLoginControl\UserLoginControl;
 use App\Components\UserLoginControl\UserLoginControlFactory;
+use App\PublicModule\Components\CartControl\CartControl;
+use App\PublicModule\Components\CartControl\CartControlFactory;
 use App\PublicModule\Components\NavbarControl\NavbarControl;
 use App\PublicModule\Components\NavbarControl\NavbarControlFactory;
 use Nette\Application\UI\Presenter;
@@ -37,6 +39,8 @@ abstract class BasePresenter extends Presenter
     /** @var NavbarControlFactory  */
     private NavbarControlFactory $navbarControlFactory;
 
+    private CartControlFactory $cartControlFactory;
+
     /**
      * Tovární metoda pro začlenění komponenty UserLoginControl
      * @return UserLoginControl
@@ -50,9 +54,14 @@ abstract class BasePresenter extends Presenter
      * Tovární metoda pro začlenění komponenty Navbar
      * @return NavbarControl
      */
-    public function createComponentNavbar(): NavbarControl
+    protected function createComponentNavbar(): NavbarControl
     {
         return $this->navbarControlFactory->create();
+    }
+
+    protected function createComponentCart(): CartControl
+    {
+        return $this->cartControlFactory->create();
     }
 
     #region injects
@@ -65,6 +74,12 @@ abstract class BasePresenter extends Presenter
     {
         $this->navbarControlFactory = $navbarControlFactory;
     }
+
+    public function injectCartControlFactory (CartControlFactory $cartControlFactory): void
+    {
+        $this->cartControlFactory = $cartControlFactory;
+    }
+
     #endregion injects
 
 }
