@@ -9,38 +9,52 @@
                 <div class="card-body py-3 px-4">
 
                     {form registrationForm}
-                        <div class="mb-2">
-                            {label name, class:'form-label small'/}
-                            {input name, class:'form-control'}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    {label name, class:'form-label small'/}
+                                    {input name, class:'form-control'}
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-2">
-                            {label email, class:'form-label small'/}
-                            {input email, class=>$form['email']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
-                            <div class="small text-danger">
-                                {inputError email}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    {label email, class:'form-label small'/}
+                                   {input email, class=>$form['email']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="small text-danger">
+                                    {inputError email}
+                                </div>
                             </div>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    {label password, class:'form-label small'/}
-                                    {input password, class=>$form['password']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
-                                    <div class="small text-danger">
-                                        {inputError password}
-                                    </div>
-                                </div>
+                                {label password, class:'form-label small'/}
+                                {input password, class=>$form['password']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
                             </div>
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    {label password2, class:'form-label small'/}
-                                    {input password2, class=>$form['password2']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
-                                    <div class="small text-danger">
-                                        {inputError password2}
-                                    </div>
+                                {label password2, class:'form-label small'/}
+                                {input password2, class=>$form['password2']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="small text-danger">
+                                    {inputError password}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="small text-danger">
+                                    {inputError password2}
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="mt-4">
                             {input register class:'btn btn-warning text-dark'}
                         </div>
                         <p class="mt-4 small">
