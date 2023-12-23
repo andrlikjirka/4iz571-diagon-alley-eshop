@@ -5,8 +5,14 @@
 
 <h3 class="mb-4">{if !empty($currentCategory)}{$currentCategory->name}{else}Všechny produkty{/if}</h3>
 
-<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
-    {foreach $products as $product}
-        {control productCard $product}
-    {/foreach}
-</div>
+{if count($products) == 0}
+    <div class="alert alert-warning py-2 mt-3" role="alert">
+        V této kategorii nejsou žádné produkty.
+    </div>
+{else}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+        {foreach $products as $product}
+            {control productCard $product}
+        {/foreach}
+    </div>
+{/if}
