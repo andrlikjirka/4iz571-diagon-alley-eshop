@@ -7,7 +7,7 @@
             <ul class="nav nav-pills fw-normal  flex-column">
                 {foreach $category->childrenShowed as $subcategory}
                     <li class="pb-0">
-                        <a href="{plink :Public:Products:default categoryId => $subcategory->id}" class="nav-link ms-2 pb-0 link-dark">{$subcategory->name}</a>
+                        <a href="{plink :Public:Products:default categoryId => $subcategory->id}" class="nav-link ms-2 pb-0 link-dark link-opacity-75-hover text-decoration-none">{$subcategory->name}</a>
                     </li>
                 {/foreach}
             </ul>
