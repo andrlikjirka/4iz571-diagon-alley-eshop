@@ -4,6 +4,8 @@ namespace App\PublicModule\Components\ProductCardControl;
 
 use App\Model\Facades\ProductsFacade;
 use App\Model\Orm\Products\Product;
+use App\PublicModule\Components\ProductPriceControl\ProductPriceControl;
+use App\PublicModule\Components\ProductPriceControl\ProductPriceControlFactory;
 use App\PublicModule\Forms\AddProductToCartFormFactory;
 use Nette\Application\UI\Control;
 use Nette\Forms\Form;
@@ -17,7 +19,7 @@ class ProductCardControl extends Control
 {
 
     public function __construct(
-        private readonly AddProductToCartFormFactory $addProductToCartFormFactory
+        private readonly AddProductToCartFormFactory $addProductToCartFormFactory,
     )
     {}
 

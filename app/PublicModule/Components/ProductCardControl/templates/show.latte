@@ -16,33 +16,38 @@
     </div>
     <div class="col-12 col-md-6">
         <div class="row">
-            <div class="col-12-mb-3">
+            <div class="col-12 mb-3">
                 <p>{$product->summary}</p>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-12">
-                <div class="{if $product->stock > 0}text-success{else}text-danger{/if} small fw-medium mb-2">
-                    Skladem {$product->stock} ks
-                </div>
             </div>
         </div>
         <div class="row align-items-center justify-content-start mb-3">
             <div class="col-6">
-                <div class="row g-2">
-                    <div class="col-3"><h6 class="text-end">{$product->galleonPrice}</h6></div>
-                    <div class="col-3"><h6>G</h6></div>
-                </div>
-                <div class="row g-2">
-                    <div class="col-3"><h6 class="text-end">{$product->sicklePrice}</h6></div>
-                    <div class="col-3"><h6>Sr</h6></div>
-                </div>
-                <div class="row g-2">
-                    <div class="col-3"><h6 class="text-end">{$product->knutPrice}</h6></div>
-                    <div class="col-3"><h6>Sv</h6></div>
-                </div>
+                {if $product->galleonPrice > 0}
+                    <div class="d-flex flex-row mb-2 align-items-center">
+                        <span class="text-end fw-medium fs-5">{$product->galleonPrice}</span>
+                        <img src="{$basePath . '/img/galleon.png'}" alt="" class="ms-2"
+                             style="width:35px; height: 35px">
+                    </div>
+                {/if}
+                        {if $product->sicklePrice > 0}
+                    <div class="d-flex flex-row mb-2 align-items-center">
+                        <span class="text-end fw-medium fs-5">{$product->sicklePrice}</span>
+                        <img src="{$basePath . '/img/sickle.png'}" alt="" class="ms-2"
+                             style="width:35px; height: 35px">
+                    </div>
+                {/if}
+                        {if $product->knutPrice > 0}
+                    <div class="d-flex flex-row mb-2 align-items-center">
+                        <span class="text-end fw-medium fs-5">{$product->knutPrice}</span>
+                        <img src="{$basePath . '/img/knut.png'}" alt="" class="ms-2"
+                             style="width:35px; height:35px">
+                    </div>
+                {/if}
             </div>
             <div class="col-6">
+                <div class="{if $product->stock > 0}text-success{else}text-danger{/if} small fw-medium mb-2">
+                    Skladem {$product->stock} ks
+                </div>
             </div>
         </div>
         <div class="d-flex justify-content-end">
@@ -65,37 +70,40 @@
 
 <div class="row mb-5">
     <div class="col-12">
-        <h5>Popis produktu</h5>
-        <p>
-            {$product->description}
-        </p>
-    </div>
-</div>
-
-<div class="row mb-3">
-    <div class="col-8">
-        <h5>Recenze</h5>
-
-        {foreach $product->reviews as $review}
-            <div class="card mb-2">
-                <div class="card-body">
-                    <div class="small">
-                        Hodnocení: {$review->stars}
-                    </div>
-                    <div class="small">
-                        Autor recenze:
-                        {if $review->user}
-                            <span class="text-secondary">{$review->user->name}</span>
-                        {else}
-                            <span class="text-secondary">Anonym</span>
-                        {/if}
-                    </div>
-                    <p class="card-text">{$review->text}</p>
-                </div>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active text-dark" id="nav-description-tab" data-bs-toggle="tab" data-bs-target="#nav-description" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Popis produktu</button>
+                <button class="nav-link text-dark" id="nav-reviews-tab" data-bs-toggle="tab" data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Recenze</button>
             </div>
-        {else}
-            <p>Žádné recenze</p>
-        {/foreach}
-
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active pt-4" id="nav-description" role="tabpanel" aria-labelledby="nav-description" tabindex="0">
+                <p>
+                    {$product->description}
+                </p>
+            </div>
+            <div class="tab-pane fade pt-4" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews" tabindex="0">
+                {foreach $product->reviews as $review}
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="small">
+                                Hodnocení: {$review->stars}
+                            </div>
+                            <div class="small">
+                                Autor recenze:
+                                {if $review->user}
+                                    <span class="text-secondary">{$review->user->name}</span>
+                                {else}
+                                    <span class="text-secondary">Anonym</span>
+                                {/if}
+                            </div>
+                            <p class="card-text">{$review->text}</p>
+                        </div>
+                    </div>
+                {else}
+                    <p>Žádné recenze</p>
+                {/foreach}
+            </div>
+        </div>
     </div>
 </div>

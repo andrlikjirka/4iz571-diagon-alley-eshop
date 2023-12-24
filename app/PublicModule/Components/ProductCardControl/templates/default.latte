@@ -18,7 +18,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <a href="{plink :Public:Products:show productId => $product->id}" class="text-decoration-none text-dark">
+                        <a href="{plink :Public:Products:show productId => $product->id}"
+                           class="text-decoration-none text-dark">
                             <h5 class="card-title">{$product->name}</h5>
                         </a>
                     </div>
@@ -26,25 +27,36 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                         </div>
+                    </div>
                 </div>
                 <div class="row justify-content-between align-items-center">
                     <div class="col-6">
-                        <div class="row g-2">
-                            <div class="col-3"><h6 class="text-end">{$product->galleonPrice}</h6></div>
-                            <div class="col-3"><h6>G</h6></div>
-                        </div>
-                        <div class="row g-2">
-                            <div class="col-3"><h6 class="text-end">{$product->sicklePrice}</h6></div>
-                            <div class="col-3"><h6>Sr</h6></div>
-                        </div>
-                        <div class="row g-2">
-                            <div class="col-3"><h6 class="text-end">{$product->knutPrice}</h6></div>
-                            <div class="col-3"><h6>Sv</h6></div>
-                        </div>
+                        {if $product->galleonPrice > 0}
+                            <div class="d-flex flex-row mb-1 align-items-center">
+                                <span class="text-end fw-medium">{$product->galleonPrice}</span>
+                                <img src="{$basePath . '/img/galleon.png'}" alt="" class="ms-2"
+                                     style="width:25px; height: 25px">
+                            </div>
+                        {/if}
+                        {if $product->sicklePrice > 0}
+                            <div class="d-flex flex-row mb-1 align-items-center">
+                                <span class="text-end fw-medium">{$product->sicklePrice}</span>
+                                <img src="{$basePath . '/img/sickle.png'}" alt="" class="ms-2"
+                                     style="width:25px; height: 25px">
+                            </div>
+                        {/if}
+                        {if $product->knutPrice > 0}
+                            <div class="d-flex flex-row mb-1 align-items-center">
+                                <span class="text-end fw-medium">{$product->knutPrice}</span>
+                                <img src="{$basePath . '/img/knut.png'}" alt="" class="ms-2"
+                                     style="width:25px; height: 25px">
+                            </div>
+                        {/if}
                     </div>
                     <div class="col-6 text-center">
-                        <div class="{if $product->stock>0}text-success{else}text-danger{/if} small fw-medium mb-2">Skladem {$product->stock} ks</div>
+                        <div class="{if $product->stock > 0}text-success{else}text-danger{/if} small fw-medium mb-2">
+                            Skladem {$product->stock} ks
+                        </div>
 
                     </div>
                 </div>
