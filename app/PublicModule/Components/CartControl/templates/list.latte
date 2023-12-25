@@ -53,9 +53,27 @@
                         <p class="fw-medium small">Celková cena</p>
                     </div>
                     <div class="col-3">
-                        <h6>{$cart->totalPrice['galleon']} G</h6>
-                        <h6>{$cart->totalPrice['sickle']} Sr</h6>
-                        <h6>{$cart->totalPrice['knut']} Sv</h6>
+                        {if $cartItem->product->galleonPrice > 0}
+                            <div class="d-flex flex-row mb-1 align-items-center">
+                                <span class="text-end fw-medium">{$cart->totalPrice['galleon']}</span>
+                                <img src="{$basePath . '/img/galleon.png'}" alt="" class="ms-2"
+                                     style="width:25px; height: 25px">
+                            </div>
+                        {/if}
+                        {if $cartItem->product->sicklePrice > 0}
+                            <div class="d-flex flex-row mb-1 align-items-center">
+                                <span class="text-end fw-medium">{$cart->totalPrice['sickle']}</span>
+                                <img src="{$basePath . '/img/sickle.png'}" alt="" class="ms-2"
+                                     style="width:25px; height: 25px">
+                            </div>
+                        {/if}
+                        {if $cartItem->product->knutPrice > 0}
+                            <div class="d-flex flex-row mb-1 align-items-center">
+                                <span class="text-end fw-medium">{$cart->totalPrice['knut']}</span>
+                                <img src="{$basePath . '/img/knut.png'}" alt="" class="ms-2"
+                                     style="width:25px; height: 25px">
+                            </div>
+                        {/if}
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
