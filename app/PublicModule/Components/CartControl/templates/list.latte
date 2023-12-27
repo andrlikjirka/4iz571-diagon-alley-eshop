@@ -4,40 +4,7 @@
     <div class="row g-5">
         <div class="col-12 col-lg-7">
             {foreach $cart->cartItems as $cartItem}
-                <div class="row border-bottom align-items-center py-2">
-                    <div class="col-6">
-                        <a href="{plink :Public:Products:show productId => $cartItem->product->id}" class="fw-medium fs-5 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a>
-                    </div>
-                    <div class="col-2">
-                        <span class="mx-1">{$cartItem->quantity} ks</span>
-                    </div>
-                    <div class="col-2 me-4">
-                        {if $cartItem->product->galleonPrice > 0}
-                            <div class="d-flex flex-row mb-1 align-items-center">
-                                <span class="text-end fw-medium">{$cartItem->product->galleonPrice}</span>
-                                <img src="{$basePath . '/img/galleon.png'}" alt="" class="ms-2"
-                                     style="width:25px; height: 25px">
-                            </div>
-                        {/if}
-                        {if $cartItem->product->sicklePrice > 0}
-                            <div class="d-flex flex-row mb-1 align-items-center">
-                                <span class="text-end fw-medium">{$cartItem->product->sicklePrice}</span>
-                                <img src="{$basePath . '/img/sickle.png'}" alt="" class="ms-2"
-                                     style="width:25px; height: 25px">
-                            </div>
-                        {/if}
-                        {if $cartItem->product->knutPrice > 0}
-                            <div class="d-flex flex-row mb-1 align-items-center">
-                                <span class="text-end fw-medium">{$cartItem->product->knutPrice}</span>
-                                <img src="{$basePath . '/img/knut.png'}" alt="" class="ms-2"
-                                     style="width:25px; height: 25px">
-                            </div>
-                        {/if}
-                    </div>
-                    <div class="col-1">
-                        <a href="{link removeCartItem! $cartItem->id}" class="small link-danger link-opacity-75-hover text-decoration-none">Odebrat</a>
-                    </div>
-                </div>
+                {control cartItem $cartItem}
             {/foreach}
 
             <div class="mt-4">

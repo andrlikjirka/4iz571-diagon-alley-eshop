@@ -22,7 +22,7 @@ class CartFacade
     {
     }
 
-    public function getCartById(int $cartId): Cart|null
+    public function getCartById(int $cartId): IEntity
     {
         return $this->orm->carts->getById($cartId);
     }
@@ -50,7 +50,7 @@ class CartFacade
         }
     }
 
-    public function getCartByUser(int $userId): Cart
+    public function getCartByUser(int $userId): IEntity
     {
         return $this->orm->carts->getByChecked(['user' => $userId]);
     }
@@ -121,9 +121,19 @@ class CartFacade
         }
     }
 
-    public function getCartItem(int $cartItemId): CartItem
+    public function getCartItem(int $cartItemId): IEntity|CartItem
     {
         return $this->orm->cartItems->getByIdChecked($cartItemId);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function updateCartItem(int $cartItemId, int $quantity): void
+    {
+        $cartItem = $this->getCartItem($cartItemId);
+        $cartItem->quantity = $quantity;
+        $this->saveCartItem($cartItem);
     }
 
     public function emptyCart(Cart $cart)

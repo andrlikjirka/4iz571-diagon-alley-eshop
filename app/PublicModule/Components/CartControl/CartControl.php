@@ -8,6 +8,8 @@ use App\Model\Facades\UsersFacade;
 use App\Model\Orm\CartItems\CartItem;
 use App\Model\Orm\Carts\Cart;
 use App\Model\Orm\Products\Product;
+use App\PublicModule\Components\CartItemControl\CartItemControl;
+use App\PublicModule\Components\CartItemControl\CartItemControlFactory;
 use Nette\Application\UI\Control;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Http\Session;
@@ -27,7 +29,8 @@ class CartControl extends Control
         private readonly User        $user,
         private readonly CartFacade  $cartFacade,
         private readonly UsersFacade $usersFacade,
-        Session                      $session
+        Session                      $session,
+        private readonly CartItemControlFactory $cartItemControlFactory
     )
     {
         $this->cartSession = $session->getSection('cart');
@@ -104,15 +107,6 @@ class CartControl extends Control
         $this->cartFacade->deleteOldCarts();
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function handleRemoveCartItem(int $cartItemId): void
-    {
-        $this->cartFacade->removeCartItem($this->cartFacade->getCartItem($cartItemId));
-        $this->redirect('this');
-    }
-
     public function handleEmptyCart(): void
     {
         $this->cartFacade->emptyCart($this->cart);
@@ -138,4 +132,9 @@ class CartControl extends Control
         $this->template->render(__DIR__ . '/templates/list.latte');
     }
 
+
+    public function createComponentCartItem(): CartItemControl
+    {
+        return $this->cartItemControlFactory->create();
+    }
 }
