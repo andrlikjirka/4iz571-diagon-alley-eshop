@@ -8,6 +8,7 @@ use App\Model\Orm\Orm;
 use Couchbase\DateRangeSearchFacet;
 use Nette\Security\User;
 use Nextras\Orm\Collection\ICollection;
+use Nextras\Orm\Entity\Entity;
 use Nextras\Orm\Entity\IEntity;
 use Nextras\Orm\Exception\InvalidStateException;
 use Tracy\Debugger;
@@ -22,7 +23,7 @@ class CartFacade
     {
     }
 
-    public function getCartById(int $cartId): IEntity
+    public function getCartById(int $cartId): IEntity|Cart
     {
         return $this->orm->carts->getById($cartId);
     }

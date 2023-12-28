@@ -7,6 +7,7 @@ use App\Model\Orm\CartItems\CartItem;
 use App\PublicModule\Forms\UpdateCartItemQuantityFormFactory;
 use Nette\Application\UI\Control;
 use Nette\Forms\Form;
+use Nette\Tokenizer\Exception;
 
 class CartItemControl extends Control
 {
@@ -21,8 +22,14 @@ class CartItemControl extends Control
      */
     public function handleRemoveCartItem(int $cartItemId): void
     {
-        $this->cartFacade->removeCartItem($this->cartFacade->getCartItem($cartItemId));
-        $this->redirect('this');
+        try {
+            $this->cartFacade->removeCartItem($this->cartFacade->getCartItem($cartItemId));
+        } catch (Exception $e) {
+            $this->presenter->flashMessage('Produkt se nepodařilo odebrat z košíku.', 'danger');
+            $this->presenter->redirect('this');
+        }
+        $this->presenter->flashMessage('Produkt byl odebrán z košíku.', 'success');
+        $this->presenter->redirect('this');
     }
 
     public function render(CartItem $cartItem): void

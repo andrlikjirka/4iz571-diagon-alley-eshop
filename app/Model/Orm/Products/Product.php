@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Model\Orm\Products;
 
+use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Entity\Entity;
 use App\Model\Orm\Categories\Category;
 use App\Model\Orm\ProductPhotos\ProductPhoto;
 use App\Model\Orm\Reviews\Review;
 use Nextras\Dbal\Utils\DateTimeImmutable;
+use Nextras\Orm\Relationships\OneHasMany;
 
 
 /**
@@ -23,11 +25,32 @@ use Nextras\Dbal\Utils\DateTimeImmutable;
  * @property bool $showed {default 0}
  * @property bool $deleted {default 0}
  * @property ProductPhoto[] $productPhotos {1:m ProductPhoto::$product}
- * @property Review[] $reviews {1:m Review::$product}
+ * @property-read ICollection|Review[] $reviewsOrderedByDate {virtual}
+ * @property OneHasMany|Review[] $reviews {1:m Review::$product}
  * @property int $galleonPrice {default 0}
  * @property int $sicklePrice {default 0}
  * @property int $knutPrice {default 0}
+ *
+ * @property-read double $avgStars {virtual}
  */
 class Product extends Entity
 {
+    public function getterReviewsOrderedByDate()
+    {
+        return $this->reviews->toCollection()->orderBy('added', 'DESC');
+    }
+
+    public function getterAvgStars(): float
+    {
+        if (count($this->reviews) > 0) {
+            $sum = 0;
+            foreach ($this->reviews as $review) {
+                $sum += $review->stars;
+            }
+            return round($sum / count($this->reviews), 1);
+        }
+        return 0.0;
+    }
+
+
 }

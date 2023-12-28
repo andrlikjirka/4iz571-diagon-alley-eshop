@@ -4,9 +4,8 @@ namespace App\PublicModule\Components\ProductCardControl;
 
 use App\Model\Facades\ProductsFacade;
 use App\Model\Orm\Products\Product;
-use App\PublicModule\Components\ProductPriceControl\ProductPriceControl;
-use App\PublicModule\Components\ProductPriceControl\ProductPriceControlFactory;
 use App\PublicModule\Forms\AddProductToCartFormFactory;
+use App\PublicModule\Forms\AddReviewFormFactory;
 use Nette\Application\UI\Control;
 use Nette\Forms\Form;
 
@@ -20,6 +19,7 @@ class ProductCardControl extends Control
 
     public function __construct(
         private readonly AddProductToCartFormFactory $addProductToCartFormFactory,
+        private readonly AddReviewFormFactory $addReviewFormFactory
     )
     {}
 
@@ -47,8 +47,11 @@ class ProductCardControl extends Control
     {
         $this->template->product = $product;
 
-        $form = $this->getComponent('addProductToCartForm');
-        $form->setDefaults(['productId' => $product->id]);
+        $addProductToCartForm = $this->getComponent('addProductToCartForm');
+        $addProductToCartForm->setDefaults(['productId' => $product->id]);
+
+        $addReviewForm = $this->getComponent('addReviewForm');
+        $addReviewForm->setDefaults(['productId' => $product->id]);
 
         $this->template->render(__DIR__ . '/templates/show.latte');
     }
@@ -61,11 +64,26 @@ class ProductCardControl extends Control
         };
 
         $onFailure = function (string $message) {
-            $this->presenter->flashMessage($message, 'success');
+            $this->presenter->flashMessage($message, 'danger');
             $this->presenter->redirect('this');
         };
 
         return $this->addProductToCartFormFactory->create($onSuccess, $onFailure);
+    }
+
+    public function createComponentAddReviewForm(): Form
+    {
+        $onSuccess = function (string $message) {
+          $this->presenter->flashMessage($message, 'success');
+          $this->presenter->redirect('this');
+        };
+
+        $onFailure = function (string $message) {
+            $this->presenter->flashMessage($message, 'danger');
+            $this->presenter->redirect('this');
+        };
+
+        return $this->addReviewFormFactory->create($onSuccess, $onFailure);
     }
 
 }

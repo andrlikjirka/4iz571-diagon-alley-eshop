@@ -27,7 +27,7 @@ class AddProductToCartFormFactory
     {
         $form = $this->formFactory->create();
 
-        $form->addHidden('productId', 'Produkt')
+        $form->addHidden('productId')
             ->setRequired();
 
         $form->addInteger('quantity', '')

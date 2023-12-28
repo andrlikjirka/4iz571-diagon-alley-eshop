@@ -72,37 +72,112 @@
     <div class="col-12">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active text-dark" id="nav-description-tab" data-bs-toggle="tab" data-bs-target="#nav-description" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Popis produktu</button>
-                <button class="nav-link text-dark" id="nav-reviews-tab" data-bs-toggle="tab" data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Recenze</button>
+                <button class="nav-link active text-dark" id="nav-description-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-description" type="button" role="tab" aria-controls="nav-home"
+                        aria-selected="true">Popis produktu
+                </button>
+                <button class="nav-link text-dark" id="nav-reviews-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-profile"
+                        aria-selected="false">Recenze
+                </button>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active pt-4" id="nav-description" role="tabpanel" aria-labelledby="nav-description" tabindex="0">
+            <div class="tab-pane fade show active pt-4 px-3" id="nav-description" role="tabpanel"
+                 aria-labelledby="nav-description" tabindex="0">
                 <p>
                     {$product->description}
                 </p>
             </div>
-            <div class="tab-pane fade pt-4" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews" tabindex="0">
-                {foreach $product->reviews as $review}
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <div class="small">
-                                Hodnocení: {$review->stars}
+            <div class="tab-pane fade pt-4 px-3" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews" tabindex="0">
+                <div class="mb-4">
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="d-flex flex-column me-5 justify-content-center">
+                            <div class="d-flex flex-row align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-star-fill text-warning mb-2 me-2" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <div class="fs-2 text-center mb-2">{$product->avgStars}</div>
                             </div>
-                            <div class="small">
-                                Autor recenze:
-                                {if $review->user}
-                                    <span class="text-secondary">{$review->user->name}</span>
-                                {else}
-                                    <span class="text-secondary">Anonym</span>
-                                {/if}
-                            </div>
-                            <p class="card-text">{$review->text}</p>
+                            <div class="small text-center">Počet recenzí: <span>{count($product->reviews)}</span></div>
+                        </div>
+                        <div class="ms-3">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-pencil-fill me-2" viewBox="0 0 16 16">
+                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                </svg>
+                                Napsat recenzi
+                            </button>
                         </div>
                     </div>
+                </div>
+                <hr>
+
+                {foreach $product->reviewsOrderedByDate as $review}
+                    <div class="py-2">
+                        <div class="mb-2">
+                            {if $review->user}
+                                <span class="fw-medium">{$review->user->name}</span>
+                            {else}
+                                <span class="fw-medium">Zákazník</span>
+                            {/if}
+                        </div>
+                        <div class="small mb-3">
+                            <span class="text-secondary">Hodnoceno dne: {$review->added|date:'d.m.Y'}</span>
+                        </div>
+                        <div class="d-flex flex-row mb-3">
+                            {for $i = 0; $i < $review->stars; $i++}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                     class="bi bi-star-fill text-warning me-1" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            {/for}
+                            {for $i = 0; $i < 5-$review->stars; $i++}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-star text-secondary me-1" viewBox="0 0 16 16">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            {/for}
+                        </div>
+                        <div>{$review->text}</div>
+                    </div>
+                    <hr>
                 {else}
                     <p>Žádné recenze</p>
                 {/foreach}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Ohodnoťte produkt
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-star-fill text-warning ms-1 mb-1" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {form addReviewForm}
+                    <div class="mb-3">
+                        {label stars, class: 'form-label small'/}
+                        {input stars, class: 'form-control'}
+                    </div>
+                    <div class="mb-3">
+                        {label text, class: 'form-label small'/}
+                        {input text, class: 'form-control'}
+                    </div>
+                    <div class="">
+                        {input submit, class:'btn btn-warning text-dark'}
+                    </div>
+                {/form}
             </div>
         </div>
     </div>

@@ -8,8 +8,10 @@ namespace App\Model\Facades;
 use App\Model\Orm\Categories\Category;
 use App\Model\Orm\Orm;
 use App\Model\Orm\Products\Product;
+use App\Model\Orm\Reviews\Review;
 use Exception;
 use Nextras\Orm\Collection\ICollection;
+use Nextras\Orm\Entity\IEntity;
 use Tracy\Debugger;
 
 /**
@@ -25,7 +27,7 @@ class ProductsFacade
     {
     }
 
-    public function getProduct(int $id): Product
+    public function getProduct(int $id): IEntity|Product
     {
         return $this->orm->products->getByIdChecked($id);
     }

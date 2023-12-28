@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Orm\Reviews;
 
+use Nextras\Dbal\Utils\DateTimeImmutable;
 use Nextras\Orm\Entity\Entity;
 use App\Model\Orm\Products\Product;
 use App\Model\Orm\Users\User;
@@ -15,6 +16,7 @@ use App\Model\Orm\Users\User;
  * @property int $stars
  * @property ?User $user {m:1 User::$reviews}
  * @property Product $product {m:1 Product::$reviews}
+ * @property DateTimeImmutable $added {default now}
  */
 class Review extends Entity
 {
