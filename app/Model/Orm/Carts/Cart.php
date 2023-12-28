@@ -37,6 +37,13 @@ class Cart extends Entity
             $totalPrice['sickle'] += $cartItem->quantity * $cartItem->product->sicklePrice;
             $totalPrice['knut'] += $cartItem->quantity * $cartItem->product->knutPrice;
         }
+
+        $totalPrice['sickle'] += floor($totalPrice['knut'] / 29);
+        $totalPrice['knut'] = $totalPrice['knut'] % 29;
+
+        $totalPrice['galleon'] += floor($totalPrice['sickle'] / 17);
+        $totalPrice['sickle'] = $totalPrice['sickle'] % 17;
+
         return $totalPrice;
     }
 
