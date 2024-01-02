@@ -2,27 +2,28 @@
 
 <div class="row border-bottom align-items-center py-2">
     <div class="col-5">
-        <a href="{plink :Public:Products:show productId => $cartItem->product->id}" class="fw-medium fs-5 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a>
+        <img src="{$basePath.'/img/product.png'}" alt="" class="img-fluid w-25 me-2">
+        <a href="{plink :Public:Products:show productId => $cartItem->product->id}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a>
     </div>
     <div class="col-2 me-4">
         {if $cartItem->product->galleonPrice > 0}
             <div class="d-flex flex-row mb-1 align-items-center">
                 <span class="text-end fw-medium">{$cartItem->product->galleonPrice}</span>
-                <img src="{$basePath . '/img/galleon.png'}" alt="" class="ms-2"
+                <img src="{$basePath . '/img/galleon.png'}" alt="galeony" title="galeony" class="ms-2"
                      style="width:25px; height: 25px">
             </div>
         {/if}
         {if $cartItem->product->sicklePrice > 0}
             <div class="d-flex flex-row mb-1 align-items-center">
                 <span class="text-end fw-medium">{$cartItem->product->sicklePrice}</span>
-                <img src="{$basePath . '/img/sickle.png'}" alt="" class="ms-2"
+                <img src="{$basePath . '/img/sickle.png'}" alt="srpce" title="srpce" class="ms-2"
                      style="width:25px; height: 25px">
             </div>
         {/if}
         {if $cartItem->product->knutPrice > 0}
             <div class="d-flex flex-row mb-1 align-items-center">
                 <span class="text-end fw-medium">{$cartItem->product->knutPrice}</span>
-                <img src="{$basePath . '/img/knut.png'}" alt="" class="ms-2"
+                <img src="{$basePath . '/img/knut.png'}" alt="svrčky" title="svrčky" class="ms-2"
                      style="width:25px; height: 25px">
             </div>
         {/if}

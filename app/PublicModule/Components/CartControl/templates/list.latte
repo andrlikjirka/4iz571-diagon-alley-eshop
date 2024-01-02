@@ -13,38 +13,38 @@
         </div>
 
         <div class="col-12 col-lg-5">
-            <div class="border bg-light bg-gradient rounded-3 p-4">
+            <div class="border bg-light bg-gradient rounded-3 p-5">
                 <h4 class="">Souhrn</h4>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <p class="fw-medium small">Celková cena</p>
+                <div class="d-flex justify-content-between my-4">
+                    <div class="">
+                        <p class="fw-medium">Celková cena</p>
                     </div>
-                    <div class="col-3">
+                    <div class="">
                         {if $cart->totalPrice['galleon'] > 0}
                             <div class="d-flex flex-row mb-1 align-items-center">
                                 <span class="text-end fw-medium">{$cart->totalPrice['galleon']}</span>
-                                <img src="{$basePath . '/img/galleon.png'}" alt="" class="ms-2"
+                                <img src="{$basePath . '/img/galleon.png'}" alt="galeony" title="galeony" class="ms-2"
                                      style="width:25px; height: 25px">
                             </div>
                         {/if}
                         {if $cart->totalPrice['sickle'] > 0}
                             <div class="d-flex flex-row mb-1 align-items-center">
                                 <span class="text-end fw-medium">{$cart->totalPrice['sickle']}</span>
-                                <img src="{$basePath . '/img/sickle.png'}" alt="" class="ms-2"
+                                <img src="{$basePath . '/img/sickle.png'}" alt="srpce" title="srpce" class="ms-2"
                                      style="width:25px; height: 25px">
                             </div>
                         {/if}
                         {if $cart->totalPrice['knut'] > 0}
                             <div class="d-flex flex-row mb-1 align-items-center">
                                 <span class="text-end fw-medium">{$cart->totalPrice['knut']}</span>
-                                <img src="{$basePath . '/img/knut.png'}" alt="" class="ms-2"
+                                <img src="{$basePath . '/img/knut.png'}" alt="svrčky" title="svrčky" class="ms-2"
                                      style="width:25px; height: 25px">
                             </div>
                         {/if}
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
-                    <button class="btn btn-warning fw-medium" style="width:100%">K objednávce</button>
+                    <a class="btn btn-warning fw-medium" style="width:100%" href="{plink ':Public:Order:create'}">K objednávce</a>
                 </div>
             </div>
         </div>

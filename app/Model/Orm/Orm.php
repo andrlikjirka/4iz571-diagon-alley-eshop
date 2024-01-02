@@ -12,6 +12,7 @@ use App\Model\Orm\FavouriteProducts\FavouriteProductsRepository;
 use App\Model\Orm\ForgottenPasswords\ForgottenPasswordsRepository;
 use App\Model\Orm\OrderItems\OrderItemsRepository;
 use App\Model\Orm\Orders\OrdersRepository;
+use App\Model\Orm\OrderStatus\OrderStatusRepository;
 use App\Model\Orm\Permissions\PermissionsRepository;
 use App\Model\Orm\ProductPhotos\ProductPhotosRepository;
 use App\Model\Orm\Products\ProductsRepository;
@@ -31,6 +32,7 @@ use Nextras\Orm\Model\Model;
  * @property-read ForgottenPasswordsRepository $forgottenPasswords
  * @property-read OrderItemsRepository $orderItems
  * @property-read OrdersRepository $orders
+ * @property-read OrderStatusRepository $orderStatus
  * @property-read PermissionsRepository $permissions
  * @property-read ProductPhotosRepository $productPhotos
  * @property-read ProductsRepository $products

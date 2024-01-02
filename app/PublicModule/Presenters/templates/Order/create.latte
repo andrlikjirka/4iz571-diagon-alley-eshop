@@ -1,0 +1,167 @@
+{varType App\Model\Orm\Carts\Cart $cart}
+
+{block content}
+
+<h3 class="mb-4">Objednávka</h3>
+
+<div class="row g-5">
+    <div class="col-12 col-lg-7">
+        {form createOrderForm}
+            <div class="card mb-4">
+                <div class="card-header small">
+                    Doručovací adresa
+                </div>
+                <div class="card-body">
+                    <div class="row row-cols-1 row-cols-md-2 g-2">
+                        {foreach $form['addresses']->items as $key => $label}
+                            <div class="col">
+                                <div class="card m-2">
+                                    <div class="card-body">
+                                        <div class="form-check">
+                                            <label n:name="addresses:$key" class="form-check-label">
+                                                <input n:name="addresses:$key" type="radio" class="form-check-input"}
+                                                                               onchange="showAddress(this)">
+                                                <div class="ms-2">
+                                                    {$label|breakLines}
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {/foreach}
+                    </div>
+
+                    <div id="newAddress" style="display: none" class="px-2 my-2">
+                        {label name, class: 'form-label small'/}
+                        {input name, class:'form-control'}
+
+                        {label street, class: 'form-label small'/}
+                        {input street, class:'form-control'}
+
+                        {label city, class: 'form-label small'/}
+                        {input city, class:'form-control'}
+
+                        {label zip, class: 'form-label small'/}
+                        {input zip, class=>$form['zip']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
+                        <div class="small text-danger">
+                            {inputError zip}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header small">
+                    Způsob doručení
+                </div>
+                <div class="card-body">
+                    {foreach $form['shipping']->items as $key => $label}
+                        <div class="form-check">
+                            <label n:name="shipping:$key" class="form-check-label">
+                                <input n:name="shipping:$key" type="radio" class="form-check-input">
+                                <div class="ms-2 mb-1">
+                                    {$label}
+                                </div>
+                            </label>
+                        </div>
+                    {/foreach}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header small">
+                    Způsob platby
+                </div>
+                <div class="card-body">
+                    {foreach $form['payment']-> items as $key => $label}
+                        <div class="form-check">
+                            <label n:name="payment:$key" class="form-check-label">
+                                <input n:name="payment:$key" type="radio" class="form-check-input">
+                                <div class="ms-2 mb-1">
+                                    {$label}
+                                </div>
+                            </label>
+                        </div>
+                    {/foreach}
+                </div>
+            </div>
+
+        {/form}
+    </div>
+
+    <div class="col-12 col-lg-5">
+        <div class="border bg-light bg-gradient rounded-3 p-5 ">
+            <h4 class="">Souhrn objednávky</h4>
+            <div class="row mt-4">
+                <div class="col-12">
+                    {foreach $cart->cartItems as $cartItem}
+                        <div class="d-flex justify-content-between mb-2">
+                            <div><a href="{plink :Public:Products:show productId => $cartItem->product->id}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a></div>
+                            <div>{$cartItem->quantity} ks</div>
+                        </div>
+                    {/foreach}
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="d-flex justify-content-between">
+                <div class="">
+                    <p class="fw-medium">Celková cena</p>
+                </div>
+                <div class="">
+                    {if $cart->totalPrice['galleon'] > 0}
+                        <div class="d-flex flex-row mb-1 align-items-center">
+                            <span class="text-end fw-medium">{$cart->totalPrice['galleon']}</span>
+                            <img src="{$basePath . '/img/galleon.png'}" alt="" class="ms-2"
+                                 style="width:25px; height: 25px">
+                        </div>
+                    {/if}
+                        {if $cart->totalPrice['sickle'] > 0}
+                        <div class="d-flex flex-row mb-1 align-items-center">
+                            <span class="text-end fw-medium">{$cart->totalPrice['sickle']}</span>
+                            <img src="{$basePath . '/img/sickle.png'}" alt="" class="ms-2"
+                                 style="width:25px; height: 25px">
+                        </div>
+                    {/if}
+                        {if $cart->totalPrice['knut'] > 0}
+                        <div class="d-flex flex-row mb-1 align-items-center">
+                            <span class="text-end fw-medium">{$cart->totalPrice['knut']}</span>
+                            <img src="{$basePath . '/img/knut.png'}" alt="" class="ms-2"
+                                 style="width:25px; height: 25px">
+                        </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <input type="submit" form="frm-createOrderForm" value="Odeslat objednávku" class="btn btn-warning fw-medium w-100">
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block scripts}
+    <script>
+        function showAddress(radio) {
+            // Get the hidden div
+            var newAddress = document.getElementById('newAddress');
+            // Check if the selected radio has a value of -1
+            if (radio.value === '-1' && radio.checked) {
+                // Display the hidden div
+                newAddress.style.display = 'block';
+                newAddress.querySelectorAll('input').forEach(function (input) {
+                    input.required = true;
+                });
+            } else {
+                // Hide the hidden div
+                newAddress.style.display = 'none';
+                newAddress.querySelectorAll('input').forEach(function (input) {
+                    input.required = false;
+                });
+            }
+        }
+
+        showAddress(document.getElementById('frm-createOrderForm-addresses--1'));
+    </script>
+{/block}

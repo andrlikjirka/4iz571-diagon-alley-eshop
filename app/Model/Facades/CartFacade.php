@@ -145,5 +145,14 @@ class CartFacade
         $this->orm->cartItems->flush();
     }
 
+    public function isEmptyCart(int $cartId): bool
+    {
+        $cart = $this->getCartById($cartId);
+        if (count($cart->cartItems) == 0) {
+            return true;
+        }
+        return false;
+    }
+
 
 }
