@@ -4,6 +4,7 @@ namespace App\PublicModule\Forms;
 
 use App\Forms\FormFactory;
 use App\Model\Facades\CartFacade;
+use App\Model\Facades\ProductsFacade;
 use Closure;
 use Nette\Forms\Form;
 use Nette\Http\Session;
@@ -15,9 +16,10 @@ class AddProductToCartFormFactory
     private Closure $onFailure;
 
     public function __construct(
-        private readonly FormFactory $formFactory,
-        private readonly CartFacade  $cartFacade,
-        Session                      $session
+        private readonly FormFactory    $formFactory,
+        private readonly CartFacade     $cartFacade,
+        private readonly ProductsFacade $productsFacade,
+        Session                         $session
     )
     {
         $this->cartSession = $session->getSection('cart');
@@ -49,6 +51,14 @@ class AddProductToCartFormFactory
     public function formSucceeded(Form $form, ArrayHash $values): void
     {
         $cart = $this->cartFacade->getCartById($this->cartSession->get('cartId'));
+        $cartItem = $this->cartFacade->getCartItemByProductId($cart, $values['productId']);
+
+        if (($cartItem != null and $this->productsFacade->getProduct($values['productId'])->stock < ($cartItem->quantity + $values['quantity'])) or
+            $this->productsFacade->getProduct($values['productId'])->stock < $values['quantity']) {
+            ($this->onFailure)('Do košíku nelze přidat více kusů než je skladem.');
+            return;
+        }
+
         try {
             $this->cartFacade->addProductToCart($cart, $values['productId'], $values['quantity']);
         } catch (\Exception $e) {
@@ -57,5 +67,4 @@ class AddProductToCartFormFactory
         }
         ($this->onSuccess)('Produkt byl přidán do košíku.');
     }
-
 }

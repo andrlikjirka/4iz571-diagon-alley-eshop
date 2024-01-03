@@ -3,8 +3,8 @@
 namespace App\PublicModule\Presenters;
 
 use App\Model\Facades\CartFacade;
-use App\Model\Orm\Roles\Role;
 use App\PublicModule\Forms\CreateOrderFormFactory;
+use Nette\Application\AbortException;
 use Nette\Forms\Form;
 use Nette\Http\Session;
 use Nette\Http\SessionSection;
@@ -30,7 +30,10 @@ class OrderPresenter extends BasePresenter
         parent::__construct();
     }
 
-    public function actionCreate()
+    /**
+     * @throws AbortException
+     */
+    public function actionCreate(): void
     {
         if ($this->cartFacade->isEmptyCart($this->cartSession->get('cartId'))) {
             $this->flashMessage('Nelze vytvořit prázdnou objednávku.', 'danger');
@@ -38,7 +41,7 @@ class OrderPresenter extends BasePresenter
         }
     }
 
-    public function renderCreate()
+    public function renderCreate(): void
     {
         $this->template->cart = $this->cartFacade->getCartById($this->cartSession->get('cartId'));
 

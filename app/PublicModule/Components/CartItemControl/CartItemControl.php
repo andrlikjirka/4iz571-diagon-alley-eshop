@@ -51,7 +51,7 @@ class CartItemControl extends Control
         };
 
         $onFailure = function (string $message) {
-            $this->presenter->flashMessage($message, 'success');
+            $this->presenter->flashMessage($message, 'danger');
             $this->presenter->redirect('this');
         };
 

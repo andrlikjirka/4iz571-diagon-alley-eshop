@@ -5,12 +5,7 @@ namespace App\Model\Facades;
 use App\Model\Orm\CartItems\CartItem;
 use App\Model\Orm\Carts\Cart;
 use App\Model\Orm\Orm;
-use Couchbase\DateRangeSearchFacet;
-use Nette\Security\User;
-use Nextras\Orm\Collection\ICollection;
-use Nextras\Orm\Entity\Entity;
 use Nextras\Orm\Entity\IEntity;
-use Nextras\Orm\Exception\InvalidStateException;
 use Tracy\Debugger;
 
 class CartFacade
@@ -69,10 +64,11 @@ class CartFacade
             $cartItem = $this->getCartItemByProductId($cart, $productId);
         }
 
+        $product = $this->productsFacade->getProduct($productId);
         if (!$cartItem) {
             $cartItem = new CartItem();
             $cartItem->cart = $cart;
-            $cartItem->product = $this->productsFacade->getProduct($productId);
+            $cartItem->product = $product;
         }
 
         $cartItem->quantity += $quantity;
@@ -90,7 +86,7 @@ class CartFacade
         }
     }
 
-    private function getCartItemByProductId(Cart $cart, int $productId): ?CartItem
+    public function getCartItemByProductId(Cart $cart, int $productId): ?CartItem
     {
         foreach ($cart->cartItems as $cartItem) {
             if ($cartItem->product->id === $productId) {
@@ -137,7 +133,7 @@ class CartFacade
         $this->saveCartItem($cartItem);
     }
 
-    public function emptyCart(Cart $cart)
+    public function emptyCart(Cart $cart): void
     {
         foreach ($cart->cartItems as $cartItem) {
             $this->orm->cartItems->remove($cartItem);
@@ -153,6 +149,5 @@ class CartFacade
         }
         return false;
     }
-
 
 }

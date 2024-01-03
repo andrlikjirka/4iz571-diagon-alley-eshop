@@ -46,6 +46,13 @@ class UpdateCartItemQuantityFormFactory
 
     public function formSucceeded(Form $form, ArrayHash $values): void
     {
+        $cartItem = $this->cartFacade->getCartItem($values['cartItemId']);
+
+        if ($cartItem->product->stock < $values['quantity']) {
+            ($this->onFailure)('Do košíku nelze přidat více kusů než je skladem.');
+            return;
+        }
+
         try {
             $this->cartFacade->updateCartItem($values['cartItemId'], $values['quantity']);
         } catch (\Exception $e) {
