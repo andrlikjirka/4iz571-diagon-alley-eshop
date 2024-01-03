@@ -4,11 +4,9 @@
     <div class="card">
         <a href="{plink :Public:Products:show productId => $product->id}">
             <div class="d-flex justify-content-center">
-                {foreach $product->productPhotos as $productPhoto}
-                    {if $iterator->first}
-                        <img src="{$basePath}{$productPhoto->path}" alt="" class="w-75">
-                    {/if}
-                {/foreach}
+                {if $product->firstProductPhoto != null}
+                    <img src="{$basePath}/img/{$product->firstProductPhoto->name}" alt="" class="w-75">
+                {/if}
             </div>
         </a>
         <div class="card-body">

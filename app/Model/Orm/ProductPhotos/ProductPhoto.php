@@ -10,7 +10,7 @@ use App\Model\Orm\Products\Product;
 
 /**
  * @property int $id {primary}
- * @property string $path
+ * @property string $name
  * @property Product $product {m:1 Product::$productPhotos}
  */
 class ProductPhoto extends Entity

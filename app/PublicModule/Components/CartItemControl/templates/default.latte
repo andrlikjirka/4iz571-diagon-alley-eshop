@@ -2,7 +2,9 @@
 
 <div class="row border-bottom align-items-center py-2">
     <div class="col-5">
-        <img src="{$basePath.'/img/product.png'}" alt="" class="img-fluid w-25 me-2">
+        {if $cartItem->product->firstProductPhoto}
+            <img src="{$basePath}/img/{$cartItem->product->firstProductPhoto->name}" alt="" class="img-fluid w-25 me-2">
+        {/if}
         <a href="{plink :Public:Products:show productId => $cartItem->product->id}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a>
     </div>
     <div class="col-2 me-4">

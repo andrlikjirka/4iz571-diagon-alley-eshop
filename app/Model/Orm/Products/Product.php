@@ -24,7 +24,8 @@ use Nextras\Orm\Relationships\OneHasMany;
  * @property ?Category $category {m:1 Category::$products}
  * @property bool $showed {default 0}
  * @property bool $deleted {default 0}
- * @property ProductPhoto[] $productPhotos {1:m ProductPhoto::$product}
+ * @property-read ?ProductPhoto $firstProductPhoto {virtual}
+ * @property OneHasMany|ProductPhoto[] $productPhotos {1:m ProductPhoto::$product}
  * @property-read ICollection|Review[] $reviewsOrderedByDate {virtual}
  * @property OneHasMany|Review[] $reviews {1:m Review::$product}
  * @property int $galleonPrice {default 0}
@@ -52,5 +53,9 @@ class Product extends Entity
         return 0.0;
     }
 
+    public function getterFirstProductPhoto(): ?ProductPhoto
+    {
+        return $this->productPhotos->toCollection()->fetch();
+    }
 
 }
