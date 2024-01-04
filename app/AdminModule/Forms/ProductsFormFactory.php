@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\AdminModule\Forms;
 
 use App\Forms\FormFactory;
+use App\Model\Facades\CategoriesFacade;
 use App\Model\Facades\ProductsFacade;
 use App\Model\Orm\Products\Product;
 use Closure;
@@ -26,7 +27,8 @@ class ProductsFormFactory
 
 	public function __construct(
 		private readonly FormFactory $formFactory,
-		private readonly ProductsFacade $productsFacade
+		private readonly ProductsFacade $productsFacade,
+		private readonly CategoriesFacade $categoriesFacade
 	) {}
 
 	public function create(callable $onSuccess, callable $onFailure): Form
@@ -45,7 +47,7 @@ class ProductsFormFactory
 			->setDefaultValue(0)
 			->setRequired();
 
-		$form->addSelect('category', 'Kategorie', [])
+		$form->addSelect('category', 'Kategorie', $this->categoriesFacade->findAllCategoriesPairs())
 			->setPrompt('-- Nezařazeno --');
 
 		$form->addCheckbox('showed', 'Zobrazovat na stránce');
@@ -75,11 +77,11 @@ class ProductsFormFactory
 	private function formSucceeded(Form $form, ArrayHash $values): void
 	{
 		if($values->productId) {
-			$product = $this->productsFacade->getProduct($values->productid);
+			$product = $this->productsFacade->getProduct((int)$values->productId);
 		} else {
-			unset($values['productId']);
 			$product = new Product();
 		}
+		unset($values['productId']);
 
 		Arrays::toObject($values, $product);
 
