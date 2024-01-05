@@ -46,11 +46,13 @@ class CreateOrderFormFactory
     {
         $form = $this->formFactory->create();
 
-        $userAddresses = $this->usersFacade->findUserAddresses($this->user->id);
-        $addresses = array();
-        if (!empty($userAddresses)) {
-            foreach ($userAddresses as $userAddress) {
-                $addresses[$userAddress->id] = $userAddress->name . "\n" . $userAddress->street . "\n" . $userAddress->city . "\n" . $userAddress->zip;
+        if ($this->user->isLoggedIn()) {
+            $userAddresses = $this->usersFacade->findUserAddresses($this->user->id);
+            $addresses = array();
+            if (!empty($userAddresses)) {
+                foreach ($userAddresses as $userAddress) {
+                    $addresses[$userAddress->id] = $userAddress->name . "\n" . $userAddress->street . "\n" . $userAddress->city . "\n" . $userAddress->zip;
+                }
             }
         }
         $addresses['-1'] = 'Nová adresa';
@@ -112,7 +114,7 @@ class CreateOrderFormFactory
             $address->street = $values['street'];
             $address->city = $values['city'];
             $address->zip = $values['zip'];
-            $address->user = $this->usersFacade->getUser($this->user->id);
+            $address->user = $this->user->isLoggedIn() ? $this->usersFacade->getUser($this->user->id) : null;
             try {
                 $this->addressFacade->saveAddress($address);
             } catch (\Exception $e) {
@@ -124,7 +126,7 @@ class CreateOrderFormFactory
         }
 
         $order->orderStatus = $this->ordersFacade->getOrderStatusByStatusId(1);
-        $order->user = $this->usersFacade->getUser($this->user->id);
+        $order->user = $this->user->isLoggedIn() ? $this->usersFacade->getUser($this->user->id) : null;
         $order->address = $address;
         $order->shipping = $values['shipping'];
         $order->payment = $values['payment'];
