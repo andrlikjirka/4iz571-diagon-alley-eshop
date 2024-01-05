@@ -55,15 +55,8 @@ class ProductsFacade
 
     public function findShowedProductsByCategoryRecursively(?Category $category): ICollection|array
     {
-        $categoriesRecursively = array();
-        $stack = [$category];
-        while (!empty($stack)) {
-            $currentCategory = array_pop($stack);
-            $categoriesRecursively[] = $currentCategory;
-            foreach ($currentCategory->childrenShowed as $child) {
-                $stack[] = $child;
-            }
-        }
+        $categoriesRecursively = $category->childrenShowedRecursively;
+        $categoriesRecursively[] = $category;
         return $this->orm->products->findBy(['category' => $categoriesRecursively, 'showed' => true]);
     }
 
