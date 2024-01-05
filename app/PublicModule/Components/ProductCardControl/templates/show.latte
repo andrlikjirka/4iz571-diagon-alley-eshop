@@ -10,7 +10,7 @@
     <div class="col-12 col-md-6">
         {foreach $product->productPhotos as $productPhoto}
             {if $iterator->first}
-                <img src="{$basePath}/img/{$productPhoto->name}" alt="" style="max-width: 90%">
+                <img src="{$basePath}/uploads/products/{$productPhoto->name}" alt="" style="max-width: 90%">
             {/if}
         {/foreach}
     </div>

@@ -5,7 +5,7 @@
         <a href="{plink :Public:Products:show productId => $product->id}">
             <div class="d-flex justify-content-center">
                 {if $product->firstProductPhoto != null}
-                    <img src="{$basePath}/img/{$product->firstProductPhoto->name}" alt="" class="w-75">
+                    <img src="{$basePath}/uploads/products/{$product->firstProductPhoto->name}" alt="" class="w-75">
                 {/if}
             </div>
         </a>
