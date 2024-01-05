@@ -118,7 +118,7 @@
                     {/if}
                 </div>
             </div>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-2">
                 <div class="">
                     <p class="fw-medium">Typ platby</p>
                 </div>
@@ -127,6 +127,18 @@
                     {elseif $order->payment == 'banka'}Převodem do Gringottovy banky
                     {elseif $order->payment == 'karta'}Online kouzelnou platební kartou
                     {/if}
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <div class="">
+                    <p class="fw-medium">Fakturační adresa</p>
+                </div>
+                <div class="d-flex flex-column text-end">
+                    <span>{$order->address->name}</span>
+                    <span>{$order->address->street}</span>
+                    <span>{$order->address->city}</span>
+                    <span>{$order->address->zip}</span>
                 </div>
             </div>
         </div>
