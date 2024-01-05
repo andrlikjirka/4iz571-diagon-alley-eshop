@@ -7,9 +7,11 @@ namespace App\Model\Facades;
 
 use App\Model\Orm\Categories\Category;
 use App\Model\Orm\Orm;
+use App\Model\Orm\ProductPhotos\ProductPhoto;
 use App\Model\Orm\Products\Product;
 use App\Model\Orm\Reviews\Review;
 use Exception;
+use Nette\Utils\FileSystem;
 use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Entity\IEntity;
 use Tracy\Debugger;
@@ -77,5 +79,27 @@ class ProductsFacade
     {
         return $this->orm->products->findBy(['showed' => true]);
     }
+
+	public function getProductPhotoByName(string $fileName): ?ProductPhoto
+	{
+		return $this->orm->productPhotos->getBy(['name' => $fileName]);
+	}
+
+	public function saveProductPhoto(ProductPhoto $productPhoto): void
+	{
+		try {
+			$this->orm->productPhotos->persistAndFlush($productPhoto);
+		} catch (Exception $e) {
+			Debugger::log($e);
+			$this->orm->productPhotos->getMapper()->rollback();
+			throw new Exception('Fotografii se nepodařilo uložit');
+		}
+	}
+
+	public function deleteProductPhoto(ProductPhoto $productPhoto): void
+	{
+		FileSystem::delete(__DIR__ . '/../../../www/uploads/products/' . $productPhoto->name);
+		$this->orm->productPhotos->removeAndFlush($productPhoto);
+	}
 
 }

@@ -7,12 +7,15 @@ namespace App\AdminModule\Forms;
 use App\Forms\FormFactory;
 use App\Model\Facades\CategoriesFacade;
 use App\Model\Facades\ProductsFacade;
+use App\Model\Orm\ProductPhotos\ProductPhoto;
 use App\Model\Orm\Products\Product;
+use App\Model\Uploader\Uploader;
 use Closure;
 use Exception;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Arrays;
+use Zet\FileUpload\FileUploadControl;
 
 
 /**
@@ -28,7 +31,8 @@ class ProductsFormFactory
 	public function __construct(
 		private readonly FormFactory $formFactory,
 		private readonly ProductsFacade $productsFacade,
-		private readonly CategoriesFacade $categoriesFacade
+		private readonly CategoriesFacade $categoriesFacade,
+		private readonly Uploader $uploader
 	) {}
 
 	public function create(callable $onSuccess, callable $onFailure): Form
@@ -64,6 +68,8 @@ class ProductsFormFactory
 			->setDefaultValue(0)
 			->setRequired();
 
+		$form->addFileUpload('Fotografie');
+
 		$form->addSubmit('save', 'Uložit produkt');
 
 		$form->onSuccess[] = $this->formSucceeded(...);
@@ -76,6 +82,9 @@ class ProductsFormFactory
 
 	private function formSucceeded(Form $form, ArrayHash $values): void
 	{
+		$photos = $values->Fotografie;
+		unset($values->Fotografie);
+
 		if($values->productId) {
 			$product = $this->productsFacade->getProduct((int)$values->productId);
 		} else {
@@ -90,6 +99,21 @@ class ProductsFormFactory
 		} catch (Exception $e) {
 			($this->onFailure)($e->getMessage());
 			return;
+		}
+
+		//process images
+		if($photos) {
+			try {
+				foreach ($photos as $photo) {
+					$productPhoto = new ProductPhoto();
+					$productPhoto->name = $photo;
+					$productPhoto->product = $product;
+					$this->productsFacade->saveProductPhoto($productPhoto);
+				}
+			} catch(Exception $e) {
+				($this->onFailure)($e->getMessage());
+				return;
+			}
 		}
 
 		($this->onSuccess)('Produkt byl úspěšně uložen');
