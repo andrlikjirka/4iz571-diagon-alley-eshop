@@ -25,6 +25,7 @@ class MyOrdersDataGridControl extends Control
     public function createComponentDataGrid(): DataGrid
     {
         $grid = new DataGrid();
+        $grid->setTemplateFile(__DIR__.'/templates/datagrid_template.latte');
         $grid->setDataSource($this->ordersFacade->findOrdersByUserId($this->user->id));
 
         $grid->addColumnNumber('id', 'ID objednávky')
