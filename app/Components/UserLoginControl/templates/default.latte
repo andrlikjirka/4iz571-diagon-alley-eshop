@@ -11,7 +11,7 @@
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
             <li><a class="dropdown-item" href="{plink Profile:default}">Můj profil</a></li>
             {if $user->isInRole('customer')}
-                <li><a class="dropdown-item" href="">Moje objednávky</a></li>
+                <li><a class="dropdown-item" href="{plink :Public:Orders:myOrders}">Moje objednávky</a></li>
             {/if}
             <li>
                 <hr class="dropdown-divider">
@@ -42,7 +42,7 @@
                         Oblíbené
                     </a>
                 </li>
-                <li><a class="dropdown-item" href="">Moje objednávky</a></li>
+                <li><a class="dropdown-item" href="{plink :Public:Orders:myOrders}">Moje objednávky</a></li>
             {/if}
             <li><a class="dropdown-item" href="{plink Profile:default}">Můj profil</a></li>
             <li>

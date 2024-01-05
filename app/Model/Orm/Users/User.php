@@ -30,7 +30,7 @@ use Nextras\Orm\Relationships\OneHasMany;
  * @property Cart $cart {1:1 Cart::$user}
  * @property OneHasMany|FavouriteProduct[] $favouriteProducts {1:m FavouriteProduct::$user}
  * @property ForgottenPassword[] $forgottenPasswords {1:m ForgottenPassword::$user}
- * @property Order[] $orders {1:m Order::$user}
+ * @property OneHasMany|Order[] $orders {1:m Order::$user}
  * @property Review[] $reviews {1:m Review::$user}
  */
 class User extends Entity

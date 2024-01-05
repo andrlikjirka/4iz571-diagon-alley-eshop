@@ -75,7 +75,7 @@ class CreateOrderFormFactory
         $payment = [
             'hotovost' => 'Hotově při převzetí',
             'banka' => 'Převodem do Gringottovy banky',
-            'karta' => 'Online platební kartou'
+            'karta' => 'Online kouzelnou platební kartou'
         ];
         $form->addRadioList('payment', 'Zvolte způsob platby', $payment)
             ->setRequired();
