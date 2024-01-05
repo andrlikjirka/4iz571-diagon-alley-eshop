@@ -4,3 +4,5 @@
 config/local.neon
 .htaccess
 /config/production.neon
+/www/uploads/products/*
+!/www/uploads/products/.gitkeep

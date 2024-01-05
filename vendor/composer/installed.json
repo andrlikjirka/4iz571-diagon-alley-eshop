@@ -471,6 +471,61 @@
             "install-path": "../doctrine/inflector"
         },
         {
+            "name": "ijvo/jquery-fileupload",
+            "version": "3.0.2",
+            "version_normalized": "3.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IJVo/jQuery-FileUpload.git",
+                "reference": "7b7e45e7f45738155ccdd92b59099e2308bf11bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/IJVo/jQuery-FileUpload/zipball/7b7e45e7f45738155ccdd92b59099e2308bf11bc",
+                "reference": "7b7e45e7f45738155ccdd92b59099e2308bf11bc",
+                "shasum": ""
+            },
+            "require": {
+                "latte/latte": "^3.0",
+                "nette/application": "^3.0",
+                "nette/di": "^3.0",
+                "nette/forms": "^3.0",
+                "nette/http": "^3.0",
+                "nette/utils": "^3.0",
+                "php": ">=8.0"
+            },
+            "time": "2023-09-26T20:36:31+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan 'Zechy' Zechovský",
+                    "email": "email@zechy.cz",
+                    "homepage": "http://zechy.cz"
+                },
+                {
+                    "name": "Ing. Jaroslav Vaculik -IJVo",
+                    "homepage": "https://ijvo.cz"
+                }
+            ],
+            "description": "Nette UploadControl rozšířené o blueimp jQuery FileUpload.",
+            "homepage": "https://github.com/JZechy/jQuery-FileUpload",
+            "support": {
+                "issues": "https://github.com/IJVo/jQuery-FileUpload/issues",
+                "source": "https://github.com/IJVo/jQuery-FileUpload/tree/3.0.2"
+            },
+            "install-path": "../ijvo/jquery-fileupload"
+        },
+        {
             "name": "latte/latte",
             "version": "v3.0.12",
             "version_normalized": "3.0.12.0",

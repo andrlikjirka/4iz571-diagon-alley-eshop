@@ -14,14 +14,32 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="{$basePath}/css/datagrid.css">
 
+	<!-- Use this css for ajax spinners -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.9.1/assets/datagrid-spinners.css">
+
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
 
+	{* File Uploader *}
+	{\Zet\FileUpload\FileUploadControl::getHead($basePath)}
+	{*/ File Uploader *}
 </head>
 
 <body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-ui-sortable@1.0.0/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/nette.ajax.js@2.3.0/nette.ajax.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.9.1/assets/datagrid.js"></script>
+
+<!-- It is recommended to include this JS file with just a few bits. It refreshes URL on non ajax request -->
+<script src="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.9.1/assets/datagrid-instant-url-refresh.js"></script>
+
+<!-- Use this little extension for ajax spinners -->
+<script src="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.9.1/assets/datagrid-spinners.js"></script>
 
 <header class="sticky-top bg-white border-bottom border-warning border-3">
 	<nav class="navbar navbar-expand-lg py-2 shadow-sm">
@@ -74,12 +92,14 @@
 
 		<main class="col-12 col-lg-9 col-xl-10 px-lg-5 py-4">
 
+			{snippet flashes}
 			{foreach $flashes as $flash}
 				<div class="alert alert-{$flash->type} alert-dismissible fade show small py-2" role="alert">
 					{$flash->message}
 					<button type="button" class="btn-close pe-3 pb-1" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			{/foreach}
+			{/snippet}
 
 
             {include content}
@@ -103,6 +123,9 @@
 
 	<script src="{$basePath}/js/datagrid.js"></script>
 
+	{* File Uploader scripts *}
+	{\Zet\FileUpload\FileUploadControl::getScripts($basePath)}
+	{*/ File Uploader scripts *}
 {/block}
 </body>
 </html>

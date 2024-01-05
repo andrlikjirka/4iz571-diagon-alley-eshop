@@ -1,6 +1,7 @@
 services:
 	- App\Router\RouterFactory::createRouter
 	- App\Model\Authenticator\Authenticator
+	- App\Model\Uploader\Uploader
 
 search:
 	- in: %appDir%

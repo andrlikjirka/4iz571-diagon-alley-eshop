@@ -25,7 +25,8 @@
 		"nextras/forms-rendering": "2.0.x-dev",
 		"nextras/mail-panel": "^2.6",
 		"contributte/forms-multiplier": "^4.0",
-		"ublaboo/datagrid": "^6.9"
+		"ublaboo/datagrid": "^6.9",
+		"ijvo/jquery-fileupload": "^3.0"
 	},
 	"require-dev": {
 		"nette/tester": "^2.4",

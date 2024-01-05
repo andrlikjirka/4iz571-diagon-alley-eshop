@@ -3,7 +3,7 @@
         'name' => 'nette/web-project',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'c55585a0508f8ac37a263674737c8ad6c1a4ec6f',
+        'reference' => '3897d3817256c4a4fac61d7b8e1028b25742ccf5',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -65,6 +65,15 @@
             'install_path' => __DIR__ . '/../doctrine/inflector',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'ijvo/jquery-fileupload' => array(
+            'pretty_version' => '3.0.2',
+            'version' => '3.0.2.0',
+            'reference' => '7b7e45e7f45738155ccdd92b59099e2308bf11bc',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ijvo/jquery-fileupload',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'latte/latte' => array(
             'pretty_version' => 'v3.0.12',
@@ -249,7 +258,7 @@
         'nette/web-project' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'c55585a0508f8ac37a263674737c8ad6c1a4ec6f',
+            'reference' => '3897d3817256c4a4fac61d7b8e1028b25742ccf5',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

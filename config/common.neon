@@ -14,6 +14,7 @@ extensions:
 	migrations: Nextras\Migrations\Bridges\NetteDI\MigrationsExtension
 	nextras.dbal: Nextras\Dbal\Bridges\NetteDI\DbalExtension
 	nextras.orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
+	fileUpload: Zet\FileUpload\FileUploadExtension
 
 migrations:
     dir: %appDir%/../migrations # migrations base directory
@@ -23,3 +24,9 @@ migrations:
 
 nextras.orm:
 	model: App\Model\Orm\Orm
+
+fileUpload:
+	maxFiles: 10
+	fileFilter: Zet\FileUpload\Filter\ImageFilter
+	uploadModel: App\Model\Uploader\Uploader
+	renderer: Zet\FileUpload\Template\Renderer\Bootstrap4Renderer
