@@ -3,6 +3,9 @@
 namespace App\PublicModule\Presenters;
 
 use App\Model\Facades\CartFacade;
+use App\Model\Facades\OrdersFacade;
+use App\PublicModule\DataGrids\MyOrdersDataGrid\MyOrdersDataGridControl;
+use App\PublicModule\DataGrids\MyOrdersDataGrid\MyOrdersDataGridControlFactory;
 use App\PublicModule\Forms\CreateOrderFormFactory;
 use Nette\Application\AbortException;
 use Nette\Forms\Form;
@@ -10,24 +13,40 @@ use Nette\Http\Session;
 use Nette\Http\SessionSection;
 
 /**
- * Class OrderPresenter
+ * Class OrdersPresenter
  * @package App\PublicModule\Presenters
  * @author Jiří Andrlík
  */
-class OrderPresenter extends BasePresenter
+class OrdersPresenter extends BasePresenter
 {
     private SessionSection $cartSession;
 
     public function __construct(
         private readonly CreateOrderFormFactory $createOrderFormFactory,
-        private readonly CartFacade $cartFacade,
-        Session $session,
-
+        private readonly CartFacade             $cartFacade,
+        private readonly OrdersFacade $ordersFacade,
+        Session                                 $session,
+        private readonly MyOrdersDataGridControlFactory $myOrdersDataGridControlFactory
 
     )
     {
         $this->cartSession = $session->getSection('cart');
         parent::__construct();
+    }
+
+    public function renderMyOrders(): void
+    {
+    }
+
+    public function renderShowMyOrder(int $id): void
+    {
+        try {
+            $order = $this->ordersFacade->getOrderById($id);
+        } catch (\Exception $e) {
+            $this->flashMessage('Objednávka nebyla nalezena.', 'danger');
+            $this->redirect(':Public:Orders:myOrders');
+        }
+        $this->template->order = $order;
     }
 
     /**
@@ -59,5 +78,10 @@ class OrderPresenter extends BasePresenter
             $this->redirect('this');
         };
         return $this->createOrderFormFactory->create($onSuccess, $onFailure);
+    }
+
+    public function createComponentMyOrdersDataGrid(): MyOrdersDataGridControl
+    {
+        return $this->myOrdersDataGridControlFactory->create();
     }
 }

@@ -4,7 +4,9 @@ namespace App\Model\Facades;
 
 use App\Model\Orm\Orders\Order;
 use App\Model\Orm\Orm;
+use App\Model\Orm\Users\User;
 use Exception;
+use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Entity\IEntity;
 use Tracy\Debugger;
 
@@ -15,7 +17,8 @@ class OrdersFacade
      * @param Orm $orm
      */
     public function __construct (
-        private readonly Orm $orm
+        private readonly Orm $orm,
+        private readonly UsersFacade $usersFacade
     ){}
 
     public function saveNewOrder(Order $order): void
@@ -32,6 +35,25 @@ class OrdersFacade
     public function getOrderStatusByStatusId(int $statusId): IEntity
     {
         return $this->orm->orderStatus->getByIdChecked($statusId);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function findOrdersByUserId(int $userId): ICollection
+    {
+        $user = $this->usersFacade->getUser($userId);
+        return $this->orm->orders->findBy(['user' => $user]);
+    }
+
+    /**
+     * @param int $id
+     * @return IEntity|Order
+     * @throws Exception
+     */
+    public function getOrderById(int $id): IEntity|Order
+    {
+        return $this->orm->orders->getByIdChecked($id);
     }
 
 }
