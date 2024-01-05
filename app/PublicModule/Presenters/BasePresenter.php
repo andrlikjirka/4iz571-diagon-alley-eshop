@@ -10,6 +10,7 @@ use App\PublicModule\Components\CartControl\CartControl;
 use App\PublicModule\Components\CartControl\CartControlFactory;
 use App\PublicModule\Components\NavbarControl\NavbarControl;
 use App\PublicModule\Components\NavbarControl\NavbarControlFactory;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Presenter;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Http\Session;
@@ -32,7 +33,6 @@ abstract class BasePresenter extends Presenter
 	/** @var Session @inject */
 	public Session $session;
 
-
     /** @var UserLoginControlFactory  */
     private UserLoginControlFactory $userLoginControlFactory;
 
@@ -40,6 +40,21 @@ abstract class BasePresenter extends Presenter
     private NavbarControlFactory $navbarControlFactory;
 
     private CartControlFactory $cartControlFactory;
+
+	/**
+	 * @throws AbortException
+	 */
+	public function startup(): void
+	{
+		parent::startup();
+		if($this->getUser()->isLoggedIn()) {
+
+			// If admin then allowed everything
+			if ($this->getUser()->isInRole('admin')) {
+				$this->redirect(':Admin:Dashboard:default');
+			}
+		}
+	}
 
     /**
      * Tovární metoda pro začlenění komponenty UserLoginControl
