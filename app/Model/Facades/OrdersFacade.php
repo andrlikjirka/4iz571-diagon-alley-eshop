@@ -18,7 +18,8 @@ class OrdersFacade
      */
     public function __construct (
         private readonly Orm $orm,
-        private readonly UsersFacade $usersFacade
+        private readonly UsersFacade $usersFacade,
+        private readonly ProductsFacade $productsFacade
     ){}
 
     public function saveNewOrder(Order $order): void
@@ -54,6 +55,15 @@ class OrdersFacade
     public function getOrderById(int $id): IEntity|Order
     {
         return $this->orm->orders->getByIdChecked($id);
+    }
+
+    public function updateOrderedProductsStock(Order $order): void
+    {
+        foreach ($order->orderItems as $orderItem) {
+            $product = $this->productsFacade->getProduct($orderItem->product->id);
+            $product->stock -= $orderItem->quantity;
+            $this->productsFacade->saveProduct($product);
+        }
     }
 
 }

@@ -140,6 +140,7 @@ class CreateOrderFormFactory
             ($this->onFailure)($e->getMessage());
             return;
         }
+        $this->ordersFacade->updateOrderedProductsStock($order);
         $this->cartFacade->emptyCart($cart);
         ($this->onSuccess)('Objednávka byla úspěšně odeslána.');
     }
