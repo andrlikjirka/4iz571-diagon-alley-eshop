@@ -4,12 +4,16 @@ namespace App\Model\Facades;
 
 use App\Model\Orm\Addresses\Address;
 use App\Model\Orm\Orm;
+use App\Model\Orm\Permissions\Permission;
+use App\Model\Orm\Resources\Resource;
+use App\Model\Orm\Roles\Role;
 use App\Model\Orm\Roles\RolesRepository;
 use App\Model\Orm\Users\User;
 use App\Model\Orm\Users\UsersRepository;
 use Exception;
 use Nette\Database\ConstraintViolationException;
 use Nextras\Dbal\Drivers\Exception\QueryException;
+use Nextras\Orm\Collection\ICollection;
 use Tracy\Debugger;
 
 /**
@@ -70,9 +74,33 @@ class UsersFacade
 
     }
 
-    public function findUserAddresses(int $userId): \Nextras\Orm\Collection\ICollection|array
+    public function findUserAddresses(int $userId): ICollection|array
     {
         return $this->orm->addresses->findBy(['user' => $userId, 'deleted' => 0]);
     }
+
+	/**
+	 * @return ICollection<Resource>
+	 */
+	public function findResources(): ICollection
+	{
+		return $this->orm->resources->findAll();
+	}
+
+	/**
+	 * @return ICollection<Role>
+	 */
+	public function findRoles(): ICollection
+	{
+		return $this->orm->roles->findAll();
+	}
+
+	/**
+	 * @return ICollection<Permission>
+	 */
+	public function findPermissions(): ICollection
+	{
+		return $this->orm->permissions->findAll();
+	}
 
 }
