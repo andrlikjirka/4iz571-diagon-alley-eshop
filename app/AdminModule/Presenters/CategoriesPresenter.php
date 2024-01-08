@@ -54,19 +54,6 @@ final class CategoriesPresenter extends BasePresenter
         $this->template->category = $category;
     }
 
-    public function actionDelete(int $id)
-    {
-        try {
-            $category = $this->categoriesFacade->getCategoryById($id);
-            $this->categoriesFacade->deleteCategory($category);
-        } catch (\Exception $e) {
-            $this->flashMessage('Kategorii se nepodařilo odstranit!', 'danger');
-            $this->redirect('Categories:default');
-        }
-        $this->flashMessage('Kategorie byla odstraněna.', 'success');
-        $this->redirect('Categories:default');
-    }
-
     public function createComponentCategoriesDataGrid(): CategoriesDataGridControl
     {
         return $this->categoriesDataGridControlFactory->create();

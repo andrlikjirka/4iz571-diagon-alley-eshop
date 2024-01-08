@@ -21,7 +21,7 @@ use Nextras\Orm\Relationships\OneHasMany;
  * @property DateTimeImmutable $created {default now}
  * @property DateTimeImmutable|NULL $updated
  * @property int $stock {default 0}
- * @property ?Category $category {m:1 Category::$products}
+ * @property ?Category $category {m:1 Category::$allProducts}
  * @property bool $showed {default 0}
  * @property bool $deleted {default 0}
  * @property-read ?ProductPhoto $firstProductPhoto {virtual}

@@ -5,6 +5,7 @@ namespace App\Model\Facades;
 use App\Model\Orm\CartItems\CartItem;
 use App\Model\Orm\Carts\Cart;
 use App\Model\Orm\Orm;
+use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Entity\IEntity;
 use Tracy\Debugger;
 
@@ -25,13 +26,25 @@ class CartFacade
 
     public function deleteOldCarts(): void
     {
+        $thirtyDaysAgo = new \DateTime();
+        $thirtyDaysAgo = $thirtyDaysAgo->modify('-30 days');
+
+        $carts = $this->orm->carts->findBy([
+            ICollection::OR,
+            [ICollection::AND, 'user' => null, 'lastModified<' => $thirtyDaysAgo],
+            [ICollection::AND, 'lastModified<' => $thirtyDaysAgo]
+        ]);
+
         try {
-            $this->orm->carts->deleteOldCarts();
+            foreach ($carts as $cart) {
+                $this->orm->carts->remove($cart);
+            }
         } catch (\Exception $e) {
             Debugger::log($e);
             $this->orm->users->getMapper()->rollback();
-            //TODO: hláška navenek???
+            return;
         }
+        $this->orm->carts->flush();
     }
 
     public function saveCart(Cart $cart): void

@@ -23,7 +23,7 @@ class CategoriesFacade
 
     public function findAllCategories(): ICollection|array
     {
-        return $this->orm->categories->findAll();
+        return $this->orm->categories->findBy(['deleted' => false]);
     }
 
     public function findShowedCategoryTopParents(): ICollection|array
