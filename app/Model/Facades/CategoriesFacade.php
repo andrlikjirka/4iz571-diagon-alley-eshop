@@ -58,4 +58,9 @@ class CategoriesFacade
 		return $this->orm->categories->findAll()->fetchPairs('id', 'name');
 	}
 
+	public function getCategory(int $categoryId): ?Category
+	{
+		return $this->orm->categories->getById($categoryId);
+	}
+
 }

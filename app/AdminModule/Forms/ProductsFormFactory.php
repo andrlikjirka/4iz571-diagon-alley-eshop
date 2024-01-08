@@ -9,13 +9,10 @@ use App\Model\Facades\CategoriesFacade;
 use App\Model\Facades\ProductsFacade;
 use App\Model\Orm\ProductPhotos\ProductPhoto;
 use App\Model\Orm\Products\Product;
-use App\Model\Uploader\Uploader;
 use Closure;
 use Exception;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
-use Nette\Utils\Arrays;
-use Zet\FileUpload\FileUploadControl;
 
 
 /**
@@ -31,8 +28,7 @@ class ProductsFormFactory
 	public function __construct(
 		private readonly FormFactory $formFactory,
 		private readonly ProductsFacade $productsFacade,
-		private readonly CategoriesFacade $categoriesFacade,
-		private readonly Uploader $uploader
+		private readonly CategoriesFacade $categoriesFacade
 	) {}
 
 	public function create(callable $onSuccess, callable $onFailure): Form
@@ -52,7 +48,8 @@ class ProductsFormFactory
 			->setRequired();
 
 		$form->addSelect('category', 'Kategorie', $this->categoriesFacade->findAllCategoriesPairs())
-			->setPrompt('-- Nezařazeno --');
+			->setPrompt('-- Nezařazeno --')
+			->setRequired();
 
 		$form->addCheckbox('showed', 'Zobrazovat na stránce');
 
@@ -92,7 +89,16 @@ class ProductsFormFactory
 		}
 		unset($values['productId']);
 
-		Arrays::toObject($values, $product);
+		$product->name = $values->name;
+		$product->description = $values->description;
+		$product->stock = $values->stock;
+		$product->category = $this->categoriesFacade->getCategory((int)$values->category);
+		$product->showed = $values->showed;
+		$product->galleonPrice = $values->galleonPrice;
+		$product->sicklePrice = $values->sicklePrice;
+		$product->knutPrice = $values->knutPrice;
+
+		//Arrays::toObject($values, $product);
 
 		try {
 			$this->productsFacade->saveProduct($product);
