@@ -41,21 +41,6 @@ abstract class BasePresenter extends Presenter
 
     private CartControlFactory $cartControlFactory;
 
-	/**
-	 * @throws AbortException
-	 */
-	public function startup(): void
-	{
-		parent::startup();
-		if($this->getUser()->isLoggedIn()) {
-
-			// If admin then allowed everything
-			if ($this->getUser()->isInRole('admin')) {
-				$this->redirect(':Admin:Dashboard:default');
-			}
-		}
-	}
-
     /**
      * Tovární metoda pro začlenění komponenty UserLoginControl
      * @return UserLoginControl

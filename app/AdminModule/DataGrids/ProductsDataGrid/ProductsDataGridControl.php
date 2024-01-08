@@ -30,6 +30,8 @@ class ProductsDataGridControl extends Control
 	{
 		$grid = new DataGrid();
 
+		$grid->setTemplateFile(__DIR__ . '/templates/datagridTemplate.latte');
+
 		$grid->setDataSource($this->productsFacade->findAllProducts());
 
 		$grid->addColumnNumber('id', 'ID produktu')
@@ -122,6 +124,6 @@ class ProductsDataGridControl extends Control
 
 	public function render(): void
 	{
-		$this->template->render(__DIR__ . '/productsDataGrid.latte');
+		$this->template->render(__DIR__ . '/templates/productsDataGrid.latte');
 	}
 }

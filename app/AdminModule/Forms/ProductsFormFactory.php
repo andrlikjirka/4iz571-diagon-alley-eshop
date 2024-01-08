@@ -41,11 +41,15 @@ class ProductsFormFactory
 		$form->addText('name', 'Název produktu', maxLength: 255)
 			->setRequired();
 
+		$form->addTextArea('summary', 'Krátký popis produktu')
+			->setRequired();
+
 		$form->addTextArea('description', 'Popis produktu');
 
 		$form->addInteger('stock', 'Počet kusů skladem')
 			->setDefaultValue(0)
-			->setRequired();
+			->setRequired()
+			->addRule($form::MIN, 'Počet kusů musí být větší nebo roven 0', 0);
 
 		$form->addSelect('category', 'Kategorie', $this->categoriesFacade->findAllCategoriesPairs())
 			->setPrompt('-- Nezařazeno --')
@@ -55,15 +59,18 @@ class ProductsFormFactory
 
 		$form->addInteger('galleonPrice', 'Cena (galeony)')
 			->setDefaultValue(0)
-			->setRequired();
+			->setRequired()
+			->addRule($form::MIN, 'Cena musí být větší nebo rovna 0', 0);
 
 		$form->addInteger('sicklePrice', 'Cena (srpce)')
 			->setDefaultValue(0)
-			->setRequired();
+			->setRequired()
+			->addRule($form::MIN, 'Cena musí být větší nebo rovna 0', 0);
 
 		$form->addInteger('knutPrice', 'Cena (svrčky)')
 			->setDefaultValue(0)
-			->setRequired();
+			->setRequired()
+			->addRule($form::MIN, 'Cena musí být větší nebo rovna 0', 0);
 
 		$form->addFileUpload('Fotografie');
 
@@ -90,6 +97,7 @@ class ProductsFormFactory
 		unset($values['productId']);
 
 		$product->name = $values->name;
+		$product->summary = $values->summary;
 		$product->description = $values->description;
 		$product->stock = $values->stock;
 		$product->category = $this->categoriesFacade->getCategory((int)$values->category);

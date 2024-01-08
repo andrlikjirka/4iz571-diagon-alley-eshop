@@ -55,7 +55,9 @@ class CategoriesFacade
 
 	public function findAllCategoriesPairs(): array
 	{
-		return $this->orm->categories->findAll()->fetchPairs('id', 'name');
+		return $this->orm->categories->findBy([
+			'deleted' => false,
+		])->orderBy('name')->fetchPairs('id', 'name');
 	}
 
 	public function getCategory(int $categoryId): ?Category

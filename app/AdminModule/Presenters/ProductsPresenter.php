@@ -36,6 +36,7 @@ final class ProductsPresenter extends BasePresenter
 			$defaultValues = [
 				'productId' => $product->id,
 				'name' => $product->name,
+				'summary' => $product->summary,
 				'description' => $product->description,
 				'stock' => $product->stock,
 				'category' => $product->category?->id,
