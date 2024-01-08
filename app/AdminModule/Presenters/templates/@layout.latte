@@ -55,7 +55,7 @@
 				</button>
 			</div>
 
-			<a href="{link ':Admin:Dashboard:default'}" class="navbar-brand text-dark fw-bold">
+			<a href="{link ':Public:Homepage:default'}" class="navbar-brand text-dark fw-bold">
 				<img src="{$basePath}/img/diagon-alley-logo.png" alt="" style="width: 170px;">
 
 			</a>
@@ -71,7 +71,11 @@
 	<div class="offcanvas-lg offcanvas-start" tabindex="1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
 		<div class="offcanvas-header border-bottom">
 			<h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">
-				<span class="badge rounded-pill text-bg-warning sm ">Administrační modul</span>
+				<div class="ms-2">
+					<a href="{plink ':Admin:Dashboard:default'}">
+						<span class="badge rounded-pill text-bg-warning">Administrační modul</span>
+					</a>
+				</div>
 			</h5>
 			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Zavřít" data-bs-target="#bdSidebar"></button>
 		</div>
@@ -86,7 +90,11 @@
 	<div class="row ">
 		<aside class="d-none d-lg-block col-lg-3 col-xl-2 ps-2 pe-0 py-4 overflow-y-auto border-end" style="height: calc(100vh - 6rem); position:sticky; top:3rem;">
 			<!--nav jako jedna komponenta - v sidebaru + v offcanvasu-->
-			<span class="badge rounded-pill text-bg-warning sm ms-2 mb-3">Administrační modul</span>
+			<div class="ms-2">
+				<a href="{plink ':Admin:Dashboard:default'}">
+					<span class="badge rounded-pill text-bg-warning mb-3">Administrační modul</span>
+				</a>
+			</div>
 			{control adminNavbar}
 		</aside>
 
