@@ -7,11 +7,15 @@ use App\Model\Facades\ProductsFacade;
 use App\Model\Orm\Categories\Category;
 use App\PublicModule\Components\ProductCardControl\ProductCardControl;
 use App\PublicModule\Components\ProductCardControl\ProductCardControlFactory;
+use Nette\Utils\Paginator;
 
 class ProductsPresenter extends BasePresenter
 {
     /** @persistent */
     public ?int $categoryId = null;
+
+    /** @persistent */
+    public int $page = 1;
 
     public function __construct(
         private readonly ProductCardControlFactory $productControlFactory,
@@ -22,6 +26,11 @@ class ProductsPresenter extends BasePresenter
         parent::__construct();
     }
 
+    /**
+     * Akce pro výpis produktů
+     * @return void
+     * @throws \Nette\Application\AbortException
+     */
     public function renderDefault(): void
     {
         if (!empty($this->categoryId)) {
@@ -37,9 +46,18 @@ class ProductsPresenter extends BasePresenter
             $products = $this->productsFacade->findAllShowedProducts();
         }
 
-        //TODO: paginator
+        #region paginator
+        $paginator = new Paginator();
+        $paginator->setItemCount($products->countStored());
+        $paginator->setItemsPerPage(6);
+        $paginator->setPage($this->page);
+        #endregion
 
-        $this->template->products = $products;
+        $offset = $paginator->offset;
+        $limit = $paginator->length;
+
+        $this->template->paginator = $paginator;
+        $this->template->products = $products->limitBy($limit, $offset);
     }
 
     public function renderShow(int $productId)

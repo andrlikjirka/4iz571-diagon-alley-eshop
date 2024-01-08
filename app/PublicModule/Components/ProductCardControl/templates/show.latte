@@ -9,11 +9,11 @@
 <div class="row g-5 mb-5">
     <div class="col-12 col-md-6">
 
-        <div id="carouselExample" class="carousel slide" >
+        <div id="carouselExample" class="carousel slide">
             <div class="carousel-inner">
                 {foreach $product->productPhotos as $productPhoto}
-                    <div class="carousel-item {if $iterator->first} active{/if}" style="transition: 0s">
-                        <img src="{$basePath}/uploads/products/{$productPhoto->name}" class="d-block w-100 img-fluid" alt="...">
+                    <div class="carousel-item {if $iterator->first} active{/if}">
+                        <img src="{$basePath}/uploads/products/{$productPhoto->name}" class="d-block w-100" alt="...">
                     </div>
                 {/foreach}
             </div>
