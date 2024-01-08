@@ -1,0 +1,152 @@
+{varType App\Model\Orm\Orders\Order $order}
+
+{block content}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <!-- TODO: lepší by byl breadcrumb -->
+        <a href="{plink :Admin:Orders:default}" class="text-dark text-decoration-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-arrow-left me-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+            </svg>
+            Zpět na správu objednávek
+        </a>
+    </div>
+</div>
+
+<div class="row g-5">
+    <div class="col-12 col-lg-7">
+        <h3 class="mb-4">Objednávka č. {$order->id}</h3>
+
+        <div class="mb-3">
+            {form orderStatusEditForm}
+                {label orderStatus, class:'form-label small me-2'/}
+                <div class="d-flex flex-row">
+                    {input orderStatus, class:'form-select me-2 w-50'}
+                    {input submit, class: 'btn btn-warning text-dark'}
+                </div>
+            {/form}
+        </div>
+
+        <div class="mb-4">
+            <span>Datum vytvoření: </span>
+            <span>{$order->created|date:'d.m.Y'}</span>
+        </div>
+
+        <div class="mb-3">
+            {foreach $order->orderItems as $orderItem}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row justify-content-between align-items-center py-2">
+                            <div class="col-6">
+                                {if $orderItem->product->firstProductPhoto}
+                                    <img src="{$basePath}/uploads/products/{$orderItem->product->firstProductPhoto->name}" alt=""
+                                         class="img-fluid w-25 me-2">
+                                {/if}
+                                <a href="{plink :Public:Products:show productId => $orderItem->product->id}"
+                                   class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$orderItem->product->name}</a>
+                            </div>
+                            <div class="col-3 me-4">
+                                {if $orderItem->galleonPrice > 0}
+                                    <div class="d-flex flex-row mb-1 align-items-center">
+                                        <span class="text-end fw-medium">{$orderItem->galleonPrice}</span>
+                                        <img src="{$basePath . '/img/galleon.png'}" alt="galeony" title="galeony" class="ms-2"
+                                             style="width:25px; height: 25px">
+                                    </div>
+                                {/if}
+                                {if $orderItem->sicklePrice > 0}
+                                    <div class="d-flex flex-row mb-1 align-items-center">
+                                        <span class="text-end fw-medium">{$orderItem->sicklePrice}</span>
+                                        <img src="{$basePath . '/img/sickle.png'}" alt="srpce" title="srpce" class="ms-2"
+                                             style="width:25px; height: 25px">
+                                    </div>
+                                {/if}
+                                {if $orderItem->knutPrice > 0}
+                                    <div class="d-flex flex-row mb-1 align-items-center">
+                                        <span class="text-end fw-medium">{$orderItem->knutPrice}</span>
+                                        <img src="{$basePath . '/img/knut.png'}" alt="svrčky" title="svrčky" class="ms-2"
+                                             style="width:25px; height: 25px">
+                                    </div>
+                                {/if}
+                            </div>
+                            <div class="col-2">
+                                {$orderItem->quantity} ks
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {/foreach}
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-5">
+        <div class="border bg-light bg-gradient rounded-3 p-5">
+            <h4 class="">Souhrn objednávky</h4>
+            <div class="d-flex justify-content-between my-4">
+                <div class="">
+                    <p class="fw-medium">Celková cena</p>
+                </div>
+                <div class="">
+                    {if $order->galleonTotalPrice > 0}
+                        <div class="d-flex flex-row mb-1 align-items-center">
+                            <span class="text-end fw-medium">{$order->galleonTotalPrice}</span>
+                            <img src="{$basePath . '/img/galleon.png'}" alt="galeony" title="galeony" class="ms-2"
+                                 style="width:25px; height: 25px">
+                        </div>
+                    {/if}
+                        {if $order->sickleTotalPrice > 0}
+                        <div class="d-flex flex-row mb-1 align-items-center">
+                            <span class="text-end fw-medium">{$order->sickleTotalPrice}</span>
+                            <img src="{$basePath . '/img/sickle.png'}" alt="srpce" title="srpce" class="ms-2"
+                                 style="width:25px; height: 25px">
+                        </div>
+                    {/if}
+                        {if $order->knutTotalPrice > 0}
+                        <div class="d-flex flex-row mb-1 align-items-center">
+                            <span class="text-end fw-medium">{$order->knutTotalPrice}</span>
+                            <img src="{$basePath . '/img/knut.png'}" alt="svrčky" title="svrčky" class="ms-2"
+                                 style="width:25px; height: 25px">
+                        </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+                <div class="">
+                    <p class="fw-medium">Typ dopravy</p>
+                </div>
+                <div>
+                    {if $order->shipping == 'vyzvednuti'}Vyzvednutí v Příčné ulici
+                    {elseif $order->shipping == 'bradavice'}Doručení do Bradavic
+                    {elseif $order->shipping == 'sova'}Doručení sovou na adresu
+                    {/if}
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+                <div class="">
+                    <p class="fw-medium">Typ platby</p>
+                </div>
+                <div>
+                    {if $order->payment == 'hotovost'}Hotovost
+                    {elseif $order->payment == 'banka'}Převodem do Gringottovy banky
+                    {elseif $order->payment == 'karta'}Online kouzelnou platební kartou
+                    {/if}
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <div class="">
+                    <p class="fw-medium">Fakturační adresa</p>
+                </div>
+                <div class="d-flex flex-column text-end">
+                    <span>{$order->address->name}</span>
+                    <span>{$order->address->street}</span>
+                    <span>{$order->address->city}</span>
+                    <span>{$order->address->zip}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

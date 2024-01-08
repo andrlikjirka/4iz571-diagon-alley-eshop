@@ -135,7 +135,7 @@ class CreateOrderFormFactory
         $order->knutTotalPrice = $cart->totalPrice['knut'];
 
         try {
-            $this->ordersFacade->saveNewOrder($order);
+            $this->ordersFacade->saveOrder($order);
         } catch (\Exception $e) {
             ($this->onFailure)($e->getMessage());
             return;

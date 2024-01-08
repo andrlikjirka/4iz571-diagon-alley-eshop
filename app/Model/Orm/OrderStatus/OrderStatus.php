@@ -14,4 +14,9 @@ use Nextras\Orm\Relationships\OneHasMany;
 class OrderStatus extends Entity
 {
 
+    public const RECEIVED = 1;
+    public const IN_PROGRESS = 2;
+    public const SETTLED = 3;
+    public const CANCELLED = 4;
+
 }

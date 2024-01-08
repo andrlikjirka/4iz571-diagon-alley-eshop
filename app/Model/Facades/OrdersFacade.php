@@ -3,6 +3,7 @@
 namespace App\Model\Facades;
 
 use App\Model\Orm\Orders\Order;
+use App\Model\Orm\OrderStatus\OrderStatus;
 use App\Model\Orm\Orm;
 use App\Model\Orm\Users\User;
 use Exception;
@@ -22,14 +23,14 @@ class OrdersFacade
         private readonly ProductsFacade $productsFacade
     ){}
 
-    public function saveNewOrder(Order $order): void
+    public function saveOrder(Order $order): void
     {
         try{
             $this->orm->orders->persistAndFlush($order);
         } catch (Exception $e) {
             Debugger::log($e);
             $this->orm->orders->getMapper()->rollback();
-            throw new Exception($e);
+            throw new Exception('Objednávku se nepodařilo uložit.');
         }
     }
 
@@ -50,7 +51,6 @@ class OrdersFacade
     /**
      * @param int $id
      * @return IEntity|Order
-     * @throws Exception
      */
     public function getOrderById(int $id): IEntity|Order
     {
@@ -64,6 +64,28 @@ class OrdersFacade
             $product->stock -= $orderItem->quantity;
             $this->productsFacade->saveProduct($product);
         }
+    }
+
+    public function findAllOrders(): ICollection
+    {
+        return $this->orm->orders->findAll();
+    }
+
+    public function changeOrderStatus(int $orderId, $orderStatus): IEntity|Order
+    {
+        $order = $this->getOrderById($orderId);
+        $order->orderStatus = $this->getOrderStatusByStatusId($orderStatus);
+        try {
+            $this->saveOrder($order);
+        } catch (\Exception $e) {
+            throw new Exception('Nepovedlo se změnit stav objednávky.');
+        }
+        return $order;
+    }
+
+    public function findOrderStatusPairs(): array
+    {
+        return $this->orm->orderStatus->findAll()->fetchPairs('id', 'name');
     }
 
 }
