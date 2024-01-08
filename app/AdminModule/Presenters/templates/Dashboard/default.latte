@@ -1,2 +1,92 @@
+{varType int $totalSales}
+{varType int $ordersTotalCount}
+{varType int $customersTotalCount}
+{varType int $showedProductsTotalCount}
+
 {block content}
-TODO tady bude nějaký admin dashboard :)
+
+<div class="row mb-5">
+    <h4 class="alert-heading">
+        Vítejte v administračním modulu eshopu z Příčné ulice!
+    </h4>
+    <hr>
+    <p class="mb-0">
+        Tento modul slouží pro editory, skladníky a administrátory pro všechny úkony spojené s administrací eshopu.
+    </p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header">
+                Finance
+            </div>
+            <div class="card-body d-flex align-items-center justify-content-center">
+                <div class="d-flex flex-column align-items-center">
+                        <div class="mb-1">
+                            <div class="d-flex flex-row align-items-center">
+                                <span class="text-end fs-3 fw-medium">{$totalSales['galleon']}</span>
+                                <img src="{$basePath . '/img/galleon.png'}" alt="galeony" title="galeony" class="ms-2"
+                                     style="width:25px; height: 25px">
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                <span class="text-end fs-3 fw-medium">{$totalSales['sickle']}</span>
+                                <img src="{$basePath . '/img/sickle.png'}" alt="srpce" title="srpce" class="ms-2"
+                                     style="width:25px; height: 25px">
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                <span class="text-end fs-3 fw-medium">{$totalSales['knut']}</span>
+                                <img src="{$basePath . '/img/knut.png'}" alt="svrčky" title="svrčky" class="ms-2"
+                                     style="width:25px; height: 25px">
+                            </div>
+                        </div>
+                    <div class="fs-5 fw-medium">Celkový obrat</div>
+                    <p class="small">(vyřízené objednávky)</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header">
+                Objednávky
+            </div>
+            <div class="card-body d-flex align-items-center justify-content-center">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="fs-2 mb-1">{$ordersTotalCount}</div>
+                    <div class="fs-5 fw-medium">Celkový počet objednávek</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header">
+                Zákazníci
+            </div>
+            <div class="card-body d-flex align-items-center justify-content-center">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="fs-2 mb-1">{$customersTotalCount}</div>
+                    <div class="fs-5 fw-medium text-center">Celkový počet <br>registrovaných zákazníků</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header">
+                Produkty
+            </div>
+            <div class="card-body d-flex align-items-center justify-content-center">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="fs-2 mb-1">{$showedProductsTotalCount}</div>
+                    <div class="fs-5 fw-medium text-center">Celkový počet produktů <br> dostupných v eshopu</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

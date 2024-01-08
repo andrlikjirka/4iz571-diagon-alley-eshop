@@ -15,7 +15,6 @@ use Nette\Forms\Form;
  */
 class OrdersPresenter extends BasePresenter
 {
-
     public function __construct(
         private readonly OrdersFacade $ordersFacade,
         private readonly OrdersDataGridControlFactory $ordersDataGridControlFactory,

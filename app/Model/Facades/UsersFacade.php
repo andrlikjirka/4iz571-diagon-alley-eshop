@@ -14,6 +14,7 @@ use Exception;
 use Nette\Database\ConstraintViolationException;
 use Nextras\Dbal\Drivers\Exception\QueryException;
 use Nextras\Orm\Collection\ICollection;
+use Nextras\Orm\Entity\IEntity;
 use Tracy\Debugger;
 
 /**
@@ -34,10 +35,10 @@ class UsersFacade
     /**
      * Metoda pro načtení jednoho uživatele
      * @param int $id
-     * @return User
+     * @return \Nextras\Orm\Entity\IEntity
      * @throws Exception
      */
-    public function getUser(int $id): User
+    public function getUser(int $id): IEntity|User
     {
         return $this->orm->users->getByIdChecked($id);
     }
@@ -48,7 +49,7 @@ class UsersFacade
      * @return User
      * @throws Exception
      */
-    public function getUserByEmail(string $email): User
+    public function getUserByEmail(string $email): IEntity|User
     {
         return $this->orm->users->getByChecked(['email' => $email]);
     }
@@ -102,5 +103,10 @@ class UsersFacade
 	{
 		return $this->orm->permissions->findAll();
 	}
+
+    public function findCustomersTotalCount(): int
+    {
+        return $this->orm->users->findBy(['role->name' => 'customer'])->count();
+    }
 
 }

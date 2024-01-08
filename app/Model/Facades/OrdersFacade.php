@@ -17,15 +17,17 @@ class OrdersFacade
      * UsersFacade constructor
      * @param Orm $orm
      */
-    public function __construct (
-        private readonly Orm $orm,
-        private readonly UsersFacade $usersFacade,
+    public function __construct(
+        private readonly Orm            $orm,
+        private readonly UsersFacade    $usersFacade,
         private readonly ProductsFacade $productsFacade
-    ){}
+    )
+    {
+    }
 
     public function saveOrder(Order $order): void
     {
-        try{
+        try {
             $this->orm->orders->persistAndFlush($order);
         } catch (Exception $e) {
             Debugger::log($e);
@@ -86,6 +88,38 @@ class OrdersFacade
     public function findOrderStatusPairs(): array
     {
         return $this->orm->orderStatus->findAll()->fetchPairs('id', 'name');
+    }
+
+    public function findOrdersTotalCount(): int
+    {
+        return $this->orm->orders->findAll()->count();
+    }
+
+    private function findSettledOrders(): ICollection
+    {
+        return $this->orm->orders->findBy(['orderStatus' => OrderStatus::SETTLED]);
+    }
+
+    public function getTotalSales(): array
+    {
+        $settledOrders = $this->findSettledOrders();
+        $totalSales = ['galleon' => 0, 'sickle' => 0, 'knut' => 0];
+
+        foreach ($settledOrders as $settledOrder) {
+            foreach ($settledOrder->orderItems as $orderItem) {
+                $totalSales['galleon'] += $orderItem->quantity * $orderItem->product->galleonPrice;
+                $totalSales['sickle'] += $orderItem->quantity * $orderItem->product->sicklePrice;
+                $totalSales['knut'] += $orderItem->quantity * $orderItem->product->knutPrice;
+            }
+        }
+
+        $totalSales['sickle'] += floor($totalSales['knut'] / 29);
+        $totalSales['knut'] = $totalSales['knut'] % 29;
+
+        $totalSales['galleon'] += floor($totalSales['sickle'] / 17);
+        $totalSales['sickle'] = $totalSales['sickle'] % 17;
+
+        return $totalSales;
     }
 
 }

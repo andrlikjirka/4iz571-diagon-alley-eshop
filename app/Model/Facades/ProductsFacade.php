@@ -95,4 +95,9 @@ class ProductsFacade
 		$this->orm->productPhotos->removeAndFlush($productPhoto);
 	}
 
+    public function findShowedProductsTotalCount()
+    {
+        return $this->orm->products->findBy(['showed' => true])->count();
+    }
+
 }
