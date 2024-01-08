@@ -15,6 +15,7 @@ extensions:
 	nextras.dbal: Nextras\Dbal\Bridges\NetteDI\DbalExtension
 	nextras.orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
 	fileUpload: Zet\FileUpload\FileUploadExtension
+	- Contributte\FormMultiplier\DI\MultiplierExtension
 
 migrations:
     dir: %appDir%/../migrations # migrations base directory

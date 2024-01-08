@@ -12,4 +12,9 @@ class AddressesMapper extends DbalMapper
 	{
 		return 'addresses';
 	}
+
+	public function deleteOldAddresses(int $userId, array $notDeletedAddresses): void
+	{
+		$this->connection->query('UPDATE addresses SET %set WHERE user_id = %i AND address_id NOT IN %i[]', ['deleted' => 1], $userId, $notDeletedAddresses);
+	}
 }
