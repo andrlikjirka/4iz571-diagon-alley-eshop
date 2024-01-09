@@ -2,11 +2,16 @@
 
 namespace App\PublicModule\Components\ProductCardControl;
 
+use App\Model\Facades\ProductsFacade;
 use App\Model\Orm\Products\Product;
+use App\PublicModule\Components\FavouritesControl\FavouritesControl;
+use App\PublicModule\Components\FavouritesControl\FavouritesControlFactory;
 use App\PublicModule\Forms\AddProductToCartFormFactory;
 use App\PublicModule\Forms\AddReviewFormFactory;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Control;
 use Nette\Forms\Form;
+use Nette\Security\User;
 
 /**
  * Class ProductCardControl
@@ -18,7 +23,10 @@ class ProductCardControl extends Control
 
     public function __construct(
         private readonly AddProductToCartFormFactory $addProductToCartFormFactory,
-        private readonly AddReviewFormFactory $addReviewFormFactory
+        private readonly AddReviewFormFactory $addReviewFormFactory,
+		private readonly User $user,
+		private readonly ProductsFacade $productsFacade,
+		private readonly FavouritesControlFactory $favouritesControlFactory
     )
     {}
 
@@ -93,5 +101,10 @@ class ProductCardControl extends Control
 
         return $this->addReviewFormFactory->create($onSuccess, $onFailure);
     }
+
+	public function createComponentFavourites(): FavouritesControl
+	{
+		return $this->favouritesControlFactory->create();
+	}
 
 }

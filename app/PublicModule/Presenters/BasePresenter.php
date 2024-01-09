@@ -8,6 +8,8 @@ use App\Components\UserLoginControl\UserLoginControl;
 use App\Components\UserLoginControl\UserLoginControlFactory;
 use App\PublicModule\Components\CartControl\CartControl;
 use App\PublicModule\Components\CartControl\CartControlFactory;
+use App\PublicModule\Components\FavouritesControl\FavouritesControl;
+use App\PublicModule\Components\FavouritesControl\FavouritesControlFactory;
 use App\PublicModule\Components\NavbarControl\NavbarControl;
 use App\PublicModule\Components\NavbarControl\NavbarControlFactory;
 use Nette\Application\AbortException;
@@ -41,6 +43,8 @@ abstract class BasePresenter extends Presenter
 
     private CartControlFactory $cartControlFactory;
 
+	private FavouritesControlFactory $favouritesControlFactory;
+
     /**
      * Tovární metoda pro začlenění komponenty UserLoginControl
      * @return UserLoginControl
@@ -64,6 +68,11 @@ abstract class BasePresenter extends Presenter
         return $this->cartControlFactory->create();
     }
 
+	public function createComponentFavourites(): FavouritesControl
+	{
+		return $this->favouritesControlFactory->create();
+	}
+
     #region injects
     public function injectUserLoginControlFactory (UserLoginControlFactory $userLoginControlFactory): void
     {
@@ -79,6 +88,11 @@ abstract class BasePresenter extends Presenter
     {
         $this->cartControlFactory = $cartControlFactory;
     }
+
+	public function injectFavouritesControlFactory (FavouritesControlFactory $favouritesControlFactory): void
+	{
+		$this->favouritesControlFactory = $favouritesControlFactory;
+	}
 
     #endregion injects
 

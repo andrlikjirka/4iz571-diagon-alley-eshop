@@ -8,7 +8,7 @@
 <h3 class="mb-4">{if !empty($currentCategory)}{$currentCategory->name}{else}Všechny produkty{/if}</h3>
 
 {if $products->count()}
-    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-5">
+    <div n:snippet="products" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-5">
         {foreach $products as $product}
             {control productCard $product}
         {/foreach}

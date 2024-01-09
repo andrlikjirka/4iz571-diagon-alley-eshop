@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Model\Orm\Products;
 
+use App\Model\Facades\ProductsFacade;
+use Nette\Security\User;
 use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Entity\Entity;
 use App\Model\Orm\Categories\Category;
@@ -31,11 +33,27 @@ use Nextras\Orm\Relationships\OneHasMany;
  * @property int $galleonPrice {default 0}
  * @property int $sicklePrice {default 0}
  * @property int $knutPrice {default 0}
- *
+ * @property-read bool $isFavourite {virtual}
  * @property-read double $avgStars {virtual}
  */
 class Product extends Entity
 {
+	/** private WagePeriodsFacade */
+	private User $user;
+
+	/** private ProductsFacade */
+	private ProductsFacade $productsFacade;
+
+	public function injectUser(User $user): void
+	{
+		$this->user = $user;
+	}
+
+	public function injectProductsFacade(ProductsFacade $productsFacade): void
+	{
+		$this->productsFacade = $productsFacade;
+	}
+
     public function getterReviewsOrderedByDate()
     {
         return $this->reviews->toCollection()->orderBy('added', 'DESC');
@@ -57,5 +75,10 @@ class Product extends Entity
     {
         return $this->productPhotos->toCollection()->fetch();
     }
+
+	public function getterIsFavourite(): bool
+	{
+		return (bool) $this->productsFacade->isProductFavouriteForUser($this->id, $this->user->getId());
+	}
 
 }
