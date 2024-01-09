@@ -3,7 +3,7 @@
         'name' => 'nette/web-project',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '3897d3817256c4a4fac61d7b8e1028b25742ccf5',
+        'reference' => '767f6dbdea5d70a7b3acbf28af44e07e392bc6f6',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -65,6 +65,15 @@
             'install_path' => __DIR__ . '/../doctrine/inflector',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'ezyang/htmlpurifier' => array(
+            'pretty_version' => 'v4.17.0',
+            'version' => '4.17.0.0',
+            'reference' => 'bbc513d79acf6691fa9cf10f192c90dd2957f18c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ezyang/htmlpurifier',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'ijvo/jquery-fileupload' => array(
             'pretty_version' => '3.0.2',
@@ -258,7 +267,7 @@
         'nette/web-project' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3897d3817256c4a4fac61d7b8e1028b25742ccf5',
+            'reference' => '767f6dbdea5d70a7b3acbf28af44e07e392bc6f6',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -14,5 +14,6 @@ return array(
     '6e3fae29631ef280660b3cdad06f25a8' => $vendorDir . '/symfony/deprecation-contracts/function.php',
     'a5f26a3f3f192c1d07586b1de3779617' => $vendorDir . '/nextras/dbal/srcCompat/compatibility.php',
     'd507e002f7fce7f0c6dbf1f22edcb902' => $vendorDir . '/tracy/tracy/src/Tracy/functions.php',
+    '2cffec82183ee1cea088009cef9a6fc3' => $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     '6b93d92fcd95a76f6607b35b745ae78f' => $vendorDir . '/nextras/orm/srcCompat/compatibility.php',
 );
