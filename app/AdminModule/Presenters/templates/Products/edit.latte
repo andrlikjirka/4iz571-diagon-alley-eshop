@@ -2,6 +2,12 @@
 
 {block content}
 
-<h1 n:block="title">{if $productId}Úprava{else}Přidání{/if} produktu</h1>
+<script>
+    tinymce.init({
+        selector: 'textarea#frm-productsForm-description'
+    });
+</script>
+
+<h3 n:block="title" class="mb-4">{if $productId}Úprava{else}Přidání{/if} produktu</h3>
 
 {control productsForm}

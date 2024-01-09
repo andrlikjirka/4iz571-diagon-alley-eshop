@@ -2,7 +2,6 @@
 
 namespace App\PublicModule\Components\ProductCardControl;
 
-use App\Model\Facades\ProductsFacade;
 use App\Model\Orm\Products\Product;
 use App\PublicModule\Forms\AddProductToCartFormFactory;
 use App\PublicModule\Forms\AddReviewFormFactory;

@@ -8,6 +8,7 @@ use App\Model\Facades\ReviewsFacade;
 use App\Model\Facades\UsersFacade;
 use App\Model\Orm\Reviews\Review;
 use Closure;
+use HTMLPurifier;
 use Nette\Forms\Form;
 use Nette\Security\User;
 use Nette\Tokenizer\Exception;
@@ -23,6 +24,8 @@ class AddReviewFormFactory
     private Closure $onSuccess;
     private Closure $onFailure;
 
+    private HTMLPurifier $purifier;
+
     public function __construct(
         private readonly FormFactory $formFactory,
         private readonly ProductsFacade $productsFacade,
@@ -30,7 +33,10 @@ class AddReviewFormFactory
         private readonly User $user,
         private readonly UsersFacade $usersFacade
     )
-    {}
+    {
+        $config = \HTMLPurifier_Config::createDefault();
+        $this->purifier = new HTMLPurifier($config);
+    }
 
     public function create(callable $onSuccess, callable $onFailure): Form
     {
@@ -48,7 +54,7 @@ class AddReviewFormFactory
         ];
         $form->addSelect('stars', 'Počet hvězdiček', $stars);
 
-        $form->addTextArea('text', 'Recenze', 50, 8);
+        $form->addTextArea('text', 'Recenze');
 
         $form->addSubmit('submit', 'Odeslat');
 
@@ -73,7 +79,7 @@ class AddReviewFormFactory
         $review = new Review();
         $review->product = $product;
         $review->stars = $values['stars'];
-        $review->text = $values['text'];
+        $review->text = $this->purifier->purify($values['text']);
 
         if ($this->user->isLoggedIn()) {
             try {

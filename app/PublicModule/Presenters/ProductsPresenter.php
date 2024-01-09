@@ -4,7 +4,6 @@ namespace App\PublicModule\Presenters;
 
 use App\Model\Facades\CategoriesFacade;
 use App\Model\Facades\ProductsFacade;
-use App\Model\Orm\Categories\Category;
 use App\PublicModule\Components\ProductCardControl\ProductCardControl;
 use App\PublicModule\Components\ProductCardControl\ProductCardControlFactory;
 use Nette\Utils\Paginator;

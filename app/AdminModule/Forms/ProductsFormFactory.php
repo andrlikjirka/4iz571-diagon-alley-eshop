@@ -11,6 +11,7 @@ use App\Model\Orm\ProductPhotos\ProductPhoto;
 use App\Model\Orm\Products\Product;
 use Closure;
 use Exception;
+use HTMLPurifier;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 
@@ -25,11 +26,16 @@ class ProductsFormFactory
 	private Closure $onSuccess;
 	private Closure $onFailure;
 
+    private \HTMLPurifier $purifier;
+
 	public function __construct(
 		private readonly FormFactory $formFactory,
 		private readonly ProductsFacade $productsFacade,
 		private readonly CategoriesFacade $categoriesFacade
-	) {}
+	) {
+        $config = \HTMLPurifier_Config::createDefault();
+        $this->purifier = new HTMLPurifier($config);
+    }
 
 	public function create(callable $onSuccess, callable $onFailure): Form
 	{
@@ -98,7 +104,7 @@ class ProductsFormFactory
 
 		$product->name = $values->name;
 		$product->summary = $values->summary;
-		$product->description = $values->description;
+		$product->description = $this->purifier->purify($values->description);
 		$product->stock = $values->stock;
 		$product->category = $this->categoriesFacade->getCategory((int)$values->category);
 		$product->showed = $values->showed;
