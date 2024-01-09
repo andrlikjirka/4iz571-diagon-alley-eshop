@@ -30,7 +30,10 @@ class MyOrdersDataGridControl extends Control
 
         $grid->addColumnNumber('id', 'ID objednávky')
             ->setAlign('left')
-            ->setSortable();
+            ->setSortable()
+            ->setRenderer(function (Order $order): int {
+                return $order->id;
+            });
 
         $grid->addColumnDateTime('created', 'Datum vytvoření')
             ->setAlign('left')
@@ -49,12 +52,13 @@ class MyOrdersDataGridControl extends Control
             });
 
         $grid->addActionCallback('show', 'Zobrazit detail')
-                ->setClass('btn btn-sm btn-warning ms-1 me-1')
+                ->setClass('btn btn-sm btn-light ms-1 me-1')
             ->onClick[] = function ($orderId): void {
                 $this->presenter->redirect(':Public:Orders:showMyOrder', ['id' => $orderId]);
             };
 
-        $grid->setItemsPerPageList([10,20], false);
+        $grid->setItemsPerPageList([1, 10, 20, 50, 100, 200, 500], false)
+            ->setDefaultPerPage(10);
 
         return $grid;
     }

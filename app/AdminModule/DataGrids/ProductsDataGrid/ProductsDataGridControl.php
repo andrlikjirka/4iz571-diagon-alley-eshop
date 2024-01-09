@@ -11,6 +11,7 @@ use Nette\Application\AbortException;
 use Nette\Application\UI\Control;
 use Nette\Bridges\ApplicationLatte\Template;
 use stdClass;
+use Ublaboo\DataGrid\Column\Action\Confirmation\CallbackConfirmation;
 use Ublaboo\DataGrid\DataGrid;
 
 /**
@@ -72,9 +73,17 @@ class ProductsDataGridControl extends Control
 
 		$grid->addAction('delete', '')
 			->setIcon('trash')
-			->setClass('ajax btn btn-xs btn-danger ms-1 me-1 mb-1');
+			->setClass('ajax btn btn-xs btn-danger ms-1 me-1 mb-1')
+            ->setConfirmation(
+                new CallbackConfirmation(
+                    function($product) {
+                        return 'Opravdu chcete odstranit produkt '.$product->name.'?';
+                    }
+                )
+            );
 
-		$grid->setItemsPerPageList([1, 10, 20, 50, 100, 200, 500], false);
+		$grid->setItemsPerPageList([1, 10, 20, 50, 100, 200, 500], false)
+            ->setDefaultPerPage(10);
 
 		return $grid;
 	}

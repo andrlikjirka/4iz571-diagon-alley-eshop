@@ -22,7 +22,14 @@
 
         <div class="mb-2">
             <span>Stav objednávky: </span>
-            <span class="badge rounded-pill {if $order->orderStatus->id == 1}text-bg-secondary{elseif $order->orderStatus->id == 2}text-bg-warning{elseif $order->orderStatus->id == 3}text-bg-success{elseif $order->orderStatus->id == 4}text-bg-danger{/if}">{$order->orderStatus->name}</span>
+            <span class="badge rounded-pill
+                {if $order->orderStatus->id == App\Model\Orm\OrderStatus\OrderStatus::RECEIVED}text-bg-light
+                {elseif $order->orderStatus->id == App\Model\Orm\OrderStatus\OrderStatus::IN_PROGRESS}text-bg-secondary
+                {elseif $order->orderStatus->id == App\Model\Orm\OrderStatus\OrderStatus::SETTLED}text-bg-success
+                {elseif $order->orderStatus->id == App\Model\Orm\OrderStatus\OrderStatus::CANCELLED}text-bg-danger
+                {/if}">
+                {$order->orderStatus->name}
+            </span>
         </div>
 
         <div class="mb-4">

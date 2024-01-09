@@ -39,6 +39,7 @@ class AddProductToCartFormFactory
             ->setDefaultValue(1);
 
         $form->addSubmit('addToCart', 'Přidat do košíku');
+        $form->setHtmlAttribute('class', 'ajax');
 
         $form->onSuccess[] = $this->formSucceeded(...);
 

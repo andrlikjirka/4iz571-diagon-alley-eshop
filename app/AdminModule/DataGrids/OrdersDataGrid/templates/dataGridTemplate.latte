@@ -20,3 +20,14 @@
         </div>
     </div>
 {/define}
+
+{define col-orderStatus}
+    <span class="badge rounded-pill fw-medium
+        {if $item->orderStatus->id == App\Model\Orm\OrderStatus\OrderStatus::RECEIVED}text-bg-light
+        {elseif $item->orderStatus->id == App\Model\Orm\OrderStatus\OrderStatus::IN_PROGRESS}text-bg-secondary
+        {elseif $item->orderStatus->id == App\Model\Orm\OrderStatus\OrderStatus::SETTLED}text-bg-success
+        {elseif $item->orderStatus->id == App\Model\Orm\OrderStatus\OrderStatus::CANCELLED}text-bg-danger
+        {/if}">
+        {$item->orderStatus->name}
+    </span>
+{/define}

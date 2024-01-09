@@ -60,12 +60,21 @@ class ProductCardControl extends Control
     {
         $onSuccess = function (string $message) {
             $this->presenter->flashMessage($message, 'success');
-            $this->presenter->redirect('this');
+            if ($this->presenter->isAjax()) {
+                $this->presenter->redrawControl('flashes');
+                $this->presenter->redrawControl('cart');
+            } else {
+                $this->presenter->redirect('this');
+            }
         };
 
         $onFailure = function (string $message) {
             $this->presenter->flashMessage($message, 'danger');
-            $this->presenter->redirect('this');
+            if ($this->presenter->isAjax()) {
+                $this->presenter->redrawControl('flashes');
+            } else {
+                $this->presenter->redirect('this');
+            }
         };
 
         return $this->addProductToCartFormFactory->create($onSuccess, $onFailure);

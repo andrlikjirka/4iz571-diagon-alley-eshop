@@ -32,7 +32,10 @@ class OrdersDataGridControl extends Control
 
         $grid->addColumnNumber('id', 'ID objednávky')
             ->setAlign('left')
-            ->setSortable();
+            ->setSortable()
+            ->setRenderer(function (Order $order): int {
+                return $order->id;
+            });
 
         $grid->addColumnDateTime('created', 'Datum vytvoření')
             ->setAlign('left')
@@ -45,15 +48,16 @@ class OrdersDataGridControl extends Control
                 return $order->orderStatus->name;
             });
 
-        $grid->addActionCallback('show', 'Zobrazit detail')
-            ->setClass('btn btn-sm btn-light ms-1 me-1')
+        $grid->addActionCallback('show', '')
+            ->setIcon('pen-to-square')
+            ->setClass('btn btn-xs btn-warning ms-1 me-3 mb-1')
             ->onClick[] = function ($orderId): void {
             $this->presenter->redirect(':Admin:Orders:show', ['id' => $orderId]);
         };
 
         $grid->addAction('receive', 'Přijatá', 'receive!')
             ->setClass(function ($order) {
-                return $order->orderStatus->id != OrderStatus::RECEIVED ? 'ajax btn btn-xs btn-secondary' : 'ajax btn btn-xs btn-secondary disabled';
+                return $order->orderStatus->id != OrderStatus::RECEIVED ? 'ajax btn btn-xs btn-light' : 'ajax btn btn-xs btn-light disabled';
             })
             ->setConfirmation(
                 new CallbackConfirmation(
@@ -65,7 +69,7 @@ class OrdersDataGridControl extends Control
 
         $grid->addAction('inProgress', 'Zpracovává se')
             ->setClass(function ($order) {
-                return $order->orderStatus->id != OrderStatus::IN_PROGRESS ? 'ajax btn btn-xs btn-warning' : 'ajax btn btn-xs btn-warning disabled';
+                return $order->orderStatus->id != OrderStatus::IN_PROGRESS ? 'ajax btn btn-xs btn-secondary' : 'ajax btn btn-xs btn-secondary disabled';
             })
             ->setConfirmation(
                 new CallbackConfirmation(
@@ -99,22 +103,22 @@ class OrdersDataGridControl extends Control
                 )
             );
 
-        $grid->setItemsPerPageList([10, 20], false);
+        $grid->setItemsPerPageList([1, 10, 20, 50, 100, 200, 500], false)
+            ->setDefaultPerPage(10);
+
         $grid->setDefaultSort(['created' => 'ASC']);
 
         return $grid;
     }
 
-
     public function handleReceive(int $id): void
     {
         try {
             $order = $this->ordersFacade->changeOrderStatus($id, OrderStatus::RECEIVED);
-            $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
         } catch (\Exception $e) {
             $this->presenter->flashMessage($e->getMessage(), 'danger');
         }
-
+        $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
         if ($this->presenter->isAjax()) {
             $this->presenter->redrawControl('flashes');
             isset($order) ? $this['dataGrid']->redrawItem($order->id) : $this['dataGrid']->reload();
@@ -127,11 +131,10 @@ class OrdersDataGridControl extends Control
     {
         try {
             $order = $this->ordersFacade->changeOrderStatus($id, OrderStatus::IN_PROGRESS);
-            $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
         } catch (\Exception $e) {
             $this->presenter->flashMessage($e->getMessage(), 'danger');
         }
-
+        $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
         if ($this->presenter->isAjax()) {
             $this->presenter->redrawControl('flashes');
             isset($order) ? $this['dataGrid']->redrawItem($order->id) : $this['dataGrid']->reload();
@@ -144,11 +147,10 @@ class OrdersDataGridControl extends Control
     {
         try {
             $order = $this->ordersFacade->changeOrderStatus($id, OrderStatus::SETTLED);
-            $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
         } catch (\Exception $e) {
             $this->presenter->flashMessage($e->getMessage(), 'danger');
         }
-
+        $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
         if ($this->presenter->isAjax()) {
             $this->presenter->redrawControl('flashes');
             isset($order) ? $this['dataGrid']->redrawItem($order->id) : $this['dataGrid']->reload();
@@ -161,11 +163,10 @@ class OrdersDataGridControl extends Control
     {
         try {
             $order = $this->ordersFacade->changeOrderStatus($id, OrderStatus::CANCELLED);
-            $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
         } catch (\Exception $e) {
             $this->presenter->flashMessage($e->getMessage(), 'danger');
         }
-
+        $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
         if ($this->presenter->isAjax()) {
             $this->presenter->redrawControl('flashes');
             isset($order) ? $this['dataGrid']->redrawItem($order->id) : $this['dataGrid']->reload();

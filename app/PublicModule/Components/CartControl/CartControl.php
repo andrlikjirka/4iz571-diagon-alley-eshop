@@ -110,7 +110,14 @@ class CartControl extends Control
     public function handleEmptyCart(): void
     {
         $this->cartFacade->emptyCart($this->cart);
-        $this->redirect('this');
+        $this->presenter->flashMessage('Košík byl úspěšně vyprázdněn.', 'success');
+        if ($this->presenter->isAjax()) {
+            $this->presenter->redrawControl('flashes');
+            $this->presenter->redrawControl('cart');
+            $this->presenter->redrawControl('content');
+        } else {
+            $this->presenter->redirect('this');
+        }
     }
 
     /**

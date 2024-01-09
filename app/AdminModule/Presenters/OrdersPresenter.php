@@ -52,11 +52,20 @@ class OrdersPresenter extends BasePresenter
     {
         $onSuccess = function (string $message) {
             $this->flashMessage($message, 'success');
-            $this->redirect('this');
+            if ($this->isAjax()) {
+                $this->redrawControl('flashes');
+                $this->redrawControl('content');
+            } else {
+                $this->redirect('this');
+            }
         };
         $onFailure = function (string $message) {
             $this->flashMessage($message, 'danger');
-            $this->redirect('this');
+            if ($this->isAjax()) {
+                $this->redrawControl('flashes');
+            } else {
+                $this->redirect('this');
+            }
         };
         return $this->orderStatusEditFormFactory->create($onSuccess, $onFailure);
     }

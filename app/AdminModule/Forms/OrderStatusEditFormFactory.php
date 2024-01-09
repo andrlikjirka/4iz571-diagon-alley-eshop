@@ -30,6 +30,7 @@ class OrderStatusEditFormFactory
         $form->addSelect('orderStatus', 'Stav objednávky', $this->ordersFacade->findOrderStatusPairs());
 
         $form->addSubmit('submit', 'Změnit stav');
+        $form->setHtmlAttribute('class', 'ajax');
 
         $form->onSuccess[] = $this->formSucceeded(...);
 

@@ -18,7 +18,7 @@ use Nextras\Orm\Relationships\OneHasMany;
  * @property-read Category[] $childrenRecursively {virtual}
  * @property-read Category[] $childrenShowedRecursively {virtual}
  * @property OneHasMany|Category[] $children {1:m Category::$parent}
- * @property int $showed {default 0}
+ * @property bool $showed {default 0}
  * @property bool $deleted {default 0}
  * @property-read OneHasMany|Product[] $products {virtual}
  * @property OneHasMany|Product[] $allProducts {1:m Product::$category}

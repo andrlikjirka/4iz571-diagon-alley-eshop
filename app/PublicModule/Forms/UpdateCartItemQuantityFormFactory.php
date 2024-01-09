@@ -25,6 +25,7 @@ class UpdateCartItemQuantityFormFactory
     public function create(callable $onSuccess, callable $onFailure)
     {
         $form = $this->formFactory->create();
+        $form->setHtmlAttribute('class', 'ajax');
 
         $form->addHidden('cartItemId', 'CartItem')
             ->setRequired();

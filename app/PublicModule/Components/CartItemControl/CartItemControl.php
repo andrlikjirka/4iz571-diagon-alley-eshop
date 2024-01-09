@@ -26,10 +26,21 @@ class CartItemControl extends Control
             $this->cartFacade->removeCartItem($this->cartFacade->getCartItem($cartItemId));
         } catch (Exception $e) {
             $this->presenter->flashMessage('Produkt se nepodařilo odebrat z košíku.', 'danger');
-            $this->presenter->redirect('this');
+            if ($this->presenter->isAjax()) {
+                $this->presenter->redrawControl('flashes');
+                $this->presenter->redrawControl('content');
+            } else {
+                $this->presenter->redirect('this');
+            }
         }
         $this->presenter->flashMessage('Produkt byl odebrán z košíku.', 'success');
-        $this->presenter->redirect('this');
+        if ($this->presenter->isAjax()) {
+            $this->presenter->redrawControl('flashes');
+            $this->presenter->redrawControl('cart');
+            $this->presenter->redrawControl('content');
+        } else {
+            $this->presenter->redirect('this');
+        }
     }
 
     public function render(CartItem $cartItem): void
@@ -47,12 +58,22 @@ class CartItemControl extends Control
     {
         $onSuccess = function (string $message) {
             $this->presenter->flashMessage($message, 'success');
-            $this->presenter->redirect('this');
+            if ($this->presenter->isAjax()) {
+                $this->presenter->redrawControl('flashes');
+                $this->presenter->redrawControl('cart');
+                $this->presenter->redrawControl('content');
+            } else {
+                $this->presenter->redirect('this');
+            }
         };
 
         $onFailure = function (string $message) {
             $this->presenter->flashMessage($message, 'danger');
-            $this->presenter->redirect('this');
+            if ($this->presenter->isAjax()) {
+                $this->presenter->redrawControl('flashes');
+            } else {
+                $this->presenter->redirect('this');
+            }
         };
 
         return $this->updateCartItemQuantityFormFactory->create($onSuccess, $onFailure);
