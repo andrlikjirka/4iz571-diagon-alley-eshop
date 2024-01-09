@@ -12,17 +12,4 @@ class ForgottenPasswordsRepository extends Repository
 	{
 		return [ForgottenPassword::class];
 	}
-
-    public function deleteOldForgottenPasswords(): void
-    {
-        $oneHourAgo = new \DateTime();
-        $oneHourAgo->modify('-1 hour');
-
-        $oldForgottenPasswords = $this->findBy(['created<' => $oneHourAgo]);
-        foreach ($oldForgottenPasswords as $oldForgottenPassword) {
-            $this->remove($oldForgottenPassword);
-        }
-        $this->flush();
-    }
-
 }

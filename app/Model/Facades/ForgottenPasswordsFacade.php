@@ -57,13 +57,25 @@ class ForgottenPasswordsFacade
      */
     public function isValidForgottenPassword(int $userId, string $code): bool
     {
-        $this->orm->forgottenPasswords->deleteOldForgottenPasswords();
+        $this->deleteOldForgottenPasswords();
         try {
             $this->orm->forgottenPasswords->findBy(['user' => $userId, 'code' => $code]);
             return true;
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    private function deleteOldForgottenPasswords(): void
+    {
+        $oneHourAgo = new \DateTime();
+        $oneHourAgo->modify('-1 hour');
+
+        $oldForgottenPasswords = $this->orm->forgottenPasswords->findBy(['created<' => $oneHourAgo]);
+        foreach ($oldForgottenPasswords as $oldForgottenPassword) {
+            $this->orm->forgottenPasswords->remove($oldForgottenPassword);
+        }
+        $this->orm->forgottenPasswords->flush();
     }
 
     /**
