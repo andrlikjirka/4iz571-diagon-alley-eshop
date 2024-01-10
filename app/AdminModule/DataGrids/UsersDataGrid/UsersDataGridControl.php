@@ -18,7 +18,8 @@ use function Symfony\Component\String\u;
 class UsersDataGridControl extends Control
 {
     public function __construct(
-        private readonly UsersFacade $usersFacade
+        private readonly UsersFacade $usersFacade,
+        private readonly \Nette\Security\User $user
     )
     {
     }
@@ -85,6 +86,19 @@ class UsersDataGridControl extends Control
                     return 'Opravdu chcete smazat uživatele ' . $user->name . ' (ID = ' . $user->id . ')?';
                 }
             ));
+
+        $grid->allowRowsAction('edit', function ($item): bool {
+            return $item->id !== $this->user->id;
+        });
+        $grid->allowRowsAction('blocked', function ($item): bool {
+            return $item->id !== $this->user->id;
+        });
+        $grid->allowRowsAction('delete', function ($item): bool {
+            return $item->id !== $this->user->id;
+        });
+
+        $grid->setItemsPerPageList([1, 10, 20, 50, 100, 200, 500], false)
+            ->setDefaultPerPage(10);
 
         return $grid;
     }
