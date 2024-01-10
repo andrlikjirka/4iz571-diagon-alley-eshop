@@ -90,16 +90,13 @@ class ProductsDataGridControl extends Control
 
         $grid->addColumnText('stockEdit', '');
 
-        $grid->addAction('saveStock', 'uložit ks')
-            ->setClass('ajax btn btn-xs btn-light');
-
         $grid->setItemsPerPageList([1, 10, 20, 50, 100, 200, 500], false)
             ->setDefaultPerPage(10);
 
         return $grid;
     }
 
-    public function handleSaveStock(): void
+    public function handleSaveStock($productId): void
     {
         $stock = $this->presenter->getParameter('stock');
         $productId = intval($this->presenter->getParameter('productId'));
