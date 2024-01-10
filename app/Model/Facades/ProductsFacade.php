@@ -6,6 +6,7 @@ namespace App\Model\Facades;
 
 
 use App\Model\Orm\Categories\Category;
+use App\Model\Orm\FavouriteProducts\FavouriteProduct;
 use App\Model\Orm\Orm;
 use App\Model\Orm\ProductPhotos\ProductPhoto;
 use App\Model\Orm\Products\Product;
@@ -99,5 +100,44 @@ class ProductsFacade
     {
         return $this->orm->products->findBy(['showed' => true])->count();
     }
+
+	public function getFavouriteProductsCountByUser(int $userId): int
+	{
+		return $this->orm->favouriteProducts->findBy(['user' => $userId])->countStored();
+	}
+
+	/**
+	 * @return ICollection<FavouriteProduct>
+	 */
+	public function getFavouriteProductsByUser(int $userId): ICollection
+	{
+		return $this->orm->favouriteProducts->findBy(['user' => $userId]);
+	}
+
+	public function addProductToFavourites(int $userId, int $productId): void
+	{
+		$favouriteProduct = $this->orm->favouriteProducts->getBy(['product' => $productId, 'user' => $userId]);
+		if($favouriteProduct) {
+			return;
+		}
+
+		$favouriteProduct = new FavouriteProduct();
+		$favouriteProduct->user = $this->orm->users->getById($userId);
+		$favouriteProduct->product = $this->orm->products->getById($productId);
+		$this->orm->favouriteProducts->persistAndFlush($favouriteProduct);
+	}
+
+	public function isProductFavouriteForUser(int $productId, int $userId): ?FavouriteProduct
+	{
+		return $this->orm->favouriteProducts->getBy(['product' => $productId, 'user' => $userId]);
+	}
+
+	public function removeProductToFavourites(int $userId, int $productId): void
+	{
+		$favouriteProduct = $this->orm->favouriteProducts->getBy(['product' => $productId, 'user' => $userId]);
+		if($favouriteProduct) {
+			$this->orm->favouriteProducts->removeAndFlush($favouriteProduct);
+		}
+	}
 
 }

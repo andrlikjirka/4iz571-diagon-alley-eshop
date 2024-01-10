@@ -1,0 +1,37 @@
+{varType App\Model\Orm\FavouriteProducts\FavouriteProduct[] $favouriteProducts}
+
+{foreach $favouriteProducts as $favouriteProduct}
+	<div class="row border-bottom align-items-center py-2">
+		<div class="col-3">
+			{if $favouriteProduct->product->firstProductPhoto}
+				<img src="{$basePath}/uploads/products/{$favouriteProduct->product->firstProductPhoto->name}" alt="" class="img-fluid w-25 me-2">
+			{/if}
+			<a href="{plink :Public:Products:show productId => $favouriteProduct->product->id}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$favouriteProduct->product->name}</a>
+		</div>
+		<div class="col-2">
+			<div class="d-flex flex-row mb-1 align-items-center">
+				<span class="text-end fw-medium">{$favouriteProduct->product->galleonPrice}</span>
+				<img src="{$basePath . '/img/galleon.png'}" alt="galeony" title="galeony" class="ms-2"
+					 style="width:25px; height: 25px">
+			</div>
+
+			<div class="d-flex flex-row mb-1 align-items-center">
+				<span class="text-end fw-medium">{$favouriteProduct->product->sicklePrice}</span>
+				<img src="{$basePath . '/img/sickle.png'}" alt="srpce" title="srpce" class="ms-2"
+					 style="width:25px; height: 25px">
+			</div>
+
+			<div class="d-flex flex-row mb-1 align-items-center">
+				<span class="text-end fw-medium">{$favouriteProduct->product->knutPrice}</span>
+				<img src="{$basePath . '/img/knut.png'}" alt="svrčky" title="svrčky" class="ms-2"
+					 style="width:25px; height: 25px">
+			</div>
+		</div>
+		<div class="col-5">
+			<a href="{plink :Public:Products:show productId => $favouriteProduct->product->id}" class="btn btn-warning">Zobrazit produkt</a>
+			<a href="{link removeFromFavourites $favouriteProduct->product->id}" class="btn btn-outline-danger">Odebrat produkt z oblíbených</a>
+		</div>
+	</div>
+{else}
+	V oblíbených nemáte žádné produkty.
+{/foreach}
