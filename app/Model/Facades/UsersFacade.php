@@ -88,6 +88,26 @@ class UsersFacade
 		return $this->orm->resources->findAll();
 	}
 
+    /**
+     * Metoda pro načtení uživatelské role podle názvu
+     * @param string $name
+     * @return IEntity
+     */
+    public function getRoleByName(string $name): IEntity|Role
+    {
+        return $this->orm->roles->getBy(['name' => $name]);
+    }
+
+    /**
+     * Metoda pro načtení uživatelské role podle id
+     * @param string $name
+     * @return IEntity
+     */
+    public function getRoleById(int $id): IEntity|Role
+    {
+        return $this->orm->roles->getBy(['id' => $id]);
+    }
+
 	/**
 	 * @return ICollection<Role>
 	 */
@@ -95,6 +115,11 @@ class UsersFacade
 	{
 		return $this->orm->roles->findAll();
 	}
+
+    public function findRolesPairs(): array
+    {
+        return $this->orm->roles->findAll()->fetchPairs('id', 'name');
+    }
 
 	/**
 	 * @return ICollection<Permission>
@@ -107,6 +132,11 @@ class UsersFacade
     public function findCustomersTotalCount(): int
     {
         return $this->orm->users->findBy(['role->name' => 'customer'])->count();
+    }
+
+    public function findAllUsers()
+    {
+        return $this->orm->users->findBy(['deleted' => 0]);
     }
 
 }

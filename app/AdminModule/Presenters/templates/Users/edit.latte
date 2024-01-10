@@ -1,0 +1,11 @@
+{varType App\Model\Orm\Users\User $user}
+
+{block content}
+
+<h3>Úprava uživatele: {$user->name}</h3>
+
+<div class="row mt-4">
+    <div class="col-lg-10">
+        {control userEditForm}
+    </div>
+</div>

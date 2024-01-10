@@ -23,8 +23,8 @@ use Nextras\Orm\Relationships\OneHasMany;
  * @property string|NULL $facebookId
  * @property Role $role {1:1 Role, isMain=true, oneSided=true}
  * @property string|NULL $password
- * @property int $blocked {default 0}
- * @property int $deleted {default 0}
+ * @property bool $blocked {default 0}
+ * @property bool $deleted {default 0}
  * @property-read ICollection|Address[] $addresses {virtual}
  * @property OneHasMany|Address[] $allAddresses {1:m Address::$user}
  * @property Cart $cart {1:1 Cart::$user}
