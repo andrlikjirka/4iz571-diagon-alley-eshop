@@ -1,3 +1,5 @@
+{varType Nette\Security\User $user}
+
 {extends $originalTemplate}
 
 {define col-price}
@@ -22,9 +24,13 @@
 {/define}
 
 {define col-stock}
-    <form action="" id="formStockEdit-{$item->id}">
-        <div class="d-flex flex-row">
-            <input type="number" id="stockInput-{$item->id}" class="form-control form-control-sm w-25 me-2" value="{$item->stock}" onchange="saveStock({$item->id})">
-        </div>
-    </form>
+{if $user->isInRole('admin') or $user->isInRole('storeman')}
+        <form action="" id="formStockEdit-{$item->id}">
+            <div class="d-flex flex-row">
+                <input type="number" id="stockInput-{$item->id}" class="form-control form-control-sm w-25 me-2" value="{$item->stock}" onchange="saveStock({$item->id})">
+            </div>
+        </form>
+{else}
+    <span>{$item->stock} ks</span>
+{/if}
 {/define}

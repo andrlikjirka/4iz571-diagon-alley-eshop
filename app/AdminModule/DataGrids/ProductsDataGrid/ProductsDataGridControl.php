@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace App\AdminModule\DataGrids\ProductsDataGrid;
 
 
-use App\Forms\FormFactory;
 use App\Model\Facades\ProductsFacade;
 use App\Model\Orm\Products\Product;
-use Exception;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Control;
 use Nette\Bridges\ApplicationLatte\Template;
-use Nette\Forms\Form;
 use stdClass;
 use Ublaboo\DataGrid\Column\Action\Confirmation\CallbackConfirmation;
 use Ublaboo\DataGrid\DataGrid;
@@ -28,7 +25,6 @@ class ProductsDataGridControl extends Control
 {
     public function __construct(
         private readonly ProductsFacade $productsFacade,
-        private readonly FormFactory $formFactory
     )
     {
     }
@@ -52,10 +48,7 @@ class ProductsDataGridControl extends Control
 
         $grid->addColumnNumber('stock', 'Skladem')
             ->setSortable()
-            ->setAlign('left')
-            ->setRenderer(function (Product $product): string {
-                return $product->stock . " ks";
-            });
+            ->setAlign('left');
 
         $grid->addColumnNumber('price', 'Cena produktu')
             ->setAlign('left')
