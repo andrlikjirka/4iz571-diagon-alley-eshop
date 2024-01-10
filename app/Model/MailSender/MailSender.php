@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\MailService;
+namespace App\Model\MailSender;
 
 use App\Model\Orm\Orders\Order;
 use App\Model\Orm\Users\User;
@@ -8,7 +8,7 @@ use Latte\Engine;
 use Nette\Mail\Mailer;
 use Nette\Mail\Message;
 
-class MailService
+class MailSender
 {
     //TODO: tohle by bylo fajn mít jako konstanty v configu
     private string $mailFromEmail = 'andj10@vse.cz';

@@ -8,6 +8,7 @@ use App\Model\Facades\CartFacade;
 use App\Model\Facades\OrdersFacade;
 use App\Model\Facades\ProductsFacade;
 use App\Model\Facades\UsersFacade;
+use App\Model\MailSender\MailSender;
 use App\Model\Orm\Addresses\Address;
 use App\Model\Orm\OrderItems\OrderItem;
 use App\Model\Orm\Orders\Order;
@@ -36,7 +37,8 @@ class CreateOrderFormFactory
         private readonly ProductsFacade $productsFacade,
         private readonly AddressFacade $addressFacade,
         private readonly OrdersFacade $ordersFacade,
-        Session                         $session
+        Session                         $session,
+        private readonly MailSender $mailService
     )
     {
         $this->cartSession = $session->getSection('cart');
@@ -94,6 +96,7 @@ class CreateOrderFormFactory
 
     private function formSucceeded(Form $form, ArrayHash $values): void
     {
+        $user = $this->usersFacade->getUser($this->user->id);
         $cart = $this->cartFacade->getCartById($this->cartSession->get('cartId'));
 
         $order = new Order();
@@ -126,7 +129,7 @@ class CreateOrderFormFactory
         }
 
         $order->orderStatus = $this->ordersFacade->getOrderStatusByStatusId(1);
-        $order->user = $this->user->isLoggedIn() ? $this->usersFacade->getUser($this->user->id) : null;
+        $order->user = $this->user->isLoggedIn() ? $user : null;
         $order->address = $address;
         $order->shipping = $values['shipping'];
         $order->payment = $values['payment'];
@@ -142,6 +145,7 @@ class CreateOrderFormFactory
         }
         $this->ordersFacade->updateOrderedProductsStock($order);
         $this->cartFacade->emptyCart($cart);
+        $this->mailService->sendNewOrderMail($order, $user);
         ($this->onSuccess)('Objednávka byla úspěšně odeslána.');
     }
 

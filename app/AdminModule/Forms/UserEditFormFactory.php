@@ -5,7 +5,7 @@ namespace App\AdminModule\Forms;
 use App\Forms\FormFactory;
 use App\Model\Facades\ForgottenPasswordsFacade;
 use App\Model\Facades\UsersFacade;
-use App\Model\MailService\MailService;
+use App\Model\MailSender\MailSender;
 use App\Model\Orm\Users\User;
 use Closure;
 use Exception;
@@ -36,7 +36,7 @@ class UserEditFormFactory
         private readonly ForgottenPasswordsFacade $forgottenPasswordsFacade,
         private readonly Passwords $passwords,
         private readonly LinkGenerator $linkGenerator,
-        private readonly MailService $mailService
+        private readonly MailSender $mailService
     )
     {
     }

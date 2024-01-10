@@ -30,7 +30,6 @@ class RegistrationFormFactory
     public function __construct(
         private readonly FormFactory          $formFactory,
         private readonly UsersFacade          $usersFacade,
-        private readonly RolesFacade          $rolesFacade,
         private readonly Passwords            $passwords,
         private readonly \Nette\Security\User $user,
         private readonly Authenticator        $authenticator
@@ -90,7 +89,7 @@ class RegistrationFormFactory
 		Arrays::toObject($values, $newUser);
 
         $newUser->password = $this->passwords->hash($values->password);
-        $newUser->role = $this->rolesFacade->getRoleByName('customer');
+        $newUser->role = $this->usersFacade->getRoleByName('customer');
 
         try {
             $this->usersFacade->saveUser($newUser);

@@ -5,6 +5,7 @@ namespace App\PublicModule\Forms;
 use App\Forms\FormFactory;
 use App\Model\Facades\ForgottenPasswordsFacade;
 use App\Model\Facades\UsersFacade;
+use App\Model\MailSender\MailSender;
 use App\Model\Orm\ForgottenPasswords\ForgottenPassword;
 use Closure;
 use Nette\Application\LinkGenerator;
@@ -21,16 +22,13 @@ class ForgottenPasswordFormFactory
 
     private Closure $onFailure;
 
-    //TODO: tohle by bylo fajn mít jako konstanty v configu
-    private string $mailFromEmail = 'andj10@vse.cz';
-    private string $mailFromName = 'Diagon Alley eshop';
 
     public function __construct(
         private readonly FormFactory              $formFactory,
         private readonly UsersFacade              $usersFacade,
         private readonly LinkGenerator            $linkGenerator,
         private readonly ForgottenPasswordsFacade $forgottenPasswordsFacade,
-        private readonly Mailer $mailer
+        private readonly MailSender $mailService
     )
     {
     }
@@ -81,17 +79,8 @@ class ForgottenPasswordFormFactory
             return;
         }
 
-        #region příprava textu mailu
-        $mail = new Message();
-        $mail->setFrom($this->mailFromEmail, $this->mailFromName);
-        $mail->addTo($user->email, $user->name);
-        $mail->subject = 'Obnova zapomenutého hesla';
-        $mail->htmlBody = 'Obdrželi jsme vaši žádost na obnovu zapomenutého hesla. Pokud si přejete heslo změnit, <a href="' . $mailLink . '">klikněte zde</a>.';
-        #endregion příprava textu mailu
+        $this->mailService->sendForgottenPasswordMail($user, $mailLink);
 
-        //odeslání mailu pomocí PHP funkce mail
-        //$mailer = new SendmailMailer();
-        $this->mailer->send($mail);
         ($this->onSuccess)('Pokud uživatelský účet s daným e-mailem existuje, poslali jsme vám odkaz na změnu hesla.');
     }
 

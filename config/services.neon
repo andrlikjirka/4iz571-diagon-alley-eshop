@@ -3,6 +3,8 @@ services:
 	- App\Model\Authenticator\Authenticator
 	- App\Model\Uploader\Uploader
 	- App\Model\Authorizator\Authorizator
+	- App\Model\MailSender\MailSender
+	- Latte\Engine
 
 search:
 	- in: %appDir%
