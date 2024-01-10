@@ -8,11 +8,11 @@ namespace App\AdminModule\DataGrids\ProductsDataGrid;
 use App\Forms\FormFactory;
 use App\Model\Facades\ProductsFacade;
 use App\Model\Orm\Products\Product;
+use Exception;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Control;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Forms\Form;
-use Nette\Tokenizer\Exception;
 use stdClass;
 use Ublaboo\DataGrid\Column\Action\Confirmation\CallbackConfirmation;
 use Ublaboo\DataGrid\DataGrid;
@@ -88,8 +88,6 @@ class ProductsDataGridControl extends Control
                 )
             );
 
-        $grid->addColumnText('stockEdit', '');
-
         $grid->setItemsPerPageList([1, 10, 20, 50, 100, 200, 500], false)
             ->setDefaultPerPage(10);
 
@@ -100,26 +98,28 @@ class ProductsDataGridControl extends Control
     {
         $stock = $this->presenter->getParameter('stock');
         $productId = intval($this->presenter->getParameter('productId'));
-        bdump($stock);
-        bdump($productId);
 
         try {
             $product = $this->productsFacade->getProduct($productId);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->presenter->flashMessage('Požadovaný produkt nebyl nalezen.', 'danger');
             $this->redirect('this');
         }
-        $product->stock = $stock;
-        try {
-            $this->productsFacade->saveProduct($product);
-        } catch (\Exception $e) {
-            $this->presenter->flashMessage('Skladové zásoby produktu '.$product->name.' se nepodařilo změnit.', 'danger');
+        if ($stock >= 0) {
+            $product->stock = $stock;
+            try {
+                $this->productsFacade->saveProduct($product);
+                $this->presenter->flashMessage('Skladové zásoby produktu '.$product->name.' byly úspěšně změněny na '.$stock.' ks.', 'success');
+            } catch (\Exception $e) {
+                $this->presenter->flashMessage('Skladové zásoby produktu '.$product->name.' se nepodařilo změnit.', 'danger');
+            }
+        } else {
+            $this->presenter->flashMessage('Skladové zásoby produktu musí být nenulové číslo.', 'danger');
         }
-        $this->presenter->flashMessage('Skladové zásoby produktu '.$product->name.' byly úspěšně změněny na '.$stock.' ks.', 'success');
 
         if($this->presenter->isAjax()) {
             $this->presenter->redrawControl('flashes');
-            $this['dataGrid']->redrawItem($product->id);
+            $this['dataGrid']->redrawItem($productId);
         } else {
             $this->presenter->redirect('this');
         }

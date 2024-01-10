@@ -2,10 +2,6 @@
     {control dataGrid}
 </div>
 
-<!-- Testovací tlačítko - ajax funkční -->
-<button class="mt-3 ajax btn btn-secondary btn-xs stockButton" onclick="saveStock(1)">tohle tlačítko odesílá ajax, spouští handler a dokáže uložit ks (má ale natvrdo zadáno id jednoho produktu)</button>
-
-
 <!--Skript pro odeslání ajax požadavku na handler v komponentě datagridu-->
 <script>
     function saveStock(productId) {
@@ -14,7 +10,7 @@
         console.log(stock);
 
         $.nette.ajax({
-            type: 'GET',
+            type: 'POST',
             url: {link saveStock!},
             data: {
                 productId: productId,

@@ -21,11 +21,10 @@
     </div>
 {/define}
 
-{define col-stockEdit}
+{define col-stock}
     <form action="" id="formStockEdit-{$item->id}">
         <div class="d-flex flex-row">
-            <input type="number" id="stockInput-{$item->id}" class="form-control form-control-sm w-25 me-2" value="{$item->stock}">
+            <input type="number" id="stockInput-{$item->id}" class="form-control form-control-sm w-25 me-2" value="{$item->stock}" onchange="saveStock({$item->id})">
         </div>
     </form>
-    <button class="ajax btn btn-secondary btn-xs stockButton" onclick="saveStock({$item->id})">tohle tlačítko prostě ajax nepošle</button>
 {/define}
