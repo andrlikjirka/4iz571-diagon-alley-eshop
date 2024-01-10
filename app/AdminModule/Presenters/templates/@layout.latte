@@ -28,6 +28,8 @@
 	{* File Uploader *}
 	{\Zet\FileUpload\FileUploadControl::getHead($basePath)}
 	{*/ File Uploader *}
+
+
 </head>
 
 <body>
@@ -43,6 +45,12 @@
 
 <!-- Use this little extension for ajax spinners -->
 <script src="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.9.1/assets/datagrid-spinners.js"></script>
+
+<script type="javascript">
+	$(function () {
+		$.nette.init();
+	})
+</script>
 
 <header class="sticky-top bg-white border-bottom border-warning border-3">
 	<nav class="navbar navbar-expand-lg py-2 shadow-sm">
@@ -137,6 +145,7 @@
 	{* File Uploader scripts *}
 	{\Zet\FileUpload\FileUploadControl::getScripts($basePath)}
 	{*/ File Uploader scripts *}
+
 {/block}
 </body>
 </html>

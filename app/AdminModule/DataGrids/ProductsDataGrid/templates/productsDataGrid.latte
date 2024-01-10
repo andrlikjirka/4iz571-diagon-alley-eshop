@@ -1,3 +1,22 @@
 <div class="table-responsive">
     {control dataGrid}
 </div>
+
+<button class="ajax btn btn-warning btn-xs stockButton" onclick="saveStock(1)">test</button>
+
+<script>
+    function saveStock(productId) {
+        let stock = document.getElementById('stockInput-'+productId).value;
+        console.log(productId);
+        console.log(stock);
+
+        $.nette.ajax({
+            type: 'GET',
+            url: {link saveStock!},
+            data: {
+                productId: productId,
+                stock: stock
+            }
+        });
+    }
+</script>
