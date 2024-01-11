@@ -8,6 +8,38 @@
 		<priority>0.8</priority>
 	</url>
 
-	{*TODO výpis jednotlivých produktů*}
+	<url>
+		<loc>{$baseUrl}/log-in</loc>
+		<changefreq>weekly</changefreq>
+		<priority>0.8</priority>
+	</url>
+
+	<url>
+		<loc>{$baseUrl}/registration</loc>
+		<changefreq>weekly</changefreq>
+		<priority>0.8</priority>
+	</url>
+
+	<url>
+		<loc>{$baseUrl}/products</loc>
+		<changefreq>weekly</changefreq>
+		<priority>0.8</priority>
+	</url>
+
+	{foreach $categories as $category}
+	<url>
+		<loc>{$baseUrl}/products/{$category->slug}</loc>
+		<changefreq>weekly</changefreq>
+		<priority>0.8</priority>
+	</url>
+	{/foreach}
+
+	{foreach $products as $product}
+	<url>
+		<loc>{$baseUrl}/products/{$product->category->slug}/{$product->slug}</loc>
+		<changefreq>weekly</changefreq>
+		<priority>0.8</priority>
+	</url>
+	{/foreach}
 
 </urlset>
