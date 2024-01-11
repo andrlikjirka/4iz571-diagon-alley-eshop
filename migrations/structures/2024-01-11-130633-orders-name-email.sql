@@ -3,6 +3,3 @@ alter table orders
 
 alter table orders
     add name varchar(255) not null after user_id;
-
-alter table addresses
-drop column name;
