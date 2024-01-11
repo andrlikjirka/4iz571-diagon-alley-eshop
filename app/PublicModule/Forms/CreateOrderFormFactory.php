@@ -53,7 +53,7 @@ class CreateOrderFormFactory
             $addresses = array();
             if (!empty($userAddresses)) {
                 foreach ($userAddresses as $userAddress) {
-                    $addresses[$userAddress->id] = $userAddress->name . "\n" . $userAddress->street . "\n" . $userAddress->city . "\n" . $userAddress->zip;
+                    $addresses[$userAddress->id] = $userAddress->street . "\n" . $userAddress->city . "\n" . $userAddress->zip;
                 }
             }
         }
@@ -62,11 +62,17 @@ class CreateOrderFormFactory
         $form->addRadioList('addresses', 'Adresa', $addresses)
             ->setRequired();
 
-        $form->addText('name', 'Jméno');
         $form->addText('street', 'Ulice a číslo popisné');
         $form->addText('city', 'Město');
         $form->addText('zip', 'PSČ')
             ->addRule($form::LENGTH, 'PSČ musí obsahovat %d znaků.', 5);
+
+
+        $form->addText('name', 'Jméno')
+            ->setRequired();
+
+        $form->addEmail('email', 'Emailová adresa')
+            ->setRequired();
 
         $shipping = [
             'vyzvednuti' => 'Vyzvednutí v Příčné ulici',
@@ -111,9 +117,8 @@ class CreateOrderFormFactory
             $order->orderItems->add($orderItem);
         }
 
-        if ($values['addresses'] == -1 && isset($values['name']) && isset($values['street']) && isset($values['city']) && isset($values['zip'])) {
+        if ($values['addresses'] == -1 && isset($values['street']) && isset($values['city']) && isset($values['zip'])) {
             $address = new Address();
-            $address->name = $values['name'];
             $address->street = $values['street'];
             $address->city = $values['city'];
             $address->zip = $values['zip'];
@@ -130,6 +135,8 @@ class CreateOrderFormFactory
 
         $order->orderStatus = $this->ordersFacade->getOrderStatusByStatusId(1);
         $order->user = $this->user->isLoggedIn() ? $user : null;
+        $order->name = $values['name'];
+        $order->email = $values['email'];
         $order->address = $address;
         $order->shipping = $values['shipping'];
         $order->payment = $values['payment'];
@@ -145,7 +152,7 @@ class CreateOrderFormFactory
         }
         $this->ordersFacade->updateOrderedProductsStock($order);
         $this->cartFacade->emptyCart($cart);
-        $this->mailService->sendNewOrderMail($order, $user);
+        $this->mailService->sendNewOrderMail($order);
         ($this->onSuccess)('Objednávka byla úspěšně odeslána.');
     }
 

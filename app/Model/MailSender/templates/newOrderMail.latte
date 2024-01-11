@@ -1,6 +1,4 @@
-{varType App\Model\Orm\Users\User $user}
 {varType App\Model\Orm\Users\Order $order}
-{varType string $mailLink}
 
 <html>
 <head>
@@ -141,7 +139,6 @@
                     <p class="fw-medium">Fakturační adresa</p>
                 </div>
                 <div class="d-flex flex-column text-end">
-                    <span>{$order->address->name}</span>
                     <span>{$order->address->street}</span>
                     <span>{$order->address->city}</span>
                     <span>{$order->address->zip}</span>

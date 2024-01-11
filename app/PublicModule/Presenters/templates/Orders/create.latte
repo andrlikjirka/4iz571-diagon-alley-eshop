@@ -9,6 +9,37 @@
         {form createOrderForm}
             <div class="card mb-4">
                 <div class="card-header small">
+                    Kontaktní údaje
+                </div>
+                <div class="card-body">
+                    <div class="row px-2">
+                        <div class="col-12">
+                            <div class="mb-2">
+                                {label name, class:'form-label small'/}
+                                {input name, class:'form-control'}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-12">
+                            <div class="mb-2">
+                                {label email, class:'form-label small'/}
+                                {input email, class=>$form['email']->hasErrors() ? 'form-control border border-danger' : 'form-control'}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="small text-danger">
+                                {inputError email}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header small">
                     Doručovací adresa
                 </div>
                 <div class="card-body">
@@ -57,16 +88,18 @@
                     Způsob doručení
                 </div>
                 <div class="card-body">
-                    {foreach $form['shipping']->items as $key => $label}
-                        <div class="form-check">
-                            <label n:name="shipping:$key" class="form-check-label">
-                                <input n:name="shipping:$key" type="radio" class="form-check-input">
-                                <div class="ms-2 mb-1">
-                                    {$label}
-                                </div>
-                            </label>
-                        </div>
-                    {/foreach}
+                    <div class="row px-4">
+                        {foreach $form['shipping']->items as $key => $label}
+                            <div class="form-check">
+                                <label n:name="shipping:$key" class="form-check-label">
+                                    <input n:name="shipping:$key" type="radio" class="form-check-input">
+                                    <div class="ms-2 mb-1">
+                                        {$label}
+                                    </div>
+                                </label>
+                            </div>
+                        {/foreach}
+                    </div>
                 </div>
             </div>
 
@@ -75,16 +108,18 @@
                     Způsob platby
                 </div>
                 <div class="card-body">
-                    {foreach $form['payment']-> items as $key => $label}
-                        <div class="form-check">
-                            <label n:name="payment:$key" class="form-check-label">
-                                <input n:name="payment:$key" type="radio" class="form-check-input">
-                                <div class="ms-2 mb-1">
-                                    {$label}
-                                </div>
-                            </label>
-                        </div>
-                    {/foreach}
+                    <div class="row px-4">
+                        {foreach $form['payment']-> items as $key => $label}
+                            <div class="form-check">
+                                <label n:name="payment:$key" class="form-check-label">
+                                    <input n:name="payment:$key" type="radio" class="form-check-input">
+                                    <div class="ms-2 mb-1">
+                                        {$label}
+                                    </div>
+                                </label>
+                            </div>
+                        {/foreach}
+                    </div>
                 </div>
             </div>
 

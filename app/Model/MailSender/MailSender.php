@@ -62,16 +62,15 @@ class MailSender
         $this->mailer->send($mail); // případně smtpMailer
     }
 
-    public function sendNewOrderMail(Order $order, User $user): void
+    public function sendNewOrderMail(Order $order): void
     {
         $params = [
-            'order' => $order,
-            'user' => $user
+            'order' => $order
         ];
 
         $mail = new Message();
         $mail->setFrom($this->mailFrom, $this->nameFrom);
-        $mail->addTo($user->email, $user->name);
+        $mail->addTo($order->email, $order->name);
         $mail->subject = 'Potvrzení objednávky č. '.$order->id;
         //$mail->htmlBody = 'Byl jste přidán jako nový uživatel. Pro nastavení nového hesla klikněte zde:, <a href="' . $mailLink . '">klikněte zde</a>.';
         $mail->setHtmlBody($this->latte->renderToString(__DIR__ . '/templates/newOrderMail.latte', $params));
@@ -79,5 +78,10 @@ class MailSender
 
         //odeslání mailu pomocí PHP funkce mail
         $this->mailer->send($mail); // případně smtpMailer
+    }
+
+    public function sendOrderStatusChangeMail(Order $order)
+    {
+
     }
 }

@@ -19,6 +19,8 @@ use Nextras\Orm\Relationships\OneHasMany;
  * @property DateTimeImmutable $created {default now}
  * @property ?OrderStatus $orderStatus {m:1 OrderStatus::$orders}
  * @property ?User $user {m:1 User::$orders}
+ * @property string $name
+ * @property string $email
  * @property string $shipping {enum self::SHIPPING_*}
  * @property string $payment {enum self::PAYMENT_*}
  * @property OneHasMany|OrderItem[] $orderItems {1:m OrderItem::$order}

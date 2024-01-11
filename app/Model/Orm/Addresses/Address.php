@@ -10,7 +10,6 @@ use App\Model\Orm\Users\User;
 
 /**
  * @property int $id {primary}
- * @property string $name
  * @property string $street
  * @property string $city
  * @property string $zip

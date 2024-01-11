@@ -62,6 +62,15 @@ class OrdersPresenter extends BasePresenter
 
     public function renderCreate(): void
     {
+        $form = $this->getComponent('createOrderForm');
+        if ($this->user->isLoggedIn())
+        {
+            $form->setDefaults([
+                'name' => $this->user->getIdentity()->getData()['name'],
+                'email' => $this->user->getIdentity()->getData()['email']
+            ]);
+        }
+
         $this->template->cart = $this->cartFacade->getCartById($this->cartSession->get('cartId'));
 
     }
