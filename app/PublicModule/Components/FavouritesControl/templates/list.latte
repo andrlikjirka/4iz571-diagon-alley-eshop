@@ -33,5 +33,10 @@
 		</div>
 	</div>
 {else}
+	<div class="alert alert-info">
 	V oblíbených nemáte žádné produkty.
+	{if !$user->isLoggedIn()}
+		Pro využití oblíbených produktů se musíte nejdříve <a href="{plink :Public:login:default}">přihlásit</a>.
+	{/if}
+	</div>
 {/foreach}
