@@ -51,12 +51,12 @@ class ProductsFormFactory
 			->addRule(function (TextInput $textInput) use ($form) {
 				$slug = Strings::webalize($textInput->value);
 				try {
-					$this->productsFacade->getProductBySlug($slug);
+					$product = $this->productsFacade->getProductBySlug($slug);
+					return $product->id == $form['productId']->getValue(); //check if it's not the same product
 				} catch (Exception $e) {
 					// if it can't find product with this slug, it's ok
 					return true;
 				}
-				return false;
 			}, 'Produkt se stejným názvem již existuje');
 
 		$form->addTextArea('summary', 'Krátký popis produktu')
