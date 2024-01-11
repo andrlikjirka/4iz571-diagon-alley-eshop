@@ -1,13 +1,16 @@
 {varType App\Model\Orm\Categories\Category[] $categories}
 
 <ul class="nav nav-pills flex-column text-dark">
+    <li class="nav-item mb-2">
+        <a href="{plink :Public:Products:default categorySlug => null}" class="nav-link pb-0 link-dark fw-bold link-opacity-75-hover text-decoration-none">Všechny produkty</a>
+    </li>
     {foreach $categories as $category}
         <li class="nav-item mb-2">
-            <a href="{plink :Public:Products:default categoryId => $category->id}" class="nav-link pb-0 link-dark fw-bold link-opacity-75-hover text-decoration-none">{$category->name}</a>
+            <a href="{plink :Public:Products:default categorySlug => $category->slug}" class="nav-link pb-0 link-dark fw-bold link-opacity-75-hover text-decoration-none">{$category->name}</a>
             <ul class="nav nav-pills fw-normal  flex-column">
                 {foreach $category->childrenShowed as $subcategory}
                     <li class="pb-0">
-                        <a href="{plink :Public:Products:default categoryId => $subcategory->id}" class="nav-link ms-2 pb-0 link-dark link-opacity-75-hover text-decoration-none">{$subcategory->name}</a>
+                        <a href="{plink :Public:Products:default categorySlug => $subcategory->slug}" class="nav-link ms-2 pb-0 link-dark link-opacity-75-hover text-decoration-none">{$subcategory->name}</a>
                     </li>
                 {/foreach}
             </ul>

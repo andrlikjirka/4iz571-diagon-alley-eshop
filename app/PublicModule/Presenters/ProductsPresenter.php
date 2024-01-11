@@ -6,12 +6,13 @@ use App\Model\Facades\CategoriesFacade;
 use App\Model\Facades\ProductsFacade;
 use App\PublicModule\Components\ProductCardControl\ProductCardControl;
 use App\PublicModule\Components\ProductCardControl\ProductCardControlFactory;
+use Nette\Application\AbortException;
 use Nette\Utils\Paginator;
 
 class ProductsPresenter extends BasePresenter
 {
     /** @persistent */
-    public ?int $categoryId = null;
+    public ?string $categorySlug = null;
 
     /** @persistent */
     public int $page = 1;
@@ -28,16 +29,16 @@ class ProductsPresenter extends BasePresenter
     /**
      * Akce pro výpis produktů
      * @return void
-     * @throws \Nette\Application\AbortException
+     * @throws AbortException
      */
     public function renderDefault(): void
     {
-        if (!empty($this->categoryId)) {
+        if (!empty($this->categorySlug)) {
             try {
-                $category = $this->categoriesFacade->getCategoryById($this->categoryId);
+                $category = $this->categoriesFacade->getCategoryBySlug($this->categorySlug);
             } catch (\Exception $e) {
                 $this->flashMessage('Kategorie nenalezena.', 'warning');
-                $this->redirect('this', ['categoryId' => null]);
+                $this->redirect('this', ['categorySlug' => null]);
             }
             $this->template->currentCategory = $category;
             $products = $this->productsFacade->findShowedProductsByCategoryRecursively($category); //produkty vy dané kategorii + produkty ve všech podřízených kategoriích
@@ -59,10 +60,13 @@ class ProductsPresenter extends BasePresenter
         $this->template->products = $products->limitBy($limit, $offset);
     }
 
-    public function renderShow(int $productId)
-    {
+	/**
+	 * @throws AbortException
+	 */
+	public function renderShow(string $productSlug): void
+	{
         try {
-            $product = $this->productsFacade->getProduct($productId);
+            $product = $this->productsFacade->getProductBySlug($productSlug);
         } catch (\Exception $e) {
             $this->flashMessage('Produkt nenalezen.', 'warning');
             $this->redirect('default');

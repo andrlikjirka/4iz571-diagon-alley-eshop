@@ -5,7 +5,7 @@
         {if $cartItem->product->firstProductPhoto}
             <img src="{$basePath}/uploads/products/{$cartItem->product->firstProductPhoto->name}" alt="" class="img-fluid w-25 me-2">
         {/if}
-        <a href="{plink :Public:Products:show productId => $cartItem->product->id}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a>
+        <a href="{plink :Public:Products:show categorySlug => $cartItem->product->category->slug, productSlug => $cartItem->product->slug}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a>
     </div>
     <div class="col-2 me-4">
         {if $cartItem->product->galleonPrice > 0}

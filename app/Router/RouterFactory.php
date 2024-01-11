@@ -18,6 +18,10 @@ final class RouterFactory
 		$adminRouter->addRoute('admin/<presenter=Dashboard>/<action=default>[/<id>]');
 
 		$publicRouter = new RouteList('Public');
+		$publicRouter->addRoute('sitemap.xml', 'Homepage:sitemap');
+		$publicRouter->addRoute('products[/<categorySlug>]', 'Products:default');
+		$publicRouter->addRoute('product[/<categorySlug>]/<productSlug>', 'Products:show');
+
 		$publicRouter->addRoute('<presenter=Homepage>/<action=default>[/<id>]');
 
 		$router = new RouteList();

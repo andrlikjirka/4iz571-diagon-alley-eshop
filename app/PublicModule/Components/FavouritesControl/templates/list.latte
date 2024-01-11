@@ -6,7 +6,7 @@
 			{if $favouriteProduct->product->firstProductPhoto}
 				<img src="{$basePath}/uploads/products/{$favouriteProduct->product->firstProductPhoto->name}" alt="" class="img-fluid w-25 me-2">
 			{/if}
-			<a href="{plink :Public:Products:show productId => $favouriteProduct->product->id}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$favouriteProduct->product->name}</a>
+			<a href="{plink :Public:Products:show categorySlug => $favouriteProduct->product->category->slug, productSlug => $favouriteProduct->product->slug}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$favouriteProduct->product->name}</a>
 		</div>
 		<div class="col-2">
 			<div class="d-flex flex-row mb-1 align-items-center">
@@ -28,8 +28,8 @@
 			</div>
 		</div>
 		<div class="col-5">
-			<a href="{plink :Public:Products:show productId => $favouriteProduct->product->id}" class="btn btn-warning">Zobrazit produkt</a>
-			<a href="{link removeFromFavourites $favouriteProduct->product->id}" class="btn btn-outline-danger">Odebrat produkt z oblíbených</a>
+			<a href="{plink :Public:Products:show categorySlug => $favouriteProduct->product->category->slug, productSlug => $favouriteProduct->product->slug}" class="btn btn-warning">Zobrazit produkt</a>
+			<a href="{link removeFromFavourites! $favouriteProduct->product->id}" class="btn btn-outline-danger">Odebrat produkt z oblíbených</a>
 		</div>
 	</div>
 {else}

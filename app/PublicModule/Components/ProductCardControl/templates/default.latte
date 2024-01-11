@@ -2,7 +2,7 @@
 
 <div class="col">
     <div class="card">
-        <a href="{plink :Public:Products:show productId => $product->id}">
+        <a href="{plink :Public:Products:show categorySlug => $product->category->slug, productSlug => $product->slug}">
             <div class="d-flex justify-content-center">
                 {if $product->firstProductPhoto != null}
                     <img src="{$basePath}/uploads/products/{$product->firstProductPhoto->name}" alt="" class="w-75">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <a href="{plink :Public:Products:show productId => $product->id}"
+                        <a href="{plink :Public:Products:show categorySlug => $product->category->slug, productSlug => $product->slug}"
                            class="text-decoration-none link-dark link-opacity-75-hover text-decoration-none">
                             <h5 class="card-title">{$product->name}</h5>
                         </a>
