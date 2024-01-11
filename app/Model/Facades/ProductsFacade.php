@@ -155,4 +155,21 @@ class ProductsFacade
 			'showed' => true,
 		])->orderBy('name');
 	}
+
+	/**
+	 * @throws Exception
+	 */
+	public function deleteReview(int $reviewId): void
+	{
+		$review = $this->orm->reviews->getById($reviewId);
+		if($review) {
+			try {
+				$this->orm->reviews->removeAndFlush($review);
+			} catch (Exception $e) {
+				Debugger::log($e);
+				$this->orm->reviews->getMapper()->rollback();
+				throw new Exception('Recenzi se nepodařilo smazat');
+			}
+		}
+	}
 }

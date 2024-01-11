@@ -62,6 +62,12 @@ class ProductsDataGridControl extends Control
             })
             ->setClass('ajax btn btn-xs btn-secondary ms-1 me-1 mb-1');
 
+		$grid->addActionCallback('star', '')
+			->setIcon('star')
+			->setClass('btn btn-xs btn-light ms-1 me-1 mb-1 text-warning')
+			->onClick[] = function ($itemId): void {
+			$this->presenter->redirect('Products:reviews', ['productId' => $itemId]);
+		};
 
         $grid->addActionCallback('edit', '')
             ->setIcon('pen-to-square')
