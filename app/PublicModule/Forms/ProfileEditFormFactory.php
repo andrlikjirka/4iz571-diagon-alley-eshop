@@ -37,8 +37,6 @@ class ProfileEditFormFactory
 	{
 		$form = $this->formFactory->create();
 
-		$form->setHtmlAttribute('class', 'ajax');
-
 		$form->addText('name', 'Jméno', maxLength: 255)
 			->setRequired();
 
