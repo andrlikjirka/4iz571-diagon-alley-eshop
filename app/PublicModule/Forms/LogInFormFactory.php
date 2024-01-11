@@ -60,6 +60,17 @@ class LogInFormFactory
 	{
 		$this->user->setAuthenticator($this->authenticator);
 
+        try {
+            $user = $this->usersFacade->getUserByEmail($values->email);
+        } catch (\Exception $e) {
+            ($this->onFailure)('Uživatelský účet nenalezen.');
+            return;
+        }
+        if ($user->blocked or $user->deleted) {
+            ($this->onFailure)('Uživatelský účet byl zablokován nebo smazán.');
+            return;
+        }
+
 		try {
 			$this->user->login($values->email, $values->password);
             $this->forgottenPasswordsFacade->deleteForgottenPasswordsByUser($this->user->id);
@@ -68,8 +79,6 @@ class LogInFormFactory
 			return;
 		}
 
-        $user = $this->usersFacade->getUserByEmail($values->email);
-
-		($this->onSuccess)('Uživatel byl přihlášen', $user->role);
+		($this->onSuccess)('Uživatel byl přihlášen.', $user->role);
 	}
 }
