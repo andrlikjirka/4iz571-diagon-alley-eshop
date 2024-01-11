@@ -80,8 +80,18 @@ class MailSender
         $this->mailer->send($mail); // případně smtpMailer
     }
 
-    public function sendOrderStatusChangeMail(Order $order)
+    public function sendOrderStatusChangeMail(Order $order): void
     {
+        $params = [
+            'order' => $order
+        ];
 
+        $mail = new Message();
+        $mail->setFrom($this->mailFrom, $this->nameFrom);
+        $mail->addTo($order->email, $order->name);
+        $mail->subject = 'Změna stavu objednávky č. '.$order->id;
+        $mail->setHtmlBody($this->latte->renderToString(__DIR__ . '/templates/changeOrderStatusMial.latte', $params));
+
+        $this->mailer->send($mail); // přípdaně smtpMailer
     }
 }

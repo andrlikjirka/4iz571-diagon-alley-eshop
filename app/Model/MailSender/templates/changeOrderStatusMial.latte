@@ -1,25 +1,26 @@
-{varType App\Model\Orm\Orders\Order $order}
+{varType App\Model\Orm\Users\Order $order}
 
-{block content}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Změna stavu objednávky</title>
 
-<div class="row mb-4">
-    <div class="col-12">
-        <!-- TODO: lepší by byl breadcrumb -->
-        <a href="{plink :Public:Orders:myOrders}" class="text-dark text-decoration-none">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                 class="bi bi-arrow-left me-2" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-            </svg>
-            Zpět na seznam mých objednávek
-        </a>
-    </div>
-</div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-<div class="row g-5">
+</head>
+<body class="px-2">
+<img src="/img/diagon-alley-logo.png" alt="" style="width: 170px;" class="mx-auto d-block mt-2">
+<hr>
+
+<h3 class="mb-4">Změna stavu objednávky objednávky č. {$order->id}</h3>
+
+<p>Vážený uživateli,</p>
+
+<p>dovujeme si Vás informovat o změně stavu Vaší objednávky.</p>
+
+<div class="row g-3">
     <div class="col-12 col-lg-7">
-        <h3 class="mb-4">Objednávka č. {$order->id}</h3>
-
         <div class="mb-2">
             <span>Stav objednávky: </span>
             <span class="badge rounded-pill
@@ -32,43 +33,43 @@
             </span>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-3">
             <span>Datum vytvoření: </span>
             <span>{$order->created|date:'d.m.Y'}</span>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-2">
             {foreach $order->orderItems as $orderItem}
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="row justify-content-between align-items-center py-2">
                             <div class="col-6">
                                 {if $orderItem->product->firstProductPhoto}
-                                    <img src="{$basePath}/uploads/products/{$orderItem->product->firstProductPhoto->name}" alt=""
+                                    <img src="/uploads/products/{$orderItem->product->firstProductPhoto->name}"
+                                         alt=""
                                          class="img-fluid w-25 me-2">
                                 {/if}
-                                <a href="{plink :Public:Products:show productId => $orderItem->product->id}"
-                                   class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$orderItem->product->name}</a>
+                                <span class="fw-medium fs-6">{$orderItem->product->name}</span>
                             </div>
                             <div class="col-3 me-4">
                                 {if $orderItem->galleonPrice > 0}
                                     <div class="d-flex flex-row mb-1 align-items-center">
                                         <span class="text-end fw-medium">{$orderItem->galleonPrice}</span>
-                                        <img src="{$basePath . '/img/galleon.png'}" alt="galeony" title="galeony" class="ms-2"
+                                        <img src="/img/galleon.png" alt="galeony" title="galeony" class="ms-2"
                                              style="width:25px; height: 25px">
                                     </div>
                                 {/if}
                                 {if $orderItem->sicklePrice > 0}
                                     <div class="d-flex flex-row mb-1 align-items-center">
                                         <span class="text-end fw-medium">{$orderItem->sicklePrice}</span>
-                                        <img src="{$basePath . '/img/sickle.png'}" alt="srpce" title="srpce" class="ms-2"
+                                        <img src="/img/sickle.png" alt="srpce" title="srpce" class="ms-2"
                                              style="width:25px; height: 25px">
                                     </div>
                                 {/if}
                                 {if $orderItem->knutPrice > 0}
                                     <div class="d-flex flex-row mb-1 align-items-center">
                                         <span class="text-end fw-medium">{$orderItem->knutPrice}</span>
-                                        <img src="{$basePath . '/img/knut.png'}" alt="svrčky" title="svrčky" class="ms-2"
+                                        <img src="/img/knut.png" alt="svrčky" title="svrčky" class="ms-2"
                                              style="width:25px; height: 25px">
                                     </div>
                                 {/if}
@@ -83,8 +84,8 @@
         </div>
     </div>
 
-    <div class="col-12 col-lg-5">
-        <div class="border bg-light bg-gradient rounded-3 p-5">
+    <div class="col-12 col-lg-5 mb-3">
+        <div class="border bg-light bg-gradient rounded-3 p-4">
             <h4 class="">Souhrn objednávky</h4>
             <div class="d-flex justify-content-between my-4">
                 <div class="">
@@ -94,21 +95,21 @@
                     {if $order->galleonTotalPrice > 0}
                         <div class="d-flex flex-row mb-1 align-items-center">
                             <span class="text-end fw-medium">{$order->galleonTotalPrice}</span>
-                            <img src="{$basePath . '/img/galleon.png'}" alt="galeony" title="galeony" class="ms-2"
+                            <img src="/img/galleon.png" alt="galeony" title="galeony" class="ms-2"
                                  style="width:25px; height: 25px">
                         </div>
                     {/if}
                         {if $order->sickleTotalPrice > 0}
                         <div class="d-flex flex-row mb-1 align-items-center">
                             <span class="text-end fw-medium">{$order->sickleTotalPrice}</span>
-                            <img src="{$basePath . '/img/sickle.png'}" alt="srpce" title="srpce" class="ms-2"
+                            <img src="/img/sickle.png" alt="srpce" title="srpce" class="ms-2"
                                  style="width:25px; height: 25px">
                         </div>
                     {/if}
                         {if $order->knutTotalPrice > 0}
                         <div class="d-flex flex-row mb-1 align-items-center">
                             <span class="text-end fw-medium">{$order->knutTotalPrice}</span>
-                            <img src="{$basePath . '/img/knut.png'}" alt="svrčky" title="svrčky" class="ms-2"
+                            <img src="/img/knut.png" alt="svrčky" title="svrčky" class="ms-2"
                                  style="width:25px; height: 25px">
                         </div>
                     {/if}
@@ -157,8 +158,14 @@
                     <span>{$order->address->zip}</span>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
+<p>S přáním hezkého dne <br>
+    Tým eshopu z Příčné ulice
+</p>
+
+<p></p>
+</body>
+</html>

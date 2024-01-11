@@ -3,6 +3,7 @@
 namespace App\AdminModule\DataGrids\OrdersDataGrid;
 
 use App\Model\Facades\OrdersFacade;
+use App\Model\MailSender\MailSender;
 use App\Model\Orm\Orders\Order;
 use App\Model\Orm\OrderStatus\OrderStatus;
 use Nette\Application\UI\Control;
@@ -19,6 +20,7 @@ class OrdersDataGridControl extends Control
 {
     public function __construct(
         private readonly OrdersFacade $ordersFacade,
+        private readonly MailSender $mailSender
     )
     {
     }
@@ -118,7 +120,10 @@ class OrdersDataGridControl extends Control
         } catch (\Exception $e) {
             $this->presenter->flashMessage($e->getMessage(), 'danger');
         }
-        $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
+        if (isset($order)) {
+            $this->mailSender->sendOrderStatusChangeMail($order);
+            $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
+        }
         if ($this->presenter->isAjax()) {
             $this->presenter->redrawControl('flashes');
             isset($order) ? $this['dataGrid']->redrawItem($order->id) : $this['dataGrid']->reload();
@@ -134,7 +139,10 @@ class OrdersDataGridControl extends Control
         } catch (\Exception $e) {
             $this->presenter->flashMessage($e->getMessage(), 'danger');
         }
-        $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
+        if (isset($order)) {
+            $this->mailSender->sendOrderStatusChangeMail($order);
+            $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
+        }
         if ($this->presenter->isAjax()) {
             $this->presenter->redrawControl('flashes');
             isset($order) ? $this['dataGrid']->redrawItem($order->id) : $this['dataGrid']->reload();
@@ -150,7 +158,10 @@ class OrdersDataGridControl extends Control
         } catch (\Exception $e) {
             $this->presenter->flashMessage($e->getMessage(), 'danger');
         }
-        $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
+        if (isset($order)) {
+            $this->mailSender->sendOrderStatusChangeMail($order);
+            $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
+        }
         if ($this->presenter->isAjax()) {
             $this->presenter->redrawControl('flashes');
             isset($order) ? $this['dataGrid']->redrawItem($order->id) : $this['dataGrid']->reload();
@@ -166,7 +177,10 @@ class OrdersDataGridControl extends Control
         } catch (\Exception $e) {
             $this->presenter->flashMessage($e->getMessage(), 'danger');
         }
-        $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
+        if (isset($order)) {
+            $this->mailSender->sendOrderStatusChangeMail($order);
+            $this->presenter->flashMessage('Stav objednávky '.$id.' byl změněn.', 'success');
+        }
         if ($this->presenter->isAjax()) {
             $this->presenter->redrawControl('flashes');
             isset($order) ? $this['dataGrid']->redrawItem($order->id) : $this['dataGrid']->reload();

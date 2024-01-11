@@ -102,7 +102,6 @@ class CreateOrderFormFactory
 
     private function formSucceeded(Form $form, ArrayHash $values): void
     {
-        $user = $this->usersFacade->getUser($this->user->id);
         $cart = $this->cartFacade->getCartById($this->cartSession->get('cartId'));
 
         $order = new Order();
@@ -134,7 +133,7 @@ class CreateOrderFormFactory
         }
 
         $order->orderStatus = $this->ordersFacade->getOrderStatusByStatusId(1);
-        $order->user = $this->user->isLoggedIn() ? $user : null;
+        $order->user = $this->user->isLoggedIn() ? $this->usersFacade->getUser($this->user->id) : null;
         $order->name = $values['name'];
         $order->email = $values['email'];
         $order->address = $address;

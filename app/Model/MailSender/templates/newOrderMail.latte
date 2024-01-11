@@ -15,6 +15,10 @@
 
 <h3 class="mb-4">Potvrzení objednávky č. {$order->id}</h3>
 
+<p>Vážený uživateli,</p>
+
+<p>děkujeme Vám za Vaši objednávku na eshopu z Příčné ulice.</p>
+
 <div class="row g-3">
     <div class="col-12 col-lg-7">
         <div class="mb-2">
@@ -131,6 +135,16 @@
                     {elseif $order->payment == 'banka'}Převodem do Gringottovy banky
                     {elseif $order->payment == 'karta'}Online kouzelnou platební kartou
                     {/if}
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2">
+                <div class="">
+                    <p class="fw-medium">Kontaktní údaje</p>
+                </div>
+                <div class="d-flex flex-column text-end">
+                    <span>{$order->name}</span>
+                    <span>{$order->email}</span>
                 </div>
             </div>
 
