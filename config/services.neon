@@ -5,6 +5,7 @@ services:
 	- App\Model\Authorizator\Authorizator
 	- App\Model\MailSender\MailSender
 	- Latte\Engine
+	- App\Settings(%mail%)
 
 search:
 	- in: %appDir%

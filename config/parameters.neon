@@ -1,0 +1,4 @@
+parameters:
+    mail:
+        mailFrom: andj10@vse.cz
+        nameFrom: Eshop z Příčné ulice
