@@ -29,14 +29,22 @@ class FavouritesControl extends Control
 	// favourites icon
 	public function render(): void
 	{
-		$this->template->favouritesCount = $this->productsFacade->getFavouriteProductsCountByUser($this->user->getId());
+		if($this->user->isLoggedIn()) {
+			$this->template->favouritesCount = $this->productsFacade->getFavouriteProductsCountByUser($this->user->getId());
+		} else {
+			$this->template->favouritesCount = 0;
+		}
 		$this->template->render(__DIR__ . '/templates/default.latte');
 	}
 
 	// favourites list on page
 	public function renderList(): void
 	{
-		$this->template->favouriteProducts = $this->productsFacade->getFavouriteProductsByUser($this->user->getId());
+		if($this->user->isLoggedIn()) {
+			$this->template->favouriteProducts = $this->productsFacade->getFavouriteProductsByUser($this->user->getId());
+		} else {
+			$this->template->favouriteProducts = [];
+		}
 		$this->template->render(__DIR__ . '/templates/list.latte');
 	}
 

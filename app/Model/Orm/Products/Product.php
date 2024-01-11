@@ -78,7 +78,10 @@ class Product extends Entity
 
 	public function getterIsFavourite(): bool
 	{
-		return (bool) $this->productsFacade->isProductFavouriteForUser($this->id, $this->user->getId());
+		if($this->user->isLoggedIn()) {
+			return (bool) $this->productsFacade->isProductFavouriteForUser($this->id, $this->user->getId());
+		}
+		return false;
 	}
 
 }
