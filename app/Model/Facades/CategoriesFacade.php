@@ -70,4 +70,14 @@ class CategoriesFacade
 		return $this->orm->categories->getByChecked(['slug' => $slug]);
 	}
 
+	/**
+	 * @return ICollection<Category>
+	 */
+	public function getAllCategories(): ICollection
+	{
+		return $this->orm->categories->findBy([
+			'deleted' => false,
+			'showed' => true,
+		])->orderBy('name');
+	}
 }

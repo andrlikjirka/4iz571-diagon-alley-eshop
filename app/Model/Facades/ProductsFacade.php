@@ -145,4 +145,14 @@ class ProductsFacade
 		return $this->orm->products->getByChecked(['slug' => $slug]);
 	}
 
+	/**
+	 * @return ICollection<Product>
+	 */
+	public function getAllProducts(): ICollection
+	{
+		return $this->orm->products->findBy([
+			'deleted' => false,
+			'showed' => true,
+		])->orderBy('name');
+	}
 }

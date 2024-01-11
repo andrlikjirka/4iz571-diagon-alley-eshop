@@ -43,7 +43,8 @@ class CategoryEditFormFactory
 			->addRule(function (TextInput $textInput) use ($form) {
 				$slug = Strings::webalize($textInput->value);
 				try {
-					$this->categoriesFacade->getCategoryBySlug($slug);
+					$category = $this->categoriesFacade->getCategoryBySlug($slug);
+					return $category->id == $form['categoryId']->getValue(); //check if it's not the same product
 				} catch (Exception $e) {
 					// if it can't find category with this slug, it's ok
 					return true;
