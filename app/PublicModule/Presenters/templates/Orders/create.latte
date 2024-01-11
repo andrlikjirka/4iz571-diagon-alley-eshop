@@ -174,29 +174,28 @@
         </div>
     </div>
 </div>
-{/block}
 
-{block scripts}
-    <script>
-        function showAddress(radio) {
-            // Get the hidden div
-            var newAddress = document.getElementById('newAddress');
-            // Check if the selected radio has a value of -1
-            if (radio.value === '-1' && radio.checked) {
-                // Display the hidden div
-                newAddress.style.display = 'block';
-                newAddress.querySelectorAll('input').forEach(function (input) {
-                    input.required = true;
-                });
-            } else {
-                // Hide the hidden div
-                newAddress.style.display = 'none';
-                newAddress.querySelectorAll('input').forEach(function (input) {
-                    input.required = false;
-                });
-            }
+
+<script>
+    function showAddress(radio) {
+        // Get the hidden div
+        var newAddress = document.getElementById('newAddress');
+        // Check if the selected radio has a value of -1
+        if (radio.value === '-1' && radio.checked) {
+            // Display the hidden div
+            newAddress.style.display = 'block';
+            newAddress.querySelectorAll('input').forEach(function (input) {
+                input.required = true;
+            });
+        } else {
+            // Hide the hidden div
+            newAddress.style.display = 'none';
+            newAddress.querySelectorAll('input').forEach(function (input) {
+                input.required = false;
+            });
         }
+    }
 
-        showAddress(document.getElementById('frm-createOrderForm-addresses--1'));
-    </script>
+    showAddress(document.getElementById('frm-createOrderForm-addresses--1'));
+</script>
 {/block}
