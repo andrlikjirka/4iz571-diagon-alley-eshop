@@ -140,4 +140,9 @@ class ProductsFacade
 		}
 	}
 
+	public function getProductBySlug(string $slug): Product
+	{
+		return $this->orm->products->getByChecked(['slug' => $slug]);
+	}
+
 }

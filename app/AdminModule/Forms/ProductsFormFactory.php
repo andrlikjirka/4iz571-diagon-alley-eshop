@@ -13,7 +13,9 @@ use Closure;
 use Exception;
 use HTMLPurifier;
 use Nette\Application\UI\Form;
+use Nette\Forms\Controls\TextInput;
 use Nette\Utils\ArrayHash;
+use Nette\Utils\Strings;
 
 
 /**
@@ -45,7 +47,17 @@ class ProductsFormFactory
 			->setNullable();
 
 		$form->addText('name', 'Název produktu', maxLength: 255)
-			->setRequired();
+			->setRequired()
+			->addRule(function (TextInput $textInput) use ($form) {
+				$slug = Strings::webalize($textInput->value);
+				try {
+					$this->productsFacade->getProductBySlug($slug);
+				} catch (Exception $e) {
+					// if it can't find product with this slug, it's ok
+					return true;
+				}
+				return false;
+			}, 'Produkt se stejným názvem již existuje');
 
 		$form->addTextArea('summary', 'Krátký popis produktu')
 			->setRequired();
@@ -103,6 +115,7 @@ class ProductsFormFactory
 		unset($values['productId']);
 
 		$product->name = $values->name;
+		$product->slug = Strings::webalize($values->name);
 		$product->summary = $values->summary;
 		$product->description = $this->purifier->purify($values->description);
 		$product->stock = $values->stock;

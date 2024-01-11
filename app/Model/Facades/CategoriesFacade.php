@@ -65,4 +65,9 @@ class CategoriesFacade
 		return $this->orm->categories->getById($categoryId);
 	}
 
+	public function getCategoryBySlug(string $slug): Category
+	{
+		return $this->orm->categories->getByChecked(['slug' => $slug]);
+	}
+
 }

@@ -6,8 +6,11 @@ use App\Forms\FormFactory;
 use App\Model\Facades\CategoriesFacade;
 use App\Model\Orm\Categories\Category;
 use Closure;
+use Exception;
+use Nette\Forms\Controls\TextInput;
 use Nette\Forms\Form;
 use Nette\Utils\ArrayHash;
+use Nette\Utils\Strings;
 
 /**
  * Class CategoryEditFormFactory
@@ -36,7 +39,17 @@ class CategoryEditFormFactory
         $form->addText('name', 'Název kategorie', maxLength: 255)
             ->setRequired()
             ->setHtmlAttribute('placeholder', 'Zadejte název kategorie')
-            ->setHtmlAttribute('autofocus');
+            ->setHtmlAttribute('autofocus')
+			->addRule(function (TextInput $textInput) use ($form) {
+				$slug = Strings::webalize($textInput->value);
+				try {
+					$this->categoriesFacade->getCategoryBySlug($slug);
+				} catch (Exception $e) {
+					// if it can't find category with this slug, it's ok
+					return true;
+				}
+				return false;
+			}, 'Kategorie se stejným názvem již existuje');
 
         $categories = $this->categoriesFacade->findAllCategories();
         $categoriesArray = array();
@@ -78,6 +91,7 @@ class CategoryEditFormFactory
         }
 
         $category->name = $values->name;
+		$category->slug = Strings::webalize($values->name);
 
         if (!empty($values->parent)) {
             try {

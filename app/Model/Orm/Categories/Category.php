@@ -13,6 +13,7 @@ use Nextras\Orm\Relationships\OneHasMany;
 /**
  * @property int $id {primary}
  * @property string $name
+ * @property string $slug
  * @property ?Category $parent {m:1 Category::$children}
  * @property-read ICollection|Category[] $childrenShowed {virtual}
  * @property-read Category[] $childrenRecursively {virtual}

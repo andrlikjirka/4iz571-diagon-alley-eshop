@@ -133,7 +133,7 @@
                 <div class="col-12">
                     {foreach $cart->cartItems as $cartItem}
                         <div class="d-flex justify-content-between mb-2">
-                            <div><a href="{plink :Public:Products:show productId => $cartItem->product->id}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a></div>
+                            <div><a href="{plink :Public:Products:show categorySlug => $cartItem->product->category->slug, productSlug => $cartItem->product->slug}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a></div>
                             <div>{$cartItem->quantity} ks</div>
                         </div>
                     {/foreach}

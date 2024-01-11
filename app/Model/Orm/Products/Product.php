@@ -18,6 +18,7 @@ use Nextras\Orm\Relationships\OneHasMany;
 /**
  * @property int $id {primary}
  * @property string $name
+ * @property string $slug
  * @property string $summary
  * @property string|NULL $description
  * @property DateTimeImmutable $created {default now}
