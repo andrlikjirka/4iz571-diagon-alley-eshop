@@ -111,8 +111,8 @@
                             <img src="img/diagon-alley-logo.png" style="width: 100%; max-width: 150px"/>
                         </td>
                         <td>
-                            Objednávka č. {$order->id}<br />
-                            Vytvořeno: {$order->created|date:'d.m.Y'}<br />
+                            Objednávka č. {$order->id}<br>
+                            Vytvořeno: {$order->created|date:'d.m.Y'}<br>
                         </td>
                     </tr>
                 </table>
@@ -124,15 +124,15 @@
                 <table>
                     <tr>
                         <td>
-                            Eshop z Příčné ulice<br />
-                            Příčná ulice<br />
+                            Eshop z Příčné ulice<br>
+                            Příčná ulice<br>
                             Londýn
                         </td>
 
                         <td>
-                            {$order->name}<br />
-                            {$order->address->street}<br />
-                            {$order->address->city}<br />
+                            {$order->address->name}<br>
+                            {$order->address->street}<br>
+                            {$order->address->city}<br>
                             {$order->address->zip}
                         </td>
                     </tr>

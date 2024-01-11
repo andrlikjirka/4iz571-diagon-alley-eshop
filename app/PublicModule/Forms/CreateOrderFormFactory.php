@@ -55,7 +55,7 @@ class CreateOrderFormFactory
             $addresses = array();
             if (!empty($userAddresses)) {
                 foreach ($userAddresses as $userAddress) {
-                    $addresses[$userAddress->id] = $userAddress->street . "\n" . $userAddress->city . "\n" . $userAddress->zip;
+                    $addresses[$userAddress->id] = $userAddress->name . "\n" . $userAddress->street . "\n" . $userAddress->city . "\n" . $userAddress->zip;
                 }
             }
         }
@@ -64,6 +64,7 @@ class CreateOrderFormFactory
         $form->addRadioList('addresses', 'Adresa', $addresses)
             ->setRequired();
 
+        $form->addText('addressee', 'Jméno adresáta');
         $form->addText('street', 'Ulice a číslo popisné');
         $form->addText('city', 'Město');
         $form->addText('zip', 'PSČ')
@@ -120,6 +121,7 @@ class CreateOrderFormFactory
 
         if ($values['addresses'] == -1 && isset($values['street']) && isset($values['city']) && isset($values['zip'])) {
             $address = new Address();
+            $address->name = $values['addressee'];
             $address->street = $values['street'];
             $address->city = $values['city'];
             $address->zip = $values['zip'];
