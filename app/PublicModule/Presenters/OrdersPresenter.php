@@ -4,6 +4,7 @@ namespace App\PublicModule\Presenters;
 
 use App\Model\Facades\CartFacade;
 use App\Model\Facades\OrdersFacade;
+use App\Model\InvoiceGenerator\InvoiceGenerator;
 use App\PublicModule\DataGrids\MyOrdersDataGrid\MyOrdersDataGridControl;
 use App\PublicModule\DataGrids\MyOrdersDataGrid\MyOrdersDataGridControlFactory;
 use App\PublicModule\Forms\CreateOrderFormFactory;
@@ -26,7 +27,8 @@ class OrdersPresenter extends BasePresenter
         private readonly CartFacade             $cartFacade,
         private readonly OrdersFacade $ordersFacade,
         Session                                 $session,
-        private readonly MyOrdersDataGridControlFactory $myOrdersDataGridControlFactory
+        private readonly MyOrdersDataGridControlFactory $myOrdersDataGridControlFactory,
+        private readonly InvoiceGenerator $invoiceGenerator
 
     )
     {
@@ -47,6 +49,23 @@ class OrdersPresenter extends BasePresenter
             $this->redirect(':Public:Orders:myOrders');
         }
         $this->template->order = $order;
+    }
+
+    public function actionOrderInvoice(int $orderId): void
+    {
+        try {
+            $order = $this->ordersFacade->getOrderById($orderId);
+        } catch (\Exception $e) {
+            $this->flashMessage('Objednávka nebyla nalezena.', 'danger');
+            $this->redirect(':Public:Orders:myOrders');
+        }
+        if (isset($order)) {
+            $this->invoiceGenerator->generatePDFInvoiceInline($order);
+            $this->terminate();
+        } else {
+            $this->flashMessage('Faktura nebyla nalezena.', 'danger');
+            $this->redirect(':Public:Orders:myOrders');
+        }
     }
 
     /**

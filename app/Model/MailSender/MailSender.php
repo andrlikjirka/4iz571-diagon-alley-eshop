@@ -6,9 +6,16 @@ use App\Model\Orm\Orders\Order;
 use App\Model\Orm\Users\User;
 use App\Settings;
 use Latte\Engine;
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
 use Nette\Mail\Mailer;
 use Nette\Mail\Message;
 
+/**
+ * Class MailSender
+ * @package App\Model\MailSender
+ * @author Jiří Andrlík
+ */
 class MailSender
 {
     private string $mailFrom;
@@ -62,18 +69,19 @@ class MailSender
         $this->mailer->send($mail); // případně smtpMailer
     }
 
-    public function sendNewOrderMail(Order $order): void
+    public function sendNewOrderMail(Order $order, string $invoice): void
     {
         $params = [
             'order' => $order
         ];
 
         $mail = new Message();
-        $mail->setFrom($this->mailFrom, $this->nameFrom);
-        $mail->addTo($order->email, $order->name);
         $mail->subject = 'Potvrzení objednávky č. '.$order->id;
-        //$mail->htmlBody = 'Byl jste přidán jako nový uživatel. Pro nastavení nového hesla klikněte zde:, <a href="' . $mailLink . '">klikněte zde</a>.';
-        $mail->setHtmlBody($this->latte->renderToString(__DIR__ . '/templates/newOrderMail.latte', $params));
+        $mail->setFrom($this->mailFrom, $this->nameFrom)
+            ->addTo($order->email, $order->name)
+            //->htmlBody = 'Byl jste přidán jako nový uživatel. Pro nastavení nového hesla klikněte zde:, <a href="' . $mailLink . '">klikněte zde</a>.';
+            ->setHtmlBody($this->latte->renderToString(__DIR__ . '/templates/newOrderMail.latte', $params))
+            ->addAttachment('objednavka.pdf', $invoice, 'application/pdf');
         #endregion příprava textu mailu
 
         //odeslání mailu pomocí PHP funkce mail

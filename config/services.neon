@@ -4,6 +4,7 @@ services:
 	- App\Model\Uploader\Uploader
 	- App\Model\Authorizator\Authorizator
 	- App\Model\MailSender\MailSender
+	- App\Model\InvoiceGenerator\InvoiceGenerator
 	- Latte\Engine
 	- App\Settings(%mail%)
 

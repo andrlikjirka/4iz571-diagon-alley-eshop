@@ -13,13 +13,19 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'a5f26a3f3f192c1d07586b1de3779617' => __DIR__ . '/..' . '/nextras/dbal/srcCompat/compatibility.php',
         'd507e002f7fce7f0c6dbf1f22edcb902' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/functions.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+        'db356362850385d08a5381de2638b5fd' => __DIR__ . '/..' . '/mpdf/mpdf/src/functions.php',
         '6b93d92fcd95a76f6607b35b745ae78f' => __DIR__ . '/..' . '/nextras/orm/srcCompat/compatibility.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'setasign\\Fpdi\\' => 14,
+        ),
         'U' => 
         array (
             'Ublaboo\\DataGrid\\' => 17,
@@ -39,6 +45,8 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
         ),
         'N' => 
@@ -49,9 +57,16 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
             'Nextras\\FormsRendering\\' => 23,
             'Nextras\\Dbal\\' => 13,
         ),
+        'M' => 
+        array (
+            'Mpdf\\PsrLogAwareTrait\\' => 22,
+            'Mpdf\\PsrHttpMessageShim\\' => 24,
+            'Mpdf\\' => 5,
+        ),
         'D' => 
         array (
             'Doctrine\\Inflector\\' => 19,
+            'DeepCopy\\' => 9,
         ),
         'C' => 
         array (
@@ -68,6 +83,10 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
     );
 
     public static $prefixDirsPsr4 = array (
+        'setasign\\Fpdi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
         'Ublaboo\\DataGrid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ublaboo/datagrid/src',
@@ -112,6 +131,14 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
@@ -136,9 +163,25 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         array (
             0 => __DIR__ . '/..' . '/nextras/dbal/src',
         ),
+        'Mpdf\\PsrLogAwareTrait\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/psr-log-aware-trait/src',
+        ),
+        'Mpdf\\PsrHttpMessageShim\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/psr-http-message-shim/src',
+        ),
+        'Mpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
+        ),
         'Doctrine\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
+        ),
+        'DeepCopy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
         'Contributte\\Nextras\\Orm\\Generator\\' => 
         array (

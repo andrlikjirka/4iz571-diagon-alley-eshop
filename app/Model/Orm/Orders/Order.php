@@ -31,7 +31,7 @@ use Nextras\Orm\Relationships\OneHasMany;
 class Order extends Entity
 {
 	public const SHIPPING_VYZVEDNUTI = 'vyzvednuti';
-	public const SHIPPING_ZASILKOVNA = 'bradavice';
+	public const SHIPPING_BRADAVICE = 'bradavice';
 	public const SHIPPING_SOVA = 'sova';
 	public const PAYMENT_HOTOVOST = 'hotovost';
 	public const PAYMENT_BANKA = 'banka';

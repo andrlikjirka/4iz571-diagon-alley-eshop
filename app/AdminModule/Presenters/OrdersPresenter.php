@@ -6,6 +6,7 @@ use App\AdminModule\DataGrids\OrdersDataGrid\OrdersDataGridControl;
 use App\AdminModule\DataGrids\OrdersDataGrid\OrdersDataGridControlFactory;
 use App\AdminModule\Forms\OrderStatusEditFormFactory;
 use App\Model\Facades\OrdersFacade;
+use App\Model\InvoiceGenerator\InvoiceGenerator;
 use Nette\Forms\Form;
 
 /**
@@ -18,7 +19,8 @@ class OrdersPresenter extends BasePresenter
     public function __construct(
         private readonly OrdersFacade $ordersFacade,
         private readonly OrdersDataGridControlFactory $ordersDataGridControlFactory,
-        private readonly OrderStatusEditFormFactory $orderStatusEditFormFactory
+        private readonly OrderStatusEditFormFactory $orderStatusEditFormFactory,
+        private readonly InvoiceGenerator $invoiceGenerator
     )
     {
         parent::__construct();
@@ -30,7 +32,23 @@ class OrdersPresenter extends BasePresenter
      */
     public function renderDefault()
     {
+    }
 
+    public function actionOrderInvoice(int $orderId): void
+    {
+        try {
+            $order = $this->ordersFacade->getOrderById($orderId);
+        } catch (\Exception $e) {
+            $this->flashMessage('Objednávka nebyla nalezena.', 'danger');
+            $this->redirect(':Public:Orders:myOrders');
+        }
+        if (isset($order)) {
+            $this->invoiceGenerator->generatePDFInvoiceInline($order);
+            $this->terminate();
+        } else {
+            $this->flashMessage('Faktura nebyla nalezena.', 'danger');
+            $this->redirect(':Public:Orders:myOrders');
+        }
     }
 
     /**

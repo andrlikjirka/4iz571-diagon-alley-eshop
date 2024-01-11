@@ -8,6 +8,7 @@ use App\Model\Facades\CartFacade;
 use App\Model\Facades\OrdersFacade;
 use App\Model\Facades\ProductsFacade;
 use App\Model\Facades\UsersFacade;
+use App\Model\InvoiceGenerator\InvoiceGenerator;
 use App\Model\MailSender\MailSender;
 use App\Model\Orm\Addresses\Address;
 use App\Model\Orm\OrderItems\OrderItem;
@@ -38,7 +39,8 @@ class CreateOrderFormFactory
         private readonly AddressFacade $addressFacade,
         private readonly OrdersFacade $ordersFacade,
         Session                         $session,
-        private readonly MailSender $mailService
+        private readonly MailSender $mailService,
+        private readonly InvoiceGenerator $invoiceGenerator
     )
     {
         $this->cartSession = $session->getSection('cart');
@@ -151,7 +153,9 @@ class CreateOrderFormFactory
         }
         $this->ordersFacade->updateOrderedProductsStock($order);
         $this->cartFacade->emptyCart($cart);
-        $this->mailService->sendNewOrderMail($order);
+
+        $invoice = $this->invoiceGenerator->generatePDFInvoiceToString($order);
+        $this->mailService->sendNewOrderMail($order, $invoice);
         ($this->onSuccess)('Objednávka byla úspěšně odeslána.');
     }
 
