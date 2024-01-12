@@ -27,7 +27,8 @@
 		"contributte/forms-multiplier": "^4.0",
 		"ublaboo/datagrid": "^6.9",
 		"ijvo/jquery-fileupload": "^3.0",
-		"ezyang/htmlpurifier": "^4.17"
+		"ezyang/htmlpurifier": "^4.17",
+		"mpdf/mpdf": "^8.2"
 	},
 	"require-dev": {
 		"nette/tester": "^2.4",
