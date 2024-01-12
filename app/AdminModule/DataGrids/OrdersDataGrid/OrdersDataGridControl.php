@@ -29,7 +29,7 @@ class OrdersDataGridControl extends Control
     {
         $grid = new DataGrid();
 
-        $grid->setTemplateFile(__DIR__ . '/templates/datagridTemplate.latte');
+        $grid->setTemplateFile(__DIR__ . '/templates/dataGridTemplate.latte');
         $grid->setDataSource($this->ordersFacade->findAllOrders());
 
         $grid->addColumnNumber('id', 'ID objednávky')
