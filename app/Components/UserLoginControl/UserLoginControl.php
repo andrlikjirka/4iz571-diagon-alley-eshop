@@ -2,6 +2,8 @@
 
 namespace App\Components\UserLoginControl;
 
+use App\PublicModule\Components\FavouritesControl\FavouritesControl;
+use App\PublicModule\Components\FavouritesControl\FavouritesControlFactory;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Control;
 use Nette\Http\Session;
@@ -22,7 +24,8 @@ class UserLoginControl extends Control
      */
     public function __construct(
         private readonly User $user,
-        private readonly Session $session)
+        private readonly Session $session,
+        private readonly  FavouritesControlFactory $favouritesControlFactory    )
     {}
 
     /**
@@ -85,5 +88,9 @@ class UserLoginControl extends Control
         $this->template->render(__DIR__ . '/templates/' . 'default.latte');
     }
 
+    public function createComponentFavourites(): FavouritesControl
+    {
+        return $this->favouritesControlFactory->create();
+    }
 
 }

@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{ifset title}{include title|stripHtml} | {/ifset}Diagon Alley</title>
+    <title>{ifset title}{include title|stripHtml} | {/ifset}Eshop v Příčné ulici</title>
     <link rel="icon" type="image/x-icon" href="{$basePath}/favicon.ico">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.css">
@@ -47,8 +47,8 @@
                 <div class="d-flex flex-row align-items-center">
 
                     <!--Desktop icons-->
-                    <ul class="navbar-nav d-flex flex-row me-3">
-                        <li class="nav-item">
+                    <ul class="navbar-nav d-flex flex-row me-2">
+                        <li class="nav-item d-none d-md-block">
                             {snippet favourites}
                                 {control favourites}
                             {/snippet}
@@ -60,7 +60,9 @@
                         </li>
                     </ul>
 
-                    {control userLogin}
+                    {snippet userLogin}
+                        {control userLogin}
+                    {/snippet}
 
                 </div>
             </div>
