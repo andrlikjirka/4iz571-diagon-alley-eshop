@@ -16,11 +16,13 @@
 <div class="row g-5 mb-5">
     <div class="col-12 col-md-6">
 
-        <div id="carouselExample" class="carousel  carousel-dark slide d-flex justify-content-center">
+        <div id="carouselExample" class="carousel carousel-dark slide">
             <div class="carousel-inner">
                 {foreach $product->productPhotos as $productPhoto}
-                    <div class="carousel-item {if $iterator->first} active{/if} ">
-                        <img src="{$basePath}/uploads/products/{$productPhoto->name}" class="d-block" alt="..." style="max-width: 500px; max-height: 500px">
+                    <div class="carousel-item {if $iterator->first} active{/if}">
+                        <div class="d-flex justify-content-center img-fluid">
+                            <img src="{$basePath}/uploads/products/{$productPhoto->name}" class="d-block" alt="..." style="max-width: 500px; max-height: 500px">
+                        </div>
                     </div>
                 {/foreach}
             </div>

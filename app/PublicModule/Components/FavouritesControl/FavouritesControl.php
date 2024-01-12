@@ -69,6 +69,7 @@ class FavouritesControl extends Control
 			$this->presenter->redrawControl('favourites');
 			$this->presenter->redrawControl('products');
 			$this->presenter->redrawControl('product');
+			$this->presenter->redrawControl('userLogin');
 		} else {
 			$this->presenter->redirect('this');
 		}
@@ -88,7 +89,9 @@ class FavouritesControl extends Control
 			$this->presenter->redrawControl('favourites');
 			$this->presenter->redrawControl('products');
 			$this->presenter->redrawControl('product');
-		} else {
+            $this->presenter->redrawControl('userLogin');
+
+        } else {
 			$this->presenter->redirect('this');
 		}
 	}
