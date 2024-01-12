@@ -6,6 +6,8 @@ use App\AdminModule\Datagrids\CategoriesDataGrid\CategoriesDataGridControl;
 use App\AdminModule\Datagrids\CategoriesDataGrid\CategoriesDataGridControlFactory;
 use App\AdminModule\Forms\CategoryEditFormFactory;
 use App\Model\Facades\CategoriesFacade;
+use Exception;
+use Nette\Application\AbortException;
 use Nette\Forms\Form;
 
 /**
@@ -33,11 +35,14 @@ final class CategoriesPresenter extends BasePresenter
     {
     }
 
-    public function renderEdit(int $id)
-    {
+	/**
+	 * @throws AbortException
+	 */
+	public function renderEdit(int $id): void
+	{
         try {
             $category = $this->categoriesFacade->getCategoryById($id);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->flashMessage('Požadovaná kategorie nebyla nalezena.', 'info');
             $this->redirect('Categories:default');
         }
