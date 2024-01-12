@@ -1,13 +1,14 @@
 <nav class="nav flex-column mb-0 pb-3 pb-md-2 pe-lg-2">
-    {if $user->isInRole('editor') || $user->isInRole('admin')}
+    {if $user->isAllowed('Products', 'default')}
         <a class="nav-link text-dark" href="{plink :Admin:Products:default}">Správa produktů</a>
+    {/if}
+    {if $user->isAllowed('Categories', 'default')}
         <a class="nav-link text-dark" href="{plink :Admin:Categories:default}">Správa kategorií</a>
     {/if}
-    {if $user->isInRole('storeman') || $user->isInRole('admin')}
+    {if $user->isAllowed('Orders', 'default')}
         <a class="nav-link text-dark" href="{plink :Admin:Orders:default}">Správa objednávek</a>
     {/if}
-    {if $user->isInRole('admin')}
+    {if $user->isAllowed('Users', 'default')}
         <a class="nav-link text-dark" href="{plink :Admin:Users:default}">Správa uživatelů</a>
     {/if}
-
 </nav>

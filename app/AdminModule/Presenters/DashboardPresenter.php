@@ -25,8 +25,8 @@ final class DashboardPresenter extends BasePresenter
         parent::__construct();
     }
 
-    public function renderDefault()
-    {
+    public function renderDefault(): void
+	{
         $this->template->ordersTotalCount = $this->ordersFacade->findOrdersTotalCount();
         $this->template->customersTotalCount = $this->usersFacade->findCustomersTotalCount();
         $this->template->showedProductsTotalCount = $this->productsFacade->findShowedProductsTotalCount();

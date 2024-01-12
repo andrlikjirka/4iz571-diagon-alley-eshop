@@ -8,6 +8,8 @@ use App\AdminModule\DataGrids\ProductsDataGrid\ProductsDataGridControl;
 use App\AdminModule\DataGrids\ProductsDataGrid\ProductsDataGridControlFactory;
 use App\AdminModule\Forms\ProductsFormFactory;
 use App\Model\Facades\ProductsFacade;
+use Exception;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Zet\FileUpload\Model\DefaultFile;
 
@@ -86,5 +88,35 @@ final class ProductsPresenter extends BasePresenter
 	protected function createComponentProductsDataGrid(): ProductsDatagridControl
 	{
 		return $this->productsDataGridControlFactory->create();
+	}
+
+	/**
+	 * @throws AbortException
+	 */
+	public function actionReviews(int $productId): void
+	{
+		if(!$this->productsFacade->getProduct($productId)) {
+			$this->flashMessage('Produkt nebyl nalezen', 'danger');
+			$this->redirect('Products:default');
+		}
+	}
+
+	public function renderReviews(int $productId): void
+	{
+		$this->template->product = $this->productsFacade->getProduct($productId);
+	}
+
+	/**
+	 * @throws AbortException
+	 */
+	public function handleDeleteReview(int $reviewId): void
+	{
+		try {
+			$this->productsFacade->deleteReview($reviewId);
+			$this->flashMessage('Recenze byla úspěšně smazána.', 'success');
+		} catch (Exception $e) {
+			$this->flashMessage($e->getMessage(), 'danger');
+		}
+		$this->redirect('this');
 	}
 }

@@ -57,8 +57,11 @@ abstract class BasePresenter extends Presenter
 				return;
 			}
 
-			$presenter = ""; //TODO
-			$action = "";
+			// get name of presenter and action
+			$parts = explode(":", $this->getName());
+
+			$presenter = end($parts);
+			$action = $this->getAction();
 
 			if (!$this->getUser()->isAllowed($presenter, $action)) {
 				$this->error('K této stránce nemáte oprávnění',403);
