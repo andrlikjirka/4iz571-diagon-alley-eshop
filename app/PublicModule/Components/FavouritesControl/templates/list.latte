@@ -2,7 +2,7 @@
 
 {foreach $favouriteProducts as $favouriteProduct}
 	<div class="row border-bottom align-items-center py-2">
-		<div class="col-3">
+		<div class="col-5">
 			{if $favouriteProduct->product->firstProductPhoto}
 				<img src="{$basePath}/uploads/products/{$favouriteProduct->product->firstProductPhoto->name}" alt="" class="img-fluid w-25 me-2">
 			{/if}
@@ -28,8 +28,7 @@
 			</div>
 		</div>
 		<div class="col-5">
-			<a href="{plink :Public:Products:show categorySlug => $favouriteProduct->product->category->slug, productSlug => $favouriteProduct->product->slug}" class="btn btn-warning">Zobrazit produkt</a>
-			<a href="{link removeFromFavourites! $favouriteProduct->product->id}" class="btn btn-outline-danger">Odebrat produkt z oblíbených</a>
+			<a href="{link removeFromFavourites! $favouriteProduct->product->id}" class="btn btn-sm btn-outline-danger">Odebrat produkt z oblíbených</a>
 		</div>
 	</div>
 {else}

@@ -70,11 +70,6 @@ class UsersFacade
         }
     }
 
-    //TODO: doplnit, v Authenticatoru (a možná i jinde) nahradit přímé volání new SimpleIdentity pomocí této metody
-    public function getUserIdentity(User $user) {
-
-    }
-
     public function findUserAddresses(int $userId): ICollection|array
     {
         return $this->orm->addresses->findBy(['user' => $userId, 'deleted' => 0]);
