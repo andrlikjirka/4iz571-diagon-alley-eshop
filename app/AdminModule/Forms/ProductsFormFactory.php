@@ -83,12 +83,14 @@ class ProductsFormFactory
 		$form->addInteger('sicklePrice', 'Cena (srpce)')
 			->setDefaultValue(0)
 			->setRequired()
-			->addRule($form::MIN, 'Cena musí být větší nebo rovna 0', 0);
+			->addRule($form::MIN, 'Cena musí být větší nebo rovna 0', 0)
+			->addRule($form::MAX, 'Počet srpců musí být menší než 17 (17 srpců = 1 galleon).', 16);
 
 		$form->addInteger('knutPrice', 'Cena (svrčky)')
 			->setDefaultValue(0)
 			->setRequired()
-			->addRule($form::MIN, 'Cena musí být větší nebo rovna 0', 0);
+			->addRule($form::MIN, 'Cena musí být větší nebo rovna 0', 0)
+			->addRule($form::MAX, 'Počet srpců musí být menší než 29 (29 svrčků = 1 srpec).', 28);
 
 		$form->addFileUpload('Fotografie');
 

@@ -62,11 +62,7 @@ class CategoryEditFormFactory
         $form->addSelect('parent', 'Nadřazená kategorie', $categoriesArray)
             ->setPrompt('Zvolte nadřazenou kategorii');
 
-        $form->addSelect('showed','Zobrazovat kategorii', [
-            0 => "Ne",
-            1 => "Ano"
-        ])
-            ->setDefaultValue(0);
+        $form->addCheckbox('showed', 'Zobrazovat kategorii');
 
         $form->addSubmit('save', 'Uložit kategorii');
 
