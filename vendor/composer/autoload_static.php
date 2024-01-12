@@ -63,6 +63,10 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
             'Mpdf\\PsrHttpMessageShim\\' => 24,
             'Mpdf\\' => 5,
         ),
+        'F' => 
+        array (
+            'Facebook\\' => 9,
+        ),
         'D' => 
         array (
             'Doctrine\\Inflector\\' => 19,
@@ -174,6 +178,10 @@ class ComposerStaticInit371471726cf6a317441d14d0f1a8a245
         'Mpdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
+        ),
+        'Facebook\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nickdnk/graph-sdk/src/Facebook',
         ),
         'Doctrine\\Inflector\\' => 
         array (

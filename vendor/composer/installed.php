@@ -3,7 +3,7 @@
         'name' => 'nette/web-project',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'd4b0de314feb2421684911c6637b5b294fed4c32',
+        'reference' => 'cdd1541cdb23f98370a8bb85bbf75aef64e61270',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -74,6 +74,12 @@
             'install_path' => __DIR__ . '/../ezyang/htmlpurifier',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'facebook/graph-sdk' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '>=5.7.0',
+            ),
         ),
         'ijvo/jquery-fileupload' => array(
             'pretty_version' => '3.0.2',
@@ -303,7 +309,7 @@
         'nette/web-project' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'd4b0de314feb2421684911c6637b5b294fed4c32',
+            'reference' => 'cdd1541cdb23f98370a8bb85bbf75aef64e61270',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -353,6 +359,15 @@
             'reference' => '28c98dd0f6ac559983b4c7f40d1dc2871e4c3c0a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nextras/orm',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'nickdnk/graph-sdk' => array(
+            'pretty_version' => '7.0.1',
+            'version' => '7.0.1.0',
+            'reference' => 'd7fbb76c8ade978b508e8c3ddd30712d62c456b9',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nickdnk/graph-sdk',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

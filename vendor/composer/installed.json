@@ -2729,6 +2729,65 @@
             "install-path": "../nextras/orm"
         },
         {
+            "name": "nickdnk/graph-sdk",
+            "version": "7.0.1",
+            "version_normalized": "7.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nickdnk/php-graph-sdk.git",
+                "reference": "d7fbb76c8ade978b508e8c3ddd30712d62c456b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nickdnk/php-graph-sdk/zipball/d7fbb76c8ade978b508e8c3ddd30712d62c456b9",
+                "reference": "d7fbb76c8ade978b508e8c3ddd30712d62c456b9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3 || ^8.0"
+            },
+            "conflict": {
+                "guzzlehttp/guzzle": "<6.0"
+            },
+            "replace": {
+                "facebook/graph-sdk": ">=5.7.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.5.0 | ^7.5.0",
+                "mockery/mockery": "~1.5.1",
+                "phpunit/phpunit": "~9.5"
+            },
+            "time": "2022-09-14T16:25:39+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Facebook\\": "src/Facebook/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Facebook",
+                    "homepage": "https://github.com/facebook/php-graph-sdk/contributors"
+                }
+            ],
+            "description": "Facebook SDK for PHP compatible with PHP8",
+            "homepage": "https://github.com/nickdnk/php-graph-sdk",
+            "keywords": [
+                "facebook",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/nickdnk/php-graph-sdk/issues",
+                "source": "https://github.com/nickdnk/php-graph-sdk/tree/7.0.1"
+            },
+            "install-path": "../nickdnk/graph-sdk"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v9.99.100",
             "version_normalized": "9.99.100.0",

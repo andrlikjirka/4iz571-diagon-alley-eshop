@@ -28,7 +28,8 @@
 		"ublaboo/datagrid": "^6.9",
 		"ijvo/jquery-fileupload": "^3.0",
 		"ezyang/htmlpurifier": "^4.17",
-		"mpdf/mpdf": "^8.2"
+		"mpdf/mpdf": "^8.2",
+		"nickdnk/graph-sdk": "^7.0"
 	},
 	"require-dev": {
 		"nette/tester": "^2.4",
