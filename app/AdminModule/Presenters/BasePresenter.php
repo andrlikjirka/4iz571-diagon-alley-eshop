@@ -54,7 +54,7 @@ abstract class BasePresenter extends Presenter
 
 			// If admin then allowed everything
 			if($this->getUser()->isInRole('admin')) {
-				//return;
+				return;
 			}
 
 			// get name of presenter and action
