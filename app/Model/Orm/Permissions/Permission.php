@@ -18,6 +18,6 @@ use App\Model\Orm\Roles\Role;
  */
 class Permission extends Entity
 {
-	public const TYPE_ALLOW = 'ALLOW';
-	public const TYPE_DENY = 'DENY';
+	public const TYPE_ALLOW = 'allow';
+	public const TYPE_DENY = 'deny';
 }
