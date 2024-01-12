@@ -2,6 +2,7 @@
 
 namespace App\Model\Facades;
 
+use App\Model\Api\Facebook\FacebookUser;
 use App\Model\Orm\Addresses\Address;
 use App\Model\Orm\Orm;
 use App\Model\Orm\Permissions\Permission;
@@ -12,6 +13,7 @@ use App\Model\Orm\Users\User;
 use App\Model\Orm\Users\UsersRepository;
 use Exception;
 use Nette\Database\ConstraintViolationException;
+use Nette\Security\SimpleIdentity;
 use Nextras\Dbal\Drivers\Exception\QueryException;
 use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Entity\IEntity;
@@ -83,11 +85,11 @@ class UsersFacade
 		return $this->orm->resources->findAll();
 	}
 
-    /**
-     * Metoda pro načtení uživatelské role podle názvu
-     * @param string $name
-     * @return IEntity
-     */
+	/**
+	 * Metoda pro načtení uživatelské role podle názvu
+	 * @param string $name
+	 * @return IEntity|Role
+	 */
     public function getRoleByName(string $name): IEntity|Role
     {
         return $this->orm->roles->getBy(['name' => $name]);
@@ -133,5 +135,63 @@ class UsersFacade
     {
         return $this->orm->users->findBy(['deleted' => 0]);
     }
+
+	/**
+	 * Metoda pro nalezení či zaregistrování uživatele podle facebookId, která vrací SimpleIdentity použitelnou pro přihlášení uživatele
+	 * @param FacebookUser $facebookUser
+	 * @return SimpleIdentity
+	 * @throws Exception
+	 */
+	public function getFacebookUserIdentity(FacebookUser $facebookUser): SimpleIdentity
+	{
+		/*
+		 * 1. zkusíme najít uživatele podle facebookId
+		 * 2. pokud nebyl uživatel nalezen, zkusíme jej najít podle emailu (a uložíme k němu facebookId)
+		 * 3. pokud ani tak nebyl uživatel nalezen, vytvoříme nového
+		 * 4. vygenerujeme SimpleIdentity pomocí $this->getUserIdentity
+	 	 */
+
+		try {
+			$user = $this->getUserByFacebookId($facebookUser->facebookUserId);
+		} catch (Exception $e) {
+			// uživatele se nepovedlo najít podle facebookID
+			try {
+				// uživatel existuje
+				$user = $this->getUserByEmail($facebookUser->email);
+				$user->facebookId = $facebookUser->facebookUserId;
+				$this->saveUser($user);
+			} catch (Exception $ex) {
+				// uživatel neexistuje
+				$user = new User();
+				$user->email = $facebookUser->email;
+				$user->name = $facebookUser->name;
+				$user->role = $this->getRoleById(4); // nastavíme roli 'customer'
+				$user->facebookId = $facebookUser->facebookUserId;
+				$this->saveUser($user);
+			}
+		}
+		return $this->getUserIdentity($user);
+	}
+
+	public function getUserByFacebookId($facebookId): User
+	{
+		return $this->orm->users->getByChecked(['facebookId' => $facebookId]);
+	}
+
+	/**
+	 * Metoda vracející "přihlašovací identitu" pro daného uživatele
+	 * @param User $user
+	 * @return SimpleIdentity
+	 */
+	public function getUserIdentity(User $user): SimpleIdentity
+	{
+		//příprava rolí
+		$roles = ['authenticated'];
+		if (!empty($user->role)) {
+			$roles[] = $user->role->name;
+		}
+		//vytvoření a vrácení SimpleIdentity
+		return new SimpleIdentity($user->id, $roles, ['name' => $user->name, 'email' => $user->email]);
+	}
 
 }
