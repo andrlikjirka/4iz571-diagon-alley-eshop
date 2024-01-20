@@ -1,11 +1,13 @@
 {varType App\Model\Orm\CartItems\CartItem $cartItem}
 
-<div class="row border-bottom align-items-center py-2">
-    <div class="col-5">
+<div class="row border-bottom align-items-center py-3">
+    <div class="col-5 d-flex flex-row">
         {if $cartItem->product->firstProductPhoto}
             <img src="{$basePath}/uploads/products/{$cartItem->product->firstProductPhoto->name}" alt="" class="img-fluid w-25 me-2">
         {/if}
-        <a href="{plink :Public:Products:show categorySlug => $cartItem->product->category->slug, productSlug => $cartItem->product->slug}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a>
+        <div class="d-flex align-items-center ms-2">
+            <a href="{plink :Public:Products:show categorySlug => $cartItem->product->category->slug, productSlug => $cartItem->product->slug}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a>
+        </div>
     </div>
     <div class="col-2 me-4">
         {if $cartItem->product->galleonPrice > 0}
