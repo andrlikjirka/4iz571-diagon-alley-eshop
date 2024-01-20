@@ -7,7 +7,6 @@ use App\Model\Facades\UsersFacade;
 use App\PublicModule\Forms\RenewPasswordFormFactory;
 use Nette\Application\BadRequestException;
 use Nette\Forms\Form;
-use Nette\Mail\Mailer;
 
 class RenewPasswordPresenter extends BasePresenter
 {

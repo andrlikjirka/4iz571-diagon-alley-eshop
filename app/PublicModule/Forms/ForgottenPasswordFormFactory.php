@@ -6,14 +6,10 @@ use App\Forms\FormFactory;
 use App\Model\Facades\ForgottenPasswordsFacade;
 use App\Model\Facades\UsersFacade;
 use App\Model\MailSender\MailSender;
-use App\Model\Orm\ForgottenPasswords\ForgottenPassword;
 use Closure;
 use Nette\Application\LinkGenerator;
 use Nette\Application\UI\InvalidLinkException;
 use Nette\Forms\Form;
-use Nette\Mail\Mailer;
-use Nette\Mail\Message;
-use Nette\Mail\SendmailMailer;
 use Nette\Utils\ArrayHash;
 
 class ForgottenPasswordFormFactory
