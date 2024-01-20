@@ -2,8 +2,6 @@
 
 namespace App\Model\MailSender;
 
-use AntibodiesOnline\BootstrapEmail\Compiler;
-use AntibodiesOnline\BootstrapEmail\ScssCompiler;
 use App\Model\Orm\Orders\Order;
 use App\Model\Orm\Users\User;
 use App\Settings;
@@ -52,11 +50,6 @@ class MailSender
         $mail->setSubject($subject);
 
         $html = $template->renderToString($templateFile, $params);
-
-        //$htmlTemplate = $template->renderToString($templateFile, $params);
-        //$scss = new ScssCompiler();
-        //$converter = new Compiler($scss);
-        //$html = $converter->compileHtml($htmlTemplate);
 
         $mail->setHtmlBody($html);
 
