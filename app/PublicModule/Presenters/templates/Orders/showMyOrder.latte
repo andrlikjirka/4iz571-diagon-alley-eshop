@@ -50,13 +50,15 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="row justify-content-between align-items-center py-2">
-                            <div class="col-6">
+                            <div class="col-6 d-flex flex-row">
                                 {if $orderItem->product->firstProductPhoto}
                                     <img src="{$basePath}/uploads/products/{$orderItem->product->firstProductPhoto->name}" alt=""
                                          class="img-fluid w-25 me-2">
                                 {/if}
-                                <a href="{plink :Public:Products:show categorySlug => $orderItem->product->category->slug, productSlug => $orderItem->product->slug}"
-                                   class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$orderItem->product->name}</a>
+                                <div class="d-flex align-items-center ms-2">
+                                    <a href="{plink :Public:Products:show categorySlug => $orderItem->product->category->slug, productSlug => $orderItem->product->slug}"
+                                       class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$orderItem->product->name}</a>
+                                </div>
                             </div>
                             <div class="col-3 me-4">
                                 {if $orderItem->galleonPrice > 0}
