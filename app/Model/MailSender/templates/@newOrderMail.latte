@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <title>Potvrzení objednávky</title>
 </head>
-<body style="padding: 0 2rem; font-family: sans-serif;">
+<body style="padding: 0 2rem; font-family: sans-serif; background-color: white;">
 <img src="https://eso.vse.cz{$basePath}/www/img/diagon-alley-logo.png" alt=""
      style="width: 170px; display: block; margin: auto; margin-top: 2px;">
 <hr>
 
-<h3 style="margin-bottom: 1.5rem;">Potvrzení objednávky č. {$order->id}</h3>
+<h3 style="margin-bottom: 1.5rem">Potvrzení objednávky č. {$order->id}</h3>
 
 <p>Vážený uživateli,</p>
 
@@ -47,9 +47,6 @@
             </div>
         </div>
         <div class="">
-            {$orderItem->quantity} ks
-        </div>
-        <div class="">
             {if $orderItem->galleonPrice > 0}
                 <div style="display: flex; flex-direction: row; margin-bottom: 0.5rem; align-items: center;">
                     <span style="text-align: end; font-weight: 500;">{$orderItem->galleonPrice}</span>
@@ -72,6 +69,9 @@
                          style="margin-left: 0.5rem; width:25px; height: 25px">
                 </div>
             {/if}
+        </div>
+        <div class="">
+            {$orderItem->quantity} ks
         </div>
     </div>
 {/foreach}
