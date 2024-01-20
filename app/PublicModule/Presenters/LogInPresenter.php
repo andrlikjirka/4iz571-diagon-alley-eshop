@@ -60,13 +60,13 @@ class LogInPresenter extends BasePresenter
 				$facebookUser = $this->facebookApi->getFacebookUser(); //v proměnné $facebookUser máme facebookId, email a jméno uživatele => jdeme jej přihlásit
 
 				//necháme si vytvořit identitu uživatele
-				$userUdentity = $this->usersFacade->getFacebookUserIdentity($facebookUser);
+				$userIdentity = $this->usersFacade->getFacebookUserIdentity($facebookUser);
 
 				//přihlásíme uživatele
-				$this->user->login($userUdentity);
+				$this->user->login($userIdentity);
 
 			} catch (\Exception $e) {
-				$this->flashMessage('Přihlášení pomocí Facebooku se nezdařilo.', 'error');
+				$this->flashMessage('Přihlášení pomocí Facebooku se nezdařilo.', 'danger');
 				$this->redirect('Homepage:default');
 			}
 
@@ -74,7 +74,7 @@ class LogInPresenter extends BasePresenter
 			#endregion návrat z Facebooku
 		} else {
 			#region přesměrování na přihlášení pomocí Facebooku
-			$backlink = $this->link('//LogIn:facebookLogin', ['callback' => true]);
+			$backlink = $this->link('//LogIn:facebookLogin', ['callback' => true, 'backlink' => null]);
 			//exit(var_dump($backlink));
 			$facebookLoginLink = $this->facebookApi->getLoginUrl($backlink);
 			$this->redirectUrl($facebookLoginLink);
