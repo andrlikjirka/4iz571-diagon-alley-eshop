@@ -39,7 +39,7 @@
 							</svg>
 						{/for}
 					</div>
-					{$review->text}
+					{$review->text|noescape}
 				</div>
 				<div class="card-footer d-flex justify-content-end">
 					<a href="{link deleteReview! $review->id}" class="btn btn-danger" onclick="return confirm('Opravdu chcete smazat tuto recenzi?')">Smazat</a>
