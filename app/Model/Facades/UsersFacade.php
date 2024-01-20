@@ -165,7 +165,7 @@ class UsersFacade
 				$user = new User();
 				$user->email = $facebookUser->email;
 				$user->name = $facebookUser->name;
-				$user->role = $this->getRoleById(4); // nastavíme roli 'customer'
+				$user->role = $this->getRoleById(1); // nastavíme roli 'customer'
 				$user->facebookId = $facebookUser->facebookUserId;
 				$this->saveUser($user);
 			}
