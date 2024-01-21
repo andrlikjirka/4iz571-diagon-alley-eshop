@@ -58,7 +58,7 @@ class ProductsFacade
     {
         $categoriesRecursively = $category->childrenShowedRecursively;
         $categoriesRecursively[] = $category;
-        return $this->orm->products->findBy(['category' => $categoriesRecursively, 'showed' => true]);
+        return $this->orm->products->findBy(['category' => $categoriesRecursively, 'showed' => true, 'deleted' => 0]);
     }
 
     /**
