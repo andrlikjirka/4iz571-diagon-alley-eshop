@@ -1,9 +1,9 @@
 {varType App\Model\Orm\CartItems\CartItem $cartItem}
 
 <div class="row border-bottom align-items-center py-3">
-    <div class="col-5 d-flex flex-row">
+    <div class="col-6 d-flex flex-row">
         {if $cartItem->product->firstProductPhoto}
-            <img src="{$basePath}/uploads/products/{$cartItem->product->firstProductPhoto->name}" alt="" class="img-fluid w-25 me-2">
+            <img src="{$basePath}/uploads/products/{$cartItem->product->firstProductPhoto->name}" alt="" class="me-2 w-25">
         {/if}
         <div class="d-flex align-items-center ms-2">
             <a href="{plink :Public:Products:show categorySlug => $cartItem->product->category->slug, productSlug => $cartItem->product->slug}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a>
@@ -32,20 +32,22 @@
             </div>
         {/if}
     </div>
-    <div class="col-3">
-        {form updateCartItemQuantityForm}
-            <div class="d-flex flex-row">
-                {input quantity, class: 'form-control form-control-sm me-1', style:'width:50px'}
-                <button type='submit' class="btn btn-sm btn-warning">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket2 text-dark mb-1" viewBox="0 0 16 16">
-                        <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0z"/>
-                        <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-.623l-1.844 6.456a.75.75 0 0 1-.722.544H3.69a.75.75 0 0 1-.722-.544L1.123 8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.163 8l1.714 6h8.246l1.714-6H2.163z"/>
-                    </svg>
-                </button>
-            </div>
-        {/form}
-    </div>
-    <div class="col-1">
-        <a href="{link removeCartItem! $cartItem->id}" class="ajax small link-danger link-opacity-75-hover text-decoration-none">Odebrat</a>
+    <div class="col-3 d-flex flex-column flex-md-row">
+        <div class="">
+            {form updateCartItemQuantityForm}
+                <div class="d-flex flex-row">
+                    {input quantity, class: 'form-control form-control-sm me-1', style:'width:50px'}
+                    <button type='submit' class="btn btn-sm btn-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket2 text-dark mb-1" viewBox="0 0 16 16">
+                            <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0z"/>
+                            <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-.623l-1.844 6.456a.75.75 0 0 1-.722.544H3.69a.75.75 0 0 1-.722-.544L1.123 8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.163 8l1.714 6h8.246l1.714-6H2.163z"/>
+                        </svg>
+                    </button>
+                </div>
+            {/form}
+        </div>
+        <div class="mt-2 mt-md-1 ms-md-5">
+            <a href="{link removeCartItem! $cartItem->id}" class="ajax small link-danger link-opacity-75-hover text-decoration-none">Odebrat</a>
+        </div>
     </div>
 </div>
