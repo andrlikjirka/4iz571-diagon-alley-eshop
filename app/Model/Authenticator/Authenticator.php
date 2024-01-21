@@ -33,7 +33,7 @@ class Authenticator implements \Nette\Security\Authenticator
 		}
 
 		if($this->passwords->verify($password, $user->password)) {
-			return new SimpleIdentity($user->id, $user->role->name, ['name' => $user->name, 'email' => $user->email]);
+			return $this->usersFacade->getUserIdentity($user);
 		} else {
 			throw new AuthenticationException('Chybná kombinace e-mailu a hesla.');
 		}
