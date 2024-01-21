@@ -53,7 +53,7 @@ final class ProductsPresenter extends BasePresenter
 			$files = [];
 			foreach ($product->productPhotos as $productPhoto) {
 				$file = new DefaultFile();
-				$file->setPreview('/uploads/products/' . $productPhoto->name);
+				$file->setPreview($this->getHttpRequest()->getUrl()->getBasePath().'uploads/products/' . $productPhoto->name);
 				$file->setFileName($productPhoto->name);
 				$file->setIdentifier($productPhoto->name);
 				$file->onDelete[] = function (string $fileName) use ($productPhoto) {
