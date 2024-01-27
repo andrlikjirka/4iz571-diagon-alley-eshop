@@ -10,11 +10,14 @@ use App\Model\Orm\Carts\Cart;
 use App\Model\Orm\Products\Product;
 use App\PublicModule\Components\CartItemControl\CartItemControl;
 use App\PublicModule\Components\CartItemControl\CartItemControlFactory;
+use App\PublicModule\Forms\UpdateCartItemQuantityFormFactory;
 use Nette\Application\UI\Control;
+use Nette\Application\UI\Multiplier;
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Http\Session;
 use Nette\Http\SessionSection;
 use Nette\Security\User;
+use Nette\Tokenizer\Exception;
 use stdClass;
 
 /**
@@ -30,7 +33,7 @@ class CartControl extends Control
         private readonly CartFacade  $cartFacade,
         private readonly UsersFacade $usersFacade,
         Session                      $session,
-        private readonly CartItemControlFactory $cartItemControlFactory
+        private readonly UpdateCartItemQuantityFormFactory $updateCartItemQuantityFormFactory
     )
     {
         $this->cartSession = $session->getSection('cart');
@@ -139,9 +142,57 @@ class CartControl extends Control
         $this->template->render(__DIR__ . '/templates/list.latte');
     }
 
-
-    public function createComponentCartItem(): CartItemControl
+    public function createComponentUpdateCartItemQuantityForm(): Multiplier
     {
-        return $this->cartItemControlFactory->create();
+        $onSuccess = function (string $message) {
+            $this->presenter->flashMessage($message, 'success');
+            if ($this->presenter->isAjax()) {
+                $this->presenter->redrawControl('flashes');
+                $this->presenter->redrawControl('cart');
+                $this->presenter->redrawControl('content');
+            } else {
+                $this->presenter->redirect('this');
+            }
+        };
+
+        $onFailure = function (string $message) {
+            $this->presenter->flashMessage($message, 'danger');
+            if ($this->presenter->isAjax()) {
+                $this->presenter->redrawControl('flashes');
+            } else {
+                $this->presenter->redirect('this');
+            }
+        };
+
+        return new Multiplier(function ($cartItemId) use ($onSuccess, $onFailure) {
+            return $this->updateCartItemQuantityFormFactory->create($cartItemId, $onSuccess, $onFailure);
+        });
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function handleRemoveCartItem(int $cartItemId): void
+    {
+        try {
+            $this->cartFacade->removeCartItem($this->cartFacade->getCartItem($cartItemId));
+        } catch (Exception $e) {
+            $this->presenter->flashMessage('Produkt se nepodařilo odebrat z košíku.', 'danger');
+            if ($this->presenter->isAjax()) {
+                $this->presenter->redrawControl('flashes');
+                $this->presenter->redrawControl('content');
+            } else {
+                $this->presenter->redirect('this');
+            }
+        }
+        $this->presenter->flashMessage('Produkt byl odebrán z košíku.', 'success');
+        if ($this->presenter->isAjax()) {
+            $this->presenter->redrawControl('flashes');
+            $this->presenter->redrawControl('cart');
+            $this->presenter->redrawControl('content');
+        } else {
+            $this->presenter->redirect('this');
+        }
+    }
+
 }

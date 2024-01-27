@@ -3,9 +3,58 @@
 <div n:snippet="list" data-naja-snippet-cache="off">
     {if $cart->totalCount > 0}
         <div class="row g-5">
-            <div class="col-12 col-lg-7">
+            <div class="col-12 col-xl-7">
                 {foreach $cart->cartItems as $cartItem}
-                    {control cartItem $cartItem}
+                    <div class="row border-bottom align-items-center py-3">
+                        <div class="col-6 d-flex flex-row">
+                            {if $cartItem->product->firstProductPhoto}
+                                <img src="{$basePath}/uploads/products/{$cartItem->product->firstProductPhoto->name}" alt="" class="me-2 w-25">
+                            {/if}
+                            <div class="d-flex align-items-center ms-2">
+                                <a href="{plink :Public:Products:show categorySlug => $cartItem->product->category->slug, productSlug => $cartItem->product->slug}" class="fw-medium fs-6 link-dark link-opacity-75-hover text-decoration-none">{$cartItem->product->name}</a>
+                            </div>
+                        </div>
+                        <div class="col-2 me-4">
+                            {if $cartItem->product->galleonPrice > 0}
+                                <div class="d-flex flex-row mb-1 align-items-center">
+                                    <span class="text-end fw-medium">{$cartItem->product->galleonPrice}</span>
+                                    <img src="{$basePath . '/img/galleon.png'}" alt="galeony" title="galeony" class="ms-2"
+                                         style="width:25px; height: 25px">
+                                </div>
+                            {/if}
+                            {if $cartItem->product->sicklePrice > 0}
+                                <div class="d-flex flex-row mb-1 align-items-center">
+                                    <span class="text-end fw-medium">{$cartItem->product->sicklePrice}</span>
+                                    <img src="{$basePath . '/img/sickle.png'}" alt="srpce" title="srpce" class="ms-2"
+                                         style="width:25px; height: 25px">
+                                </div>
+                            {/if}
+                            {if $cartItem->product->knutPrice > 0}
+                                <div class="d-flex flex-row mb-1 align-items-center">
+                                    <span class="text-end fw-medium">{$cartItem->product->knutPrice}</span>
+                                    <img src="{$basePath . '/img/knut.png'}" alt="svrčky" title="svrčky" class="ms-2"
+                                         style="width:25px; height: 25px">
+                                </div>
+                            {/if}
+                        </div>
+                        <div class="col-3 d-flex flex-column flex-md-row">
+                            {form "updateCartItemQuantityForm-$cartItem->id"}
+                                <div class="d-flex flex-row">
+                                    {input quantity, class: 'form-control form-control-sm me-1', style:'width:50px'}
+                                    <button type='submit' class="btn btn-sm btn-warning">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket2 text-dark mb-1" viewBox="0 0 16 16">
+                                            <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0z"/>
+                                            <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-.623l-1.844 6.456a.75.75 0 0 1-.722.544H3.69a.75.75 0 0 1-.722-.544L1.123 8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.163 8l1.714 6h8.246l1.714-6H2.163z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            {/form}
+
+                            <div class="mt-2 mt-md-1 ms-md-5">
+                                <a href="{link removeCartItem! $cartItem->id}" class="ajax small link-danger link-opacity-75-hover text-decoration-none">Odebrat</a>
+                            </div>
+                        </div>
+                    </div>
                 {/foreach}
 
                 <div class="mt-4">
@@ -13,8 +62,8 @@
                 </div>
             </div>
 
-            <div class="col-12 col-lg-5">
-                <div class="border bg-light bg-gradient rounded-3 p-5">
+            <div class="col-12 col-xl-5">
+                <div class="border bg-light bg-gradient rounded-3 p-5" style="max-width: 500px; margin: 0 auto;">
                     <h4 class="">Souhrn</h4>
                     <div class="d-flex justify-content-between my-4">
                         <div class="">

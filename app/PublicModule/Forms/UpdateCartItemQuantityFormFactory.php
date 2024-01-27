@@ -22,20 +22,22 @@ class UpdateCartItemQuantityFormFactory
     )
     {}
 
-    public function create(callable $onSuccess, callable $onFailure)
+    public function create(int $cartItemId, callable $onSuccess, callable $onFailure): \Nette\Application\UI\Form
     {
         $form = $this->formFactory->create();
+
         $form->setHtmlAttribute('class', 'ajax');
 
-        $form->addHidden('cartItemId', 'CartItem')
+        $form->addHidden('cartItemId', $cartItemId)
             ->setRequired();
 
         $form->addInteger('quantity', '')
             ->setRequired()
             ->addRule(Form::INTEGER, 'Počet kusů musí být celé číslo!')
-            ->addRule(Form::MIN, 'Počet kusů musí být číslo větší než 1', 1);
+            ->addRule(Form::MIN, 'Počet kusů musí být číslo větší než 1', 1)
+            ->setDefaultValue($this->cartFacade->getCartItem($cartItemId)->quantity);
 
-        $form->addSubmit('update', 'Přidat do košíku');
+        $form->addSubmit('update', 'Změnit');
 
         $form->onSuccess[] = $this->formSucceeded(...);
 
