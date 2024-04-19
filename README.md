@@ -47,3 +47,16 @@
 
 ## Screenshots from the app
 <img src="https://github.com/andrlikjirka/diagon-alley-eshop/assets/18737702/e34fe99a-22d8-4030-933c-6bf3e735836d" width="85%">
+
+<img src="https://github.com/andrlikjirka/diagon-alley-eshop/assets/18737702/b2641ea6-a987-4364-8cae-01af7fa094ca" width="85%">
+
+<img src="https://github.com/andrlikjirka/diagon-alley-eshop/assets/18737702/c62e6cf9-c750-4456-9e8c-8a31b21daead" width="85%">
+
+<img src="https://github.com/andrlikjirka/diagon-alley-eshop/assets/18737702/b2641ea6-a987-4364-8cae-01af7fa094ca" width="85%">
+
+<img src="https://github.com/andrlikjirka/diagon-alley-eshop/assets/18737702/cb6e6a1e-3252-4ca5-a235-1ad8b13d59e6" width="85%">
+
+<img src="https://github.com/andrlikjirka/diagon-alley-eshop/assets/18737702/e0d495db-da22-4aa3-bb7a-3fb2584cb57a" width="85%">
+
+<img src="https://github.com/andrlikjirka/diagon-alley-eshop/assets/18737702/132ceb4b-ad23-44bd-8c64-10d4e8ad9065" width="85%">
+
