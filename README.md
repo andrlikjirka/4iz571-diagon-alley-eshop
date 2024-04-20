@@ -61,4 +61,3 @@
 <img src="https://github.com/andrlikjirka/diagon-alley-eshop/assets/18737702/e0d495db-da22-4aa3-bb7a-3fb2584cb57a" width="65%">
 
 <img src="https://github.com/andrlikjirka/diagon-alley-eshop/assets/18737702/132ceb4b-ad23-44bd-8c64-10d4e8ad9065" width="65%">
-
