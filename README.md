@@ -28,7 +28,7 @@
 - cart
 - order process
 - product stock control
-- invoice pdf generatation
+- invoice pdf generatation 
 - email notifications
 - login with Facebook (OAuth)
 
