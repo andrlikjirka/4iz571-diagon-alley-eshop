@@ -43,7 +43,7 @@
 ## How to run the project
 
 1. `git clone ...`
-2. `cd .docker`
+2. `cd ./docker`
 3. run: `docker compose up`
 4. go to: `http://localhost:8095/`
 
