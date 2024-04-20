@@ -1,8 +1,0 @@
-parameters:
-    mail:
-        mailFrom: andj10@vse.cz
-        nameFrom: Eshop z Příčné ulice
-
-    facebook:
-        appId: '1419296795335561'
-        secret: '8820056120ef7f7e615062fe0ef4ab41'
