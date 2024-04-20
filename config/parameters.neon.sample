@@ -1,0 +1,8 @@
+parameters:
+    mail:
+        mailFrom: %EMAIL_ADDRESS%
+        nameFrom: %NAME%
+
+    facebook:
+        appId: '%FB_APP_ID%'
+        secret: '%FB_API_SECRET_KEY%'
