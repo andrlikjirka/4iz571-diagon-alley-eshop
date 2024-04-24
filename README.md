@@ -5,13 +5,13 @@
 ## Project description
 
 - The e-shop meant for students and teachers at Hogwarts School of Witchcraft and Wizardry,
-- It allows them to buy all the necessary stuff they need for studying at the school (like cloaks, magic wands, broomsticks, books, ...). In the old days, all of this where sold at stores in Diagon Alley.
+- It allows them to buy all the necessary stuff they need for studying at the school (like cloaks, magic wands, broomsticks, books, ...). In the old days, all of this was sold in stores at the Diagon Alley.
 
 ### Tech-stack
 
-- PHP, Nette framwework
+- PHP, Nette framework
 - Latte, Bootstrap 5, Naja AJAX
-- Nextras ORM
+- NextrasORM
 - MariaDB
 - Docker
 
@@ -28,7 +28,7 @@
 - cart
 - order process
 - product stock control
-- invoice pdf generatation 
+- invoice pdf generation 
 - email notifications
 - login with Facebook (OAuth)
 
